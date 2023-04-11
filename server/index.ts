@@ -19,6 +19,12 @@ app.post('/login', (req: Request, res: Response) => {
   console.log(email,password)
 })
 
+app.post("/register", (req: Request, res: Response) => {
+  const { email, password, displayName } = req.body;
+
+  console.log(email,password, displayName)
+})
+
 
 app.listen(3000, () => {
   console.log('Server is listening on port 3000');
