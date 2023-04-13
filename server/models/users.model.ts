@@ -1,12 +1,10 @@
 import mongoose from "mongoose";
-import passportLocalMongoose from "passport-local-mongoose";
-
+import bcrypt from "bcrypt";
 const userSchema = new mongoose.Schema({
-  displayName: { type: String, required: true }
+  username:{type: String},
+  displayName: { type: String, required: true },
+  password: { type: String },
 });
-
-userSchema.plugin(passportLocalMongoose);
-
 
 const User = mongoose.model("User", userSchema);
 
