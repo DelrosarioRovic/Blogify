@@ -4,15 +4,13 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { MiddlewareLocal, CustomRequest } from "./middleware/middlewareLocal";
 dotenv.config();
 
 //imported file
-//mongodb connection
 import connectToDatabase from "./database/connectDb";
-//mongoDb collection model
 import User from "./models/users.model";
-//authentication
+import { MiddlewareLocal, CustomRequest } from "./middleware/middlewareLocal";
+
 
 const app = express();
 //middleware
@@ -35,14 +33,13 @@ connectToDatabase()
     console.error("MongoDB connection error:", error);
   });
 
-app.get(
-  "/login",
-  MiddlewareLocal,
+app.get("/user", MiddlewareLocal,
   async (req: CustomRequest, res: Response, next: NextFunction) => {
     const userId = req.userId;
     const user = await User.findById(userId);
-    console.log(user);
-    res.json({ authenticated: true, message: user });
+    if (user) {
+      res.json({ authenticated: true, user: user });
+    }
   }
 );
 
