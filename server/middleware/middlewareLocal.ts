@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { TokenExpiredError } from "jsonwebtoken";
 dotenv.config();
 
 interface CustomRequest extends Request {
@@ -10,8 +10,8 @@ interface CustomRequest extends Request {
 const MiddlewareLocal = (req: CustomRequest, res: Response, next: NextFunction) => {
   const token = req.cookies.access_token;
   if (!token) {
-    req.userId = null; // Set userId to null if there is no token
-    return next(); // Pass the request to the next middleware
+    req.userId = null; 
+    return next(); 
   }
 
   try {
@@ -20,7 +20,10 @@ const MiddlewareLocal = (req: CustomRequest, res: Response, next: NextFunction) 
     req.userId = codedToken.id;
     next();
   } catch (error) {
-    console.log(error);
+    if (error instanceof TokenExpiredError) {
+      // return nothing when token expired
+      return next();
+    }
     return res.status(401).json({ message: 'Invalid token' });
   }
 };
