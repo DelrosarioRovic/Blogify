@@ -32,6 +32,7 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.15.11",
     "@types/passport": "^1.0.12",
+    "@types/passport-google-oauth20": "^2.0.11",
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
     "nodemon": "^2.0.22",

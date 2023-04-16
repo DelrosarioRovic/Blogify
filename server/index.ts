@@ -4,23 +4,29 @@ import passport from "passport";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+import thirdPartyMwAuth from './middleware/thirdpartymwAuth';
 import bcrypt from "bcrypt";
 dotenv.config();
 
 //imported file
 import connectToDatabase from "./database/connectDb";
 import User from "./models/users.model";
-import { MiddlewareLocal, CustomRequest } from "./middleware/middlewareLocal";
+import { MiddlewareLocal, CustomRequest } from "./middleware/middlewareAuth";
 
+//mongo Db connection
+connectToDatabase()
+.then(() => {
+  console.log("MongoDB connected");
+})
+.catch((error) => {
+  console.error("MongoDB connection error:", error);
+});
 
 const app = express();
 //middleware
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -28,70 +34,45 @@ app.use(
   })
 );
 
-
-
-
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google/callback',
-    },
-    (accessToken:any, refreshToken:any, profile:any, done:any, res:Response) => {
-      // Generate a JWT token using the user's Google profile
-      console.log(accessToken, refreshToken,profile)
-      const token = jwt.sign({ sub: profile.id, name: profile.displayName, email: profile.emails[0].value }, process.env.userLocalSecret as string,{ expiresIn: "1h"});
-
-      // Set the token in a cookie
-      res.cookie('jwt', token, { httpOnly: true });
-
-      // Call done without serializing the user to a session
-      done(null, false);
-    }
-  )
-);
-
-
-//mongo Db connection
-connectToDatabase()
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch((error) => {
-    console.error("MongoDB connection error:", error);
-  });
-
+//third Party authentication middleware
+thirdPartyMwAuth();
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.get('/auth/google/callback', passport.authenticate('google'),
-  function(req: CustomRequest, res: Response) {
-      const userId = req.userId;
-      const token = jwt.sign({ id: userId }, process.env.userLocalSecret as string, { expiresIn: "1h" });
-      res.cookie('access_token', token, { httpOnly: true });
-      console.log("Successfully Login With Google");
-      res.json({message:"Successfully Login using Google"})
+app.get('/auth/google/callback', passport.authenticate('google', { session: false }), async(req:Request, res:Response) => {
+  const userToken = req.user as any;
+  const googleUser = {
+    googleId: userToken.googleId,
+    displayName: userToken.displayName,
+    email:userToken.email
   }
-);
-
-
+  const secret = process.env.userLocalSecret as string;
+  const token = jwt.sign(googleUser, secret, { expiresIn: "1h" });
+  res.cookie("access_token", token, {
+    httpOnly: true,
+  });
+  res.json({ message: "Logged in successfully", user: googleUser });
+});
 
 app.get("/user", MiddlewareLocal,
   async (req: CustomRequest, res: Response, next: NextFunction) => {
     const userId = req.userId;
-    const user = await User.findById(userId);
-    if (user) {
-      res.json({ authenticated: true, user: user });
+    const googleUserId = req.googleUserId;
+    if (userId) {
+      const localUser = await User.findById(userId);
+      res.json({ authenticated: true, user: localUser });
+    }
+    if (googleUserId) {
+      const googleUser = await User.findOne({googleId:googleUserId});
+      res.json({ authenticated: true, user: googleUser });
     }
   }
 );
 
 app.post("/login", async (req: Request, res: Response, next: NextFunction) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   // check if user exists
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ email:email });
   if (!user) {
     return res.status(401).json({ message: "Invalid email or password" });
   }
@@ -118,8 +99,7 @@ app.post("/login", async (req: Request, res: Response, next: NextFunction) => {
 
 app.post("/register", async (req: Request, res: Response) => {
   const { email, password, displayName } = req.body;
-
-  const user = await User.findOne({ username: email });
+  const user = await User.findOne({ email });
 
   if (user) {
     console.log("Already a user");
@@ -128,7 +108,7 @@ app.post("/register", async (req: Request, res: Response) => {
   if (!user) {
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
-      username: email,
+      email: email,
       password: hashPassword,
       displayName: displayName,
     });

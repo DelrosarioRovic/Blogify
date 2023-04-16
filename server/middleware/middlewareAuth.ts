@@ -5,19 +5,28 @@ dotenv.config();
 
 interface CustomRequest extends Request {
   userId?: string | null;
+  googleUserId?: string | null;
 }
 
 const MiddlewareLocal = (req: CustomRequest, res: Response, next: NextFunction) => {
   const token = req.cookies.access_token;
+  console.log(token);
   if (!token) {
     req.userId = null; 
     return next(); 
   }
-
+  
   try {
     const secret = process.env.userLocalSecret as string;
     const codedToken = jwt.verify(token, secret) as any;
-    req.userId = codedToken.id;
+
+    if (codedToken.id) {
+      req.userId = codedToken.id;
+    }
+    if (codedToken.googleId) {
+      req.googleUserId = codedToken.googleId;
+    }
+
     next();
   } catch (error) {
     if (error instanceof TokenExpiredError) {
