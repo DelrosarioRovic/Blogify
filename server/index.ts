@@ -86,16 +86,19 @@ app.get(
   "/user",
   MiddlewareLocal,
   async (req: CustomRequest, res: Response, next: NextFunction) => {
-    console.log(req.userId);
     const userId = req.userId;
     const googleUserId = req.googleUserId;
     if (userId) {
       const localUser = await User.findById(userId);
-      res.json({ authenticated: true, user: localUser });
+      return res.status(200).json({ authenticated: true, user: localUser });
     }
     if (googleUserId) {
       const googleUser = await User.findOne({ googleId: googleUserId });
-      res.json({ authenticated: true, user: googleUser });
+      console.log(googleUser);
+      return res.status(200).json({ authenticated: true, user: googleUser });
+    }
+    if (!userId || !googleUserId) {
+      return res.status(401).json({ authenticated: false, message:"No user authenticated!!" });
     }
   }
 );
@@ -112,17 +115,20 @@ app.get("/sign-out", async (req: Request, res: Response) => {
 app.post("/login", async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
   // check if user exists
-  const user = await User.findOne({ email: email });
+  const user:any = await User.findOne({ email: email });
   if (!user) {
-    return res.status(401).json({ message: "Invalid email or password" });
+    return res.status(401).json({ message:"Invalid email or password" });
   }
-  // check if password is correct
-  if (user.password) {
-    const isMatch = await bcrypt.compare(password, user.password);
 
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
+  if (!user.password) {
+    return res.status(401).json({ message:"Sorry, you cannot sign in with third-party authentication" });
+  }
+  console.log(user);
+
+  // check if password is correct
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(401).json({ message:"Invalid email or password" });
   }
   // create a JWT token
   const payload = {
@@ -134,15 +140,16 @@ app.post("/login", async (req: Request, res: Response, next: NextFunction) => {
   res.cookie("access_token", token, {
     httpOnly: true,
   });
-  res.json({ message: "Logged in successfully", user: user });
+  res.status(200).json({ message: "Logged in successfully", user: user });
 });
+
 
 app.post("/register", async (req: Request, res: Response) => {
   const { email, password, displayName } = req.body;
   const user = await User.findOne({ email });
 
   if (user) {
-    console.log("Already a user");
+    return res.status(401).json({ message: "Email already exist!" });
   }
 
   if (!user) {
@@ -153,9 +160,10 @@ app.post("/register", async (req: Request, res: Response) => {
       displayName: displayName,
     });
     await newUser.save();
-    res.json({ status: "ok" });
+    res.status(200).json({ message: "User created successfully", registerSuccess:true });
   }
 });
+
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");

@@ -7,7 +7,7 @@ const GitHubStrategy = require("passport-github2").Strategy;
 dotenv.config();
 
 
-const createUser = async (id:any, displayName:any, email:any) => {
+const createUser = async (id:any, displayName:any, email:any, profilePicture:any) => {
   try {
     let user = await User.findOne({ googleId: id });
     if (!user) {
@@ -15,6 +15,7 @@ const createUser = async (id:any, displayName:any, email:any) => {
         googleId: id,
         displayName: displayName,
         email: email,
+        profilePicture:profilePicture
       });
       await user.save();
     }
@@ -36,7 +37,7 @@ const thirdPartyMwAuth = () => {
         },
         async (accessToken:any, refreshToken:any, profile:any, done:any) => {
           try {
-            const user = await createUser(profile.id, profile.displayName, profile.emails[0].value);
+            const user = await createUser(profile.id, profile.displayName, profile.emails[0].value, profile.photos[0].value);
             const token = jwt.sign({ googleId: user.googleId,displayName:user.displayName,email:user.email }, process.env.userLocalSecret as string);
             const decoded = jwt.decode(token);
             done(null, decoded);
@@ -57,10 +58,9 @@ const thirdPartyMwAuth = () => {
         },
         async (accessToken:any, refreshToken:any, profile:any, done:any) => {
           try {
-            const user = await createUser(profile.id, profile.displayName, profile.username);
+            const user = await createUser(profile.id, profile.displayName, profile.username, profile.photos[0].value);
             const token = jwt.sign({ googleId: user.googleId, displayName: user.displayName, email: user.email }, process.env.userLocalSecret as string);
             const decoded = jwt.decode(token);
-            console.log(decoded);
             done(null, decoded);
 
           } catch (error) {
