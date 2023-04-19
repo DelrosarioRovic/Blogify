@@ -19,7 +19,7 @@ const Login: React.FC<loginForm> = (props) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const result = await ApiCall("post", "http://localhost:3000/login", {
+      const result = await ApiCall("post", "http://localhost:3000/auth/login", {
         email: eMail,
         password: passWord,
       })

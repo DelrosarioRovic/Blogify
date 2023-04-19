@@ -11,7 +11,7 @@ interface UserProfileProps {
 const UserProfile:React.FC<UserProfileProps> = (props) => {
   
     const SignOutApi = async () => {
-        await ApiCall("get", "http://localhost:3000/sign-out");
+        await ApiCall("get", "http://localhost:3000/auth/sign-out");
         toast.success("Successfully Sign Out");
         props.setIsLogin(false);
     }
