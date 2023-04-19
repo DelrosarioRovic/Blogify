@@ -49,8 +49,6 @@ app.get(
     const userToken = req.user as any;
     const googleUser = {
       googleId: userToken.googleId,
-      displayName: userToken.displayName,
-      email: userToken.email,
     };
     const secret = process.env.userLocalSecret as string;
     const token = jwt.sign(googleUser, secret, { expiresIn: "1h" });
@@ -70,8 +68,6 @@ app.get(
     const userToken = req.user as any;
     const googleUser = {
       googleId: userToken.googleId,
-      displayName: userToken.displayName,
-      email: userToken.email,
     };
     const secret = process.env.userLocalSecret as string;
     const token = jwt.sign(googleUser, secret, { expiresIn: "1h" });
@@ -147,7 +143,7 @@ app.post("/login", async (req: Request, res: Response, next: NextFunction) => {
 app.post("/register", async (req: Request, res: Response) => {
   const { email, password, displayName } = req.body;
   const user = await User.findOne({ email });
-
+  
   if (user) {
     return res.status(401).json({ message: "Email already exist!" });
   }
