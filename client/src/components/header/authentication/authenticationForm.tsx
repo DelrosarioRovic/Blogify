@@ -18,11 +18,11 @@ const AuthenticationForm: React.FC<authenticationForm> = (props) => {
   return (
     //WANTS TO ADD ONCLICK WHICH IS IF I CLICK THIS DIV IT WILL RETURN FALSE BUT IF I CLICK THE DIV INSIDE THIS CONTAINER
     <div
-      className={`flex justify-center items-center absolute text-sm inset-0 overflow-hidden w-full h-full bg-gray-500 bg-opacity-40 backdrop-blur-sm  
+      className={`fixed right-0 top-0 w-[100%] min-h-[100vh] flex justify-center items-center bg-gray-500 bg-opacity-40 backdrop-blur-sm  
     ${props.isAuthenticationFormShow ? "opacity-100 z-50" : "opacity-0 -z-50"}
     `}
       onClick={props.ifShowAuthForm}
-    >
+    > 
       <div
         className={`w-80 flex flex-col py-3 gap-y-3 overflow-hidden bg-white rounded-sm duration-300 shadow-lg
         ${props.isAuthenticationFormShow ? "relative inset-0" : "relative -top-full opacity-0"}`}
