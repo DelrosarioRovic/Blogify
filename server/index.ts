@@ -11,6 +11,7 @@ import { MiddlewareLocal, CustomRequest } from "./middleware/middlewareAuth";
 import thirdPartyMwAuth from "./middleware/thirdpartymwAuth";
 import authControllers from "./controllers/authControllers";
 import authThirdPartyControllers from "./controllers/authThirdPartyController";
+import composeController from "./controllers/compose-controller";
 
 //mongo Db connection
 connectToDatabase()
@@ -48,7 +49,6 @@ app.get(
     }
     if (googleUserId) {
       const googleUser = await User.findOne({ googleId: googleUserId });
-      console.log(googleUser);
       return res.status(200).json({ authenticated: true, user: googleUser });
     }
     if (!userId || !googleUserId) {
@@ -60,6 +60,7 @@ app.get(
 //AuthenticationControllers
 app.use('/auth', authThirdPartyControllers);
 app.use('/auth', authControllers);
+app.use(composeController);
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");

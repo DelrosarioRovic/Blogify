@@ -17,7 +17,7 @@ const UserProfile: React.FC<UserAccountInfoProps> = (props) => {
 
   
   return (
-    <div className="relative rounded-full bg-blue-500">
+    <div className="relative rounded-full bg-gray-400">
       <div
         onClick={()=>setIsProfileClick(!isProfileClick)}
         className={`h-[41.3px] w-[41.3px] rounded-full flex justify-center items-center overflow-hidden active:scale-[.9] duration-300
