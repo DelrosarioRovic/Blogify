@@ -6,6 +6,7 @@ import User from '../models/users.model';
 
 router.post("/login", async(req: Request, res: Response) => {
     const { email, password } = req.body;
+    console.log(req.body);
   // check if user exists
   const user:any = await User.findOne({ email: email });
   if (!user) {

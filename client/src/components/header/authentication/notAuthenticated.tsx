@@ -14,6 +14,7 @@ const notAuthenticated: React.FC = () => {
     displayName: '',
     profilePicture: '',
   });
+  
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -45,6 +46,7 @@ const notAuthenticated: React.FC = () => {
   const ifShowAuthForm = (): void => {
     setIsAuthenticationFormShow(!isAuthenticationFormShow);
   };
+
 
   return (
     <div className="flex">

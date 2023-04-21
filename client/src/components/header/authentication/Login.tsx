@@ -14,7 +14,6 @@ interface loginForm {
 const Login: React.FC<loginForm> = (props) => {
   const [eMail, setEmail] = useState<string>("");
   const [passWord, setPassword] = useState<string>("");
- 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -48,13 +47,13 @@ const Login: React.FC<loginForm> = (props) => {
       }`}
     >
       <form onSubmit={handleSubmit} className="flex flex-col text-gray-500">
-        <label htmlFor="email-input">Email:</label>
+        <label htmlFor="email-input">E-mail</label>
         <input
           type="email"
           id="email-input"
           value={eMail}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-gray-300 p-1 rounded-sm text-gray-500 text-sm"
+          className="bg-gray-300 py-2 px-1 rounded-sm text-gray-500 text-sm"
         />
         <label htmlFor="password">Password</label>
         <input
@@ -62,7 +61,7 @@ const Login: React.FC<loginForm> = (props) => {
           id="password"
           value={passWord}
           onChange={(e) => setPassword(e.target.value)}
-          className="bg-gray-300 p-1 rounded-sm text-gray-500 text-sm"
+          className="bg-gray-300 py-2 px-1 rounded-sm text-gray-500 text-sm"
         />
         <button
           type="submit"
@@ -71,7 +70,7 @@ const Login: React.FC<loginForm> = (props) => {
           LOGIN
         </button>
       </form>
-      <p className="text-sm text-gray-500">
+      <p className="text-xs text-gray-500">
         Don't Have an Account?
         <button className="text-blue-500" onClick={props.checkStatus}>
           {" "}
