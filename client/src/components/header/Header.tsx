@@ -1,6 +1,7 @@
 import React from "react";
 import Navigation from "./Navigation";
 import { NavLink } from "react-router-dom";
+
 const Header: React.FC = () => {
   return (
     <nav className="flex justify-between items-center h-[5rem] relative">

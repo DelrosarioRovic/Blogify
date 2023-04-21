@@ -7,7 +7,7 @@ dotenv.config();
 //imported file
 import connectToDatabase from "./database/connectDb";
 import User from "./models/users.model";
-import { MiddlewareLocal, CustomRequest } from "./middleware/middlewareAuth";
+import { MiddlewareAuth, CustomRequest } from "./middleware/middlewareAuth";
 import thirdPartyMwAuth from "./middleware/thirdpartymwAuth";
 import authControllers from "./controllers/authControllers";
 import authThirdPartyControllers from "./controllers/authThirdPartyController";
@@ -37,9 +37,10 @@ app.use(
 //third Party authentication middleware
 thirdPartyMwAuth();
 
+ 
 app.get(
   "/user",
-  MiddlewareLocal,
+  MiddlewareAuth,
   async (req: CustomRequest, res: Response, next: NextFunction) => {
     const userId = req.userId;
     const googleUserId = req.googleUserId;
@@ -56,6 +57,12 @@ app.get(
     }
   }
 );
+
+app.get("/post", MiddlewareAuth, async (req: CustomRequest, res: Response, next: NextFunction) => {
+  
+})
+
+
 
 //AuthenticationControllers
 app.use('/auth', authThirdPartyControllers);
