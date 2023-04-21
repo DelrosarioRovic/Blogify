@@ -5,7 +5,7 @@ const router = Router();
     
 router.get('/post', async (req, res) => {
     try {
-      const result = await Post.aggregate([
+      const post = await Post.aggregate([
         // Lookup stage to join the `users` and `posts` collections based on the `user` field in the `posts` collection
         {
           $lookup: {
@@ -31,7 +31,8 @@ router.get('/post', async (req, res) => {
           },
         },
       ]);
-      res.json(result);
+      console.log(post);
+      res.json(post);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Server Error' });
