@@ -2,7 +2,12 @@ import React from "react";
 import NotAuthenticated from "./authentication/notAuthenticated";
 import { NavLink } from "react-router-dom";
 
-const Navigation: React.FC = () => {
+interface navigationProps {
+    isLogin: boolean;
+    setIsLogin: (value: boolean) => void;
+}
+
+const Navigation: React.FC<navigationProps> = (props) => {
   return (
     <div className="flex items-center gap-x-12">
       <NavLink
@@ -11,7 +16,10 @@ const Navigation: React.FC = () => {
       >
         Compose
       </NavLink>
-      <NotAuthenticated />
+      <NotAuthenticated 
+      isLogin={props.isLogin}
+      setIsLogin={props.setIsLogin}
+      />
     </div>
   );
 };

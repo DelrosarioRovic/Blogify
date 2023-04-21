@@ -2,7 +2,20 @@ import { Link } from "react-router-dom";
 import Comment from "./comment_like_share/comment";
 import Like from "./comment_like_share/like";
 import Share from "./comment_like_share/share";
+import { useEffect } from "react";
+import ApiCall from "../../API/Api-call";
 function post() {
+
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const response = await ApiCall("GET", "http://localhost:3000/route/post");
+        console.log(response);
+      } catch (error) {}
+    };
+    getPost();
+  }, []);
+
   return (
     <div className=" max-w-4xl mx-auto  flex flex-col gap-4">
       <Link to={`id`}>
