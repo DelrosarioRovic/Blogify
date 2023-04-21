@@ -32,7 +32,7 @@ router.get(
 router.get("/github", passport.authenticate("github"));
 
 router.get(
-  "github/callback",
+  "/github/callback",
   passport.authenticate("github", { session: false }),
   async (req: Request, res: Response) => {
     const userToken = req.user as any;
