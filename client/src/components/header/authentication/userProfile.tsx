@@ -15,11 +15,10 @@ interface UserAccountInfoProps {
 const UserProfile: React.FC<UserAccountInfoProps> = (props) => {
   const [isProfileClick, setIsProfileClick] = useState<boolean>(false);
 
-  
   return (
     <div className="rounded-full bg-blue-500">
       <div
-        onClick={()=>setIsProfileClick(!isProfileClick)}
+        onClick={() => setIsProfileClick(!isProfileClick)}
         className={`h-[41.3px] w-[41.3px] rounded-full flex justify-center items-center overflow-hidden active:scale-[.9] duration-300
         ${isProfileClick ? "scale-[.9]" : ""}`}
       >
@@ -32,7 +31,9 @@ const UserProfile: React.FC<UserAccountInfoProps> = (props) => {
         )}
       </div>
       {/* return only true */}
-      {isProfileClick && <UserProfileMenu setIsLogin={props.setIsLogin} user={props.user} />}
+      {isProfileClick && (
+        <UserProfileMenu setIsLogin={props.setIsLogin} user={props.user} />
+      )}
     </div>
   );
 };

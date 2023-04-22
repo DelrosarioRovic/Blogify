@@ -15,7 +15,6 @@ function createpost() {
           <textarea
             className="outline-none pl-2 font-sans text-lg resize-none"
             placeholder="Write your post content here..."
-            name=""
             id=""
             rows={10}
           ></textarea>
