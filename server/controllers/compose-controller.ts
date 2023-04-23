@@ -27,8 +27,8 @@ router.post("/compose", MiddlewareAuth, async(req:CustomRequest, res: Response) 
         content: content,
         date: Date.now()
       });
-
       newPost.save();
+      console.log("successfully added post");
 
 });
 

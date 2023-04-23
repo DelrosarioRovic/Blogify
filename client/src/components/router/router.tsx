@@ -14,7 +14,7 @@ const router:React.FC<routerProps> = (props) => {
     <Routes>
       <Route path="/compose" element={props.isLogin ? <Createpost /> : <Navigate to="/" />} />
       <Route path="/" element={<Post />} />
-      <Route path="/id" element={<Idpost />} />
+      <Route path="/post/:postId" element={<Idpost />} />
     </Routes>
   );
 }
