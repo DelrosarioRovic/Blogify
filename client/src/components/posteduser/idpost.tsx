@@ -54,11 +54,12 @@ function idpost() {
             />
           </div>}
           <div>
-          <p className="font-semibold">{loading ? <Skeleton/> : post.displayName}</p>
-          <p className="font-thin text-[.75rem] text-gray-600">
-              Posted on <span>{loading ? <Skeleton/> : post.date}</span>
+            <p className="font-semibold">{post.displayName}</p>
+            <p className="font-thin text-[.75rem] text-gray-600">
+              {<Skeleton />}
             </p>
           </div>
+          
             
         </div>
         <div className="flex gap-4 items-center">
@@ -70,7 +71,7 @@ function idpost() {
         </div>
       </div>
       <div className="mt-6">
-        <h1 className="text-[2rem] font-extrabold">{post.title}</h1>
+        <h1 className="text-[2rem] font-extrabold">{post.title || <Skeleton />}</h1>
         <p>{post.content}</p>
       </div>
     </div>
