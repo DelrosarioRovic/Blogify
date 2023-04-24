@@ -7,7 +7,7 @@ interface like {
 
 function like(props: like) {
   return (
-    <div className=" flex items-center text-2xl">
+    <div className=" flex items-center text-2xl cursor-pointer">
       <AiOutlineLike />
       <span className="text-[.75rem]">{props.Like}</span>
     </div>
