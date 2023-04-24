@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import Comment from "./comment_like_share/comment";
 import Like from "./comment_like_share/like";
 import Share from "./comment_like_share/share";
@@ -18,6 +20,7 @@ export interface PostObj {
 
 const Post = () => {
   const [posts, setPosts] = useState<PostObj[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -34,6 +37,7 @@ const Post = () => {
           };
         });
         setPosts(posts);
+        setLoading(false);
       } catch (error) {}
     };
     getPosts();

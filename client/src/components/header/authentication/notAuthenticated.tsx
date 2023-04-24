@@ -9,7 +9,7 @@ interface notAuthenticatedProps {
   setIsLogin: (value: boolean) => void;
 }
 
-const notAuthenticated: React.FC<notAuthenticatedProps> = (props) => {
+const NotAuthenticated: React.FC<notAuthenticatedProps> = (props) => {
   const [isAuthenticationFormShow, setIsAuthenticationFormShow] = useState<boolean>(false);
   const [user,setUser] = useState<UserAccountInfo>({
     _id: '',
@@ -52,26 +52,25 @@ const notAuthenticated: React.FC<notAuthenticatedProps> = (props) => {
 
   return (
     <div className="flex">
-      {props.isLogin ? (
-          <UserProfile
-          setIsLogin={props.setIsLogin}
-          user={user}
-          />
-      ) : (
-        <>
-          <button className="bg-blue-500 rounded-full p-3" onClick={ifShowAuthForm}>
-          <GoSignIn size={18} color="white" />
-          </button>
-          <AuthenticationForm
-            isAuthenticationFormShow={isAuthenticationFormShow}
-            ifShowAuthForm={ifShowAuthForm}
-            setIsLogIn={props.setIsLogin}
-          />
-        </>
-      )}
+          {props.isLogin ? (
+              <UserProfile
+              setIsLogin={props.setIsLogin}
+              user={user}
+              />
+          ) : (
+            <>
+              <button className="bg-blue-500 rounded-full p-3" onClick={ifShowAuthForm}>
+              <GoSignIn size={18} color="white" />
+              </button>
+              <AuthenticationForm
+                isAuthenticationFormShow={isAuthenticationFormShow}
+                ifShowAuthForm={ifShowAuthForm}
+                setIsLogIn={props.setIsLogin}
+              />
+            </>
+          )}
     </div>
-
   );
 };
 
-export default notAuthenticated;
+export default NotAuthenticated;

@@ -7,7 +7,7 @@ import React from 'react'
     <form className="w-full">
       <textarea
         className="w-full border p-2 resize-y"
-        id=""
+        id="#"
         placeholder="Comment"
         rows={4}
       ></textarea>
