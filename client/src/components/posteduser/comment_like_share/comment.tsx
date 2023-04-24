@@ -5,7 +5,7 @@ interface comments {
 }
 function comment(props: comments) {
   return (
-    <div className=" flex items-center text-2xl">
+    <div className=" flex items-center text-2xl cursor-pointer">
     <AiOutlineComment />
     <span className="text-[.75rem]">{props.comments}</span>
   </div>
