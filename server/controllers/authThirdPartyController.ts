@@ -6,13 +6,9 @@ const router = express.Router();
 
 
 //google auth
-router.get(
-  "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+router.get("/google" ,passport.authenticate("google", { scope: ["profile", "email"] }));
 
-router.get(
-  "/google/callback",
+router.get("/google/callback",
   passport.authenticate("google", { session: false }),
   async (req: Request, res: Response) => {
     const userToken = req.user as any;
@@ -24,15 +20,17 @@ router.get(
     res.cookie("access_token", token, {
       httpOnly: true,
     });
-    res.redirect("http://localhost:5173");
+    const redirectUrl = "http://localhost:5173";
+    res.redirect(redirectUrl);
   }
 );
 
 //github auth
 router.get("/github", passport.authenticate("github"));
 
-router.get(
-  "/github/callback",
+
+router.get("/github/callback",
+
   passport.authenticate("github", { session: false }),
   async (req: Request, res: Response) => {
     const userToken = req.user as any;

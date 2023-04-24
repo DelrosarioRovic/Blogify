@@ -24,7 +24,7 @@ const AuthenticationForm: React.FC<authenticationForm> = (props) => {
       onClick={props.ifShowAuthForm}
     > 
       <div
-        className={`w-80 flex flex-col py-3 gap-y-3 overflow-hidden bg-white rounded-sm duration-300
+        className={`w-80 flex flex-col py-3 gap-y-3 overflow-hidden bg-white rounded-sm duration-300 shadow-lg
         ${props.isAuthenticationFormShow ? "relative inset-0" : "relative -top-full opacity-0"}`}
         onClick={(event) => event.stopPropagation()}
       >
@@ -34,7 +34,7 @@ const AuthenticationForm: React.FC<authenticationForm> = (props) => {
           <span className="text-sm font-semibold">OR</span>
           <span className="w-3/6 h-0.5 bg-gray-950"></span>
         </div>
-        <div className={`flex flex-row w-[200%] ${isLoginForm ? "h-[13rem]" : "h-[10rem]"}`}>
+        <div className={`flex flex-row w-[200%] ${isLoginForm ? "h-[14rem]" : "h-[11rem]"}`}>
           <Login
             isLoginForm={isLoginForm}
             setIsLoginForm={setIsLoginForm}

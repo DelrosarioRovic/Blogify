@@ -1,16 +1,17 @@
 import dotenv from "dotenv";
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 dotenv.config();
 
 //imported file
 import connectToDatabase from "./database/connectDb";
-import User from "./models/users.model";
-import { MiddlewareLocal, CustomRequest } from "./middleware/middlewareAuth";
 import thirdPartyMwAuth from "./middleware/thirdpartymwAuth";
 import authControllers from "./controllers/authControllers";
 import authThirdPartyControllers from "./controllers/authThirdPartyController";
+import composeController from "./controllers/compose-controller";
+import postRoutes from "./routes/postRoutes";
+import userRoutes from "./routes/userRoutes";
 
 //mongo Db connection
 connectToDatabase()
@@ -36,30 +37,15 @@ app.use(
 //third Party authentication middleware
 thirdPartyMwAuth();
 
-app.get(
-  "/user",
-  MiddlewareLocal,
-  async (req: CustomRequest, res: Response, next: NextFunction) => {
-    const userId = req.userId;
-    const googleUserId = req.googleUserId;
-    if (userId) {
-      const localUser = await User.findById(userId);
-      return res.status(200).json({ authenticated: true, user: localUser });
-    }
-    if (googleUserId) {
-      const googleUser = await User.findOne({ googleId: googleUserId });
-      console.log(googleUser);
-      return res.status(200).json({ authenticated: true, user: googleUser });
-    }
-    if (!userId || !googleUserId) {
-      return res.status(401).json({ authenticated: false, message:"No user authenticated!!" });
-    }
-  }
-);
-
-//AuthenticationControllers
+//routes
+app.use("/route", postRoutes);
+app.use("/route", userRoutes);
+//authenticate controllers
 app.use('/auth', authThirdPartyControllers);
 app.use('/auth', authControllers);
+//create post controllers
+app.use(composeController);
+
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");

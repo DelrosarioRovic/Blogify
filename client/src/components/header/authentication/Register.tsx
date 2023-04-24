@@ -40,11 +40,11 @@ const Register: React.FC<registerForm> = (props) => {
     >
       <form  onSubmit={handleSubmit} className="flex flex-col text-gray-500">
         <label htmlFor="displayName">Display Name</label>
-        <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} className="bg-gray-300 p-1 rounded-sm text-gray-500 text-sm" required/>
+        <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} className="bg-gray-300 py-2 px-1 rounded-sm text-gray-500 text-sm" required/>
         <label htmlFor="E-mail">E-mail</label>
-        <input type="email" value={eMail} onChange={(e) => setEmail(e.target.value)} className="bg-gray-300 p-1 rounded-sm text-gray-500 text-sm" required/>
+        <input type="email" value={eMail} onChange={(e) => setEmail(e.target.value)} className="bg-gray-300 py-2 px-1 rounded-sm text-gray-500 text-sm" required/>
         <label htmlFor="Password">Password</label>
-        <input type="password" value={passWord} onChange={(e) => setPassword(e.target.value)} className="bg-gray-300 p-1 rounded-sm text-gray-500 text-sm" required/>
+        <input type="password" value={passWord} onChange={(e) => setPassword(e.target.value)} className="bg-gray-300 py-2 px-1 rounded-sm text-gray-500 text-sm" required/>
         <button
           type="submit"
           className="bg-violet-700 text-white mt-2 py-2 rounded-sm"
@@ -52,7 +52,7 @@ const Register: React.FC<registerForm> = (props) => {
           Sign Up
         </button>
       </form>
-      <p className="text-sm text-gray-500">
+      <p className="text-xs text-gray-500">
         Already Have an account?
         <button className="text-blue-500" onClick={props.checkStatus}>
           Login

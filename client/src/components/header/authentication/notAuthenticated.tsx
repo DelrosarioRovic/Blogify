@@ -4,21 +4,24 @@ import AuthenticationForm from "./authenticationForm";
 import UserProfile, { UserAccountInfo } from "./userProfile";
 import ApiCall from "../../../API/Api-call";
 
+interface notAuthenticatedProps {
+  isLogin: boolean;
+  setIsLogin: (value: boolean) => void;
+}
 
-const notAuthenticated: React.FC = () => {
+const notAuthenticated: React.FC<notAuthenticatedProps> = (props) => {
   const [isAuthenticationFormShow, setIsAuthenticationFormShow] = useState<boolean>(false);
-  const [isLogin, setIsLogIn] = useState<boolean>(false);
   const [user,setUser] = useState<UserAccountInfo>({
     _id: '',
     email: '',
     displayName: '',
     profilePicture: '',
   });
-
+  
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await ApiCall("GET", "http://localhost:3000/user");
+        const res = await ApiCall("GET", "http://localhost:3000/route/user");
         if (res.user) {
           let id = "";
           if (res.user._id) {
@@ -33,24 +36,25 @@ const notAuthenticated: React.FC = () => {
             displayName: res.user.displayName,
             profilePicture:res.user.profilePicture
           });
-          setIsLogIn(true);
-        } else {}
+          props.setIsLogin(true);
+        } 
       } catch (error) {}
     };
 
     checkAuth();
-  }, [isLogin]);
+  }, [props.isLogin]);
 
 
   const ifShowAuthForm = (): void => {
     setIsAuthenticationFormShow(!isAuthenticationFormShow);
   };
 
+
   return (
     <div className="flex">
-      {isLogin ? (
+      {props.isLogin ? (
           <UserProfile
-          setIsLogin={setIsLogIn}
+          setIsLogin={props.setIsLogin}
           user={user}
           />
       ) : (
@@ -61,7 +65,7 @@ const notAuthenticated: React.FC = () => {
           <AuthenticationForm
             isAuthenticationFormShow={isAuthenticationFormShow}
             ifShowAuthForm={ifShowAuthForm}
-            setIsLogIn={setIsLogIn}
+            setIsLogIn={props.setIsLogin}
           />
         </>
       )}
