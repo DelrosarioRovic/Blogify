@@ -21,7 +21,7 @@ function idpost() {
           </div>
           <div className="flex gap-4 items-center">
             <Like Like={6} />
-            <Link to='#comment' >
+            <Link to="#comment">
               <Comment comments={2} />
             </Link>
             <Share />
@@ -86,7 +86,7 @@ function idpost() {
           </p>
         </div>
       </div>
-        <UserComment id="comment" />
+      <UserComment id="comment" />
     </div>
   );
 }
