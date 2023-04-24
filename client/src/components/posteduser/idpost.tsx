@@ -9,6 +9,7 @@ import apiCall from "../../API/Api-call";
 import { PostObj } from "./post";
 import UserAvatar from "../reusableComponent/userAvatar";
 
+import UserComment from "./usercomment/UserComment";
 function idpost() {
   const postId = useParams();
   const [loading, setLoading] = useState<boolean>(true);
@@ -74,6 +75,7 @@ function idpost() {
         <h1 className="text-[2rem] font-extrabold">{post.title || <Skeleton />}</h1>
         <p>{post.content}</p>
       </div>
+        <UserComment id="comment" />
     </div>
   );
 }
