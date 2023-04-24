@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import Like from "./comment_like_share/like";
 import Comment from "./comment_like_share/comment";
 import Share from "./comment_like_share/share";
@@ -9,6 +11,7 @@ import UserAvatar from "../reusableComponent/userAvatar";
 
 function idpost() {
   const postId = useParams();
+  const [loading, setLoading] = useState<boolean>(true);
   const [post, setPost] = useState<PostObj>({
     post_id: "",
     user_id: "",
@@ -32,6 +35,7 @@ function idpost() {
           date: response[0].date,
           profilePicture: response[0].profilePicture || null,
         });
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -43,18 +47,19 @@ function idpost() {
     <div className="max-w-4xl mx-auto py-4 px-12 border border-gray-200 rounded-xl">
       <div className="flex justify-between">
         <div className="flex gap-6">
-          <div className="flex justify-center items-center w-10 h-10 bg-slate-600 rounded-full text-white overflow-hidden">
+          {loading ? <Skeleton circle={true} width={"2.5rem"} height={"2.5rem"}/> : <div className="flex justify-center items-center w-10 h-10 bg-slate-600 rounded-full text-white overflow-hidden">
             <UserAvatar
               profilePicture={post.profilePicture}
               displayName={post.displayName}
             />
-          </div>
-          <p className="font-semibold">
-            {post.displayName}
-            <p className="font-thin text-[.75rem] text-gray-600">
-              Posted on <span>{post.date}</span>
+          </div>}
+          <div>
+          <p className="font-semibold">{loading ? <Skeleton/> : post.displayName}</p>
+          <p className="font-thin text-[.75rem] text-gray-600">
+              Posted on <span>{loading ? <Skeleton/> : post.date}</span>
             </p>
-          </p>
+          </div>
+            
         </div>
         <div className="flex gap-4 items-center">
           <Like Like={6} />

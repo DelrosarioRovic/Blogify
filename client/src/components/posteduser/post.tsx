@@ -5,6 +5,7 @@ import Share from "./comment_like_share/share";
 import { useEffect, useState } from "react";
 import ApiCall from "../../API/Api-call";
 
+
 export interface PostObj {
   post_id: string;
   user_id:string,
@@ -39,7 +40,7 @@ const Post = () => {
   }, []);
 
   return (
-    <>
+    <div className="w-full h-full bg-transparent">
       {posts.map((item: PostObj) => (
         <div key={item.post_id} className="max-w-4xl mx-auto flex flex-col gap-4">
           <Link to={"/post/"+item.post_id}>
@@ -59,7 +60,7 @@ const Post = () => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
