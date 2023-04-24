@@ -1,14 +1,20 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Createpost from "../compose/createpost";
 import Post from "../posteduser/post";
 import Idpost from "../posteduser/idpost";
-function router() {
+
+interface routerProps {
+  isLogin: boolean;
+  setIsLogin: (value: boolean) => void;
+}
+
+const router:React.FC<routerProps> = (props) => {
   return (
     <Routes>
-      <Route path="/compose" element={<Createpost />} />
+      <Route path="/compose" element={props.isLogin ? <Createpost /> : <Navigate to="/" />} />
       <Route path="/" element={<Post />} />
-      <Route path="/id" element={<Idpost />} />
+      <Route path="/post/:postId" element={<Idpost />} />
     </Routes>
   );
 }

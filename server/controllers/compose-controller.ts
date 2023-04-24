@@ -1,14 +1,16 @@
 import express, { Request, Response } from "express";
-import { MiddlewareLocal, CustomRequest } from "../middleware/middlewareAuth";
+import { MiddlewareAuth, CustomRequest } from "../middleware/middlewareAuth";
 import Post from "../models/post.model";
 import User from "../models/users.model";
 
 const router = express.Router();
 
 
-router.post("/compose", MiddlewareLocal, async(req:CustomRequest, res: Response) => {
+router.post("/compose", MiddlewareAuth, async(req:CustomRequest, res: Response) => {
+    
     const userId =  req.userId;
     const googleUserId = req.googleUserId;
+    
     
     const userLocal = await User.findById(userId);
     const userProvider = await User.findOne({ googleId: googleUserId });
@@ -25,8 +27,8 @@ router.post("/compose", MiddlewareLocal, async(req:CustomRequest, res: Response)
         content: content,
         date: Date.now()
       });
-
       newPost.save();
+      console.log("successfully added post");
 
 });
 

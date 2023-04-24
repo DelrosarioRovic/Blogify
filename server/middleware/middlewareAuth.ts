@@ -8,7 +8,7 @@ interface CustomRequest extends Request {
   googleUserId?: string | null;
 }
 
-const MiddlewareLocal = (req: CustomRequest, res: Response, next: NextFunction) => {
+const MiddlewareAuth = (req: CustomRequest, res: Response, next: NextFunction) => {
   const token = req.cookies.access_token;
   console.log(token);
   if (!token) {
@@ -37,4 +37,4 @@ const MiddlewareLocal = (req: CustomRequest, res: Response, next: NextFunction) 
   }
 };
 
-export {MiddlewareLocal, CustomRequest};
+export {MiddlewareAuth, CustomRequest};
