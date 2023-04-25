@@ -10,6 +10,7 @@ interface routerProps {
 }
 
 const router:React.FC<routerProps> = (props) => {
+
   return (
     <Routes>
       <Route path="/compose" element={props.isLogin ? <Createpost /> : <Navigate to="/" />} />
