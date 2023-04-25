@@ -18,25 +18,25 @@ const Login: React.FC<loginForm> = (props) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const result = await ApiCall("post", "http://localhost:3000/auth/login", {
+      const result:any = await ApiCall("post", "http://localhost:3000/auth/login", {
         email: eMail,
         password: passWord,
       })
       
       // handle success
-      if (result.user) {
-        toast.success(result.message);
-        console.log(result.message);
+      if (result.status === 200) {
+        toast.success(result.data.message);
         props.setIsLogin(true);
         props.ifShowAuthForm();
         //clear input
         setEmail("")
         setPassword("")
       } else {
-        toast.warning(result.response.data.message);
-        console.log(result.response.data.message);
+        toast.warning(result.data.message);
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

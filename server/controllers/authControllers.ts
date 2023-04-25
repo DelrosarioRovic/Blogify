@@ -52,7 +52,7 @@ router.post("/register", async (req: Request, res: Response) => {
         displayName: displayName,
       });
       await newUser.save();
-      res.status(200).json({ message: "User created successfully", registerSuccess:true });
+      return res.status(200).json({ message: "User created successfully"});
     }
 });
 

@@ -13,7 +13,7 @@ const Navigation: React.FC<navigationProps> = (props) => {
   
   return (
     <div className="flex items-center gap-x-12">
-      <button onClick={(event)=>{!props.isLogin && toast.error("You need to Login First to access this page")}}>
+      <button onClick={()=>{!props.isLogin && toast.error("You need to Login First to access this page")}}>
         <NavLink
           to="/compose"
           className={` py-2 px-4 hover:bg-slate-600 hover:text-white border border-slate-600 rounded-md active:scale-90 duration-300`}

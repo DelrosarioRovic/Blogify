@@ -26,7 +26,7 @@ const Post = () => {
     const getPosts = async () => {
       try {
         const response = await ApiCall("GET", "http://localhost:3000/route/post");
-        const posts = response.map((item: any) => {
+        const posts = response.data.map((item: any) => {
           return {
             post_id: item._id,
             user_id:item.userId,

@@ -11,14 +11,11 @@ router.post("/compose", MiddlewareAuth, async(req:CustomRequest, res: Response) 
     const userId =  req.userId;
     const googleUserId = req.googleUserId;
     
-    
     const userLocal = await User.findById(userId);
     const userProvider = await User.findOne({ googleId: googleUserId });
   
-
     const localOrProvided:any = userLocal || userProvider;
 
-    console.log(localOrProvided);
     const { title, content } = req.body;
 
     const newPost = new Post({
@@ -28,7 +25,7 @@ router.post("/compose", MiddlewareAuth, async(req:CustomRequest, res: Response) 
         date: Date.now()
       });
       newPost.save();
-      console.log("successfully added post");
+      res.status(200).json({message: "Post created successfully!"});
 
 });
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Like from "./comment_like_share/like";
@@ -31,13 +31,13 @@ function idpost() {
           `http://localhost:3000/route/single-post/${postId.postId}`
         );
         setPost({
-          post_id: response[0]._id,
-          user_id: response[0].userId,
-          displayName: response[0].displayName,
-          title: response[0].title,
-          content: response[0].content,
-          date: response[0].date,
-          profilePicture: response[0].profilePicture || null,
+          post_id: response.data[0]._id,
+          user_id: response.data[0].userId,
+          displayName: response.data[0].displayName,
+          title: response.data[0].title,
+          content: response.data[0].content,
+          date: response.data[0].date,
+          profilePicture: response.data[0].profilePicture || null,
         });
         setLoading(false);
       } catch (err) {
