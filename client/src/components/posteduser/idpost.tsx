@@ -6,14 +6,13 @@ import Comment from "./comment_like_share/comment";
 import Share from "./comment_like_share/share";
 import { Link, useParams } from "react-router-dom";
 import apiCall from "../../API/Api-call";
-import { PostObj } from "./post";
 import UserAvatar from "../reusableComponent/userAvatar";
 
 import UserComment from "./usercomment/UserComment";
 function idpost() {
   const postId = useParams();
   const [loading, setLoading] = useState<boolean>(true);
-  const [post, setPost] = useState<PostObj>({
+  const [post, setPost] = useState({
     post_id: "",
     user_id: "",
     displayName: "",
@@ -28,7 +27,7 @@ function idpost() {
       try {
         const response = await apiCall(
           "get",
-          `http://localhost:3000/route/single-post/${postId.postId}`
+          `http://localhost:4000/route/single-post/${postId.postId}`
         );
         setPost({
           post_id: response.data[0]._id,

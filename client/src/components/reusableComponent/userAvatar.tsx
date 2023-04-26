@@ -1,18 +1,20 @@
 import React from "react";
 
 export interface ProfilePictureProps {
-  profilePicture: string | null;
-  displayName: string;
+  profilePicture?: string | null;
+  displayName?: string;
 }
 
 const userAvatar: React.FC<ProfilePictureProps> = (props) => {
+  const { profilePicture, displayName } = props;
+
   return (
     <>
-      {props.profilePicture ? (
-        <img src={props.profilePicture} />
+      {profilePicture ? (
+        <img src={profilePicture} />
       ) : (
         <p className="text-white">
-          {props.displayName.charAt(0).toUpperCase()}
+          {displayName?.charAt(0).toUpperCase() ?? ''}
         </p>
       )}
     </>

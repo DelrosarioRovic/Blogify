@@ -2,23 +2,24 @@ import React, { useState } from "react";
 import ApiCall from "../../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useAuthentication from "../../../hooks/isAuthenticated";
   
 interface loginForm {
   isLoginForm: boolean;
   setIsLoginForm: (value: boolean) => void;
   checkStatus: () => void;
-  setIsLogin: (value: boolean) => void;
   ifShowAuthForm: () => void;
 }
 
 const Login: React.FC<loginForm> = (props) => {
+  const {signIn} =useAuthentication();
   const [eMail, setEmail] = useState<string>("");
   const [passWord, setPassword] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const result:any = await ApiCall("post", "http://localhost:3000/auth/login", {
+      const result:any = await ApiCall("post", "http://localhost:4000/auth/login", {
         email: eMail,
         password: passWord,
       })
@@ -26,7 +27,7 @@ const Login: React.FC<loginForm> = (props) => {
       // handle success
       if (result.status === 200) {
         toast.success(result.data.message);
-        props.setIsLogin(true);
+        signIn();
         props.ifShowAuthForm();
         //clear input
         setEmail("")

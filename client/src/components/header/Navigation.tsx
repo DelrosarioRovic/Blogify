@@ -3,22 +3,19 @@ import NotAuthenticated from "./authentication/notAuthenticated";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useAuthentication from "../../hooks/isAuthenticated";
 
-interface navigationProps {
-    isLogin: boolean;
-    setIsLogin: (value: boolean) => void;
-}
-
-const Navigation: React.FC<navigationProps> = (props) => {
+const Navigation: React.FC = () => {
+  const { authenticated } = useAuthentication();
   const navigate = useNavigate();
   const currentLocation = useLocation();
   const currentPath = currentLocation.pathname;
   const handleComposeClick = () => {
-    if (props.isLogin) {
+    if (authenticated) {
       navigate('/compose');
     } else {
       navigate(currentPath);
-      toast.error("You need to Login First to access this page");
+      toast.info("You need to Login First to access this page");
     }
   }
 
@@ -33,10 +30,7 @@ const Navigation: React.FC<navigationProps> = (props) => {
         </NavLink>
       </button>
       
-      <NotAuthenticated 
-      isLogin={props.isLogin}
-      setIsLogin={props.setIsLogin}
-      />
+      <NotAuthenticated />
     </div>
   );
 };

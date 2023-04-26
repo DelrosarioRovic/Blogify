@@ -1,22 +1,13 @@
 import React, { useState } from "react";
 import UserProfileMenu from "./userProfileMenu";
 import UserAvatar from "../../reusableComponent/userAvatar";
+import useAuthentication from "../../../hooks/isAuthenticated"; {  }
 
-export interface UserAccountInfo {
-  _id: string;
-  email: string;
-  displayName: string;
-  profilePicture: string | null;
-}
 
-interface UserAccountInfoProps {
-  user: UserAccountInfo;
-  setIsLogin: (value: boolean) => void;
-}
+const UserProfile: React.FC = () => {
+  const { data } = useAuthentication();
 
-const UserProfile: React.FC<UserAccountInfoProps> = (props) => {
   const [isProfileClick, setIsProfileClick] = useState<boolean>(false);
-
   return (
     <div className="rounded-full bg-slate-600">
       <div
@@ -25,13 +16,13 @@ const UserProfile: React.FC<UserAccountInfoProps> = (props) => {
         ${isProfileClick ? "scale-[.9]" : ""}`}
       >
         <UserAvatar
-          profilePicture={props.user.profilePicture}
-          displayName={props.user.displayName}
+          profilePicture={data?.profilePicture}
+          displayName={data?.displayName}
         />
       </div>
       {/* return only true */}
       {isProfileClick && (
-        <UserProfileMenu setIsLogin={props.setIsLogin} user={props.user} />
+        <UserProfileMenu />
       )}
     </div>
   );

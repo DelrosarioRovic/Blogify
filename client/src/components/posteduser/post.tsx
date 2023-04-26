@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
+import InfiniteScroll from 'react-infinite-scroll-component';
 import "react-loading-skeleton/dist/skeleton.css";
 import Comment from "./comment_like_share/comment";
 import Like from "./comment_like_share/like";
@@ -7,56 +8,67 @@ import Share from "./comment_like_share/share";
 import { useEffect, useState } from "react";
 import ApiCall from "../../API/Api-call";
 
-
-export interface PostObj {
-  post_id: string;
-  user_id:string,
+interface Post {
+  id: string;
+  userId: string;
   displayName: string;
   title: string;
   content: string;
   date: string;
-  profilePicture: string | null;
 }
 
 const Post = () => {
-  const [posts, setPosts] = useState<PostObj[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchMorePosts = async () => {
+    const limit = 3;
+    const skip = posts.length;
+    const url = `http://localhost:4000/route/post?limit=${limit}&skip=${skip}`;
+
+    try {
+      const response = await ApiCall("GET", url);
+      const currentPosts: Post[] = response.data.map((post: any) => ({
+        id: post._id,
+        userId: post.userId,
+        displayName: post.displayName,
+        title: post.title,
+        content: post.content,
+        date: post.date,
+      }));
+      setPosts([...posts, ...currentPosts]);
+      if (currentPosts.length < limit) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const response = await ApiCall("GET", "http://localhost:3000/route/post");
-        const posts = response.data.map((item: any) => {
-          return {
-            post_id: item._id,
-            user_id:item.userId,
-            displayName: item.displayName,
-            title: item.title,
-            content: item.content,
-            date: item.date,
-          };
-        });
-        setPosts(posts);
-        setLoading(false);
-      } catch (error) {}
-    };
-    getPosts();
+    fetchMorePosts();
   }, []);
 
   return (
-    <div className="w-full h-full bg-transparent">
-      {posts.map((item: PostObj) => (
-        <div key={item.post_id} className="max-w-4xl mx-auto flex flex-col gap-4">
-          <Link to={"/post/"+item.post_id}>
-            <p className="text-[2rem] font-bold">{item.title}</p>
+    <InfiniteScroll
+      dataLength={posts.length}
+      next={fetchMorePosts}
+      hasMore={hasMore}
+      loader={"loading ..."}
+      endMessage={<p style={{ textAlign: "center" }}><b>No more posts to show!</b></p>}
+    >
+      {posts.map((post: Post) => (
+        <div key={post.id} className="max-w-4xl mx-auto flex flex-col gap-4">
+          <Link to={`/post/${post.id}`}>
+            <p className="text-2xl font-bold">{post.title}</p>
           </Link>
-          <p className="text-gray-800">{item.content}</p>
+          <p className="text-gray-800">{post.content}</p>
           <div className="flex gap-4 justify-start items-center text-gray-500 font-semibold">
-            <p className="text-[.85rem] ">{item.displayName}</p>
-            <p className="text-[.85rem] ">{item.date}</p>
+            <p className="text-sm">{post.displayName}</p>
+            <p className="text-sm">{post.date}</p>
             <div className="flex flex-row gap-2">
               <Like Like={2} />
-              <Link to={`/id#comment`}>
+              <Link to={`/post/${post.id}#comment`}>
                 <Comment comments={6} />
               </Link>
               <Share />
@@ -64,7 +76,7 @@ const Post = () => {
           </div>
         </div>
       ))}
-    </div>
+    </InfiniteScroll>
   );
 };
 

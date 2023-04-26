@@ -2,12 +2,7 @@ import React from "react";
 import Navigation from "./Navigation";
 import { NavLink } from "react-router-dom";
 
-interface headerProps {
-  isLogin: boolean;
-  setIsLogin: (value: boolean) => void;
-}
-
-const Header: React.FC<headerProps> = (props) => {
+const Header: React.FC = () => {
   return (
     <nav className="flex justify-between items-center h-[5rem] relative">
       <div className="logo-wrapper flex">
@@ -17,10 +12,7 @@ const Header: React.FC<headerProps> = (props) => {
           <span className="italic">.fy</span>
         </NavLink>
       </div>
-      <Navigation 
-      isLogin={props.isLogin}
-      setIsLogin={props.setIsLogin}
-      />
+      <Navigation />
     </nav>
   );
 };

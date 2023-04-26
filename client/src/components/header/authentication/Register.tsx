@@ -18,7 +18,7 @@ const Register: React.FC<registerForm> = (props) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const result:any = await ApiCall('post', 'http://localhost:3000/auth/register', {email: eMail, password: passWord, displayName: displayName});
+      const result:any = await ApiCall('post', 'http://localhost:4000/auth/register', {email: eMail, password: passWord, displayName: displayName});
       if (result.status === 200) {
         toast.success(result.data.message);
         props.checkStatus();

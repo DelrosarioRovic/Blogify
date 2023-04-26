@@ -5,9 +5,7 @@ import User from "../models/users.model";
 
 const router = express.Router();
 
-
-router.post("/compose", MiddlewareAuth, async(req:CustomRequest, res: Response) => {
-    
+router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) => {
     const userId =  req.userId;
     const googleUserId = req.googleUserId;
     
@@ -19,17 +17,9 @@ router.post("/compose", MiddlewareAuth, async(req:CustomRequest, res: Response) 
       console.log("User required");
       return res.status(401).json({message:"Please Sign In First"});
     }
-    const { title, content } = req.body;
 
-    const newPost = new Post({
-        user: localOrProvided._id,
-        title: title,
-        content: content,
-        date: Date.now()
-      });
-      newPost.save();
-      res.status(200).json({message: "Post created successfully!"});
-
+    
 });
+
 
 export default router;
