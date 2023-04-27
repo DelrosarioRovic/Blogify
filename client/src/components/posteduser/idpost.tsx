@@ -13,7 +13,6 @@ import singlePost from "../../hooks/single-post";
 function idpost() {
   const { post, loading } = singlePost();
 
-
   return (
     <div className="max-w-4xl mx-auto py-4 px-12 border border-gray-200 rounded-xl">
       <div className="flex justify-between">
@@ -55,7 +54,7 @@ function idpost() {
           <Share />
         </div>
       </div>
-      <div className="mt-6">
+      <div className="my-6">
         <h1 className="text-[2rem] font-extrabold">
           {loading ? <Skeleton width={"100%"} height={"1.5rem"} /> : post.title}
         </h1>

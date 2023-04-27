@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import ThirdPartyAuth from "./third-party-auth";
-
-interface authenticationForm {
-  isAuthenticationFormShow: boolean;
-  ifShowAuthForm: () => void;
-}
+// props interface
+import { authenticationForm } from "../../../interface/props/authenticationFormProps";
 
 const AuthenticationForm: React.FC<authenticationForm> = (props) => {
   const [isLoginForm, setIsLoginForm] = useState<boolean>(false);

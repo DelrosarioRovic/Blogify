@@ -1,16 +1,7 @@
 import { useState, useEffect } from "react";
 import ApiCall from "../API/Api-call";
-
-export interface PostObj {
-  _id: string;
-  userId: string;
-  displayName: string;
-  title: string;
-  content: string;
-  date: string;
-  profilePicture: string | null;
-  numComments: number;
-}
+// interface hook
+import { PostObj } from "../interface/hook/PostObj";
 
 const useFetchPosts = () => {
   const [posts, setPosts] = useState<PostObj[]>([]);

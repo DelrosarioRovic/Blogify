@@ -5,7 +5,10 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Comment from "./comment_like_share/comment";
 import Like from "./comment_like_share/like";
 import Share from "./comment_like_share/share";
-import useFetchPosts, {PostObj} from "../../hooks/post";
+import useFetchPosts from "../../hooks/post";
+
+//ts interface
+import { PostObj } from "../../interface/hook/PostObj";
 
 const Post = () => {
   const { posts, hasMore, fetchMorePosts } = useFetchPosts();
@@ -20,8 +23,8 @@ const Post = () => {
         <p style={{ textAlign: "center" }}>
           <b>No more posts to show!</b>
         </p>
-      }
-    >
+      } >
+
       {posts.map((post: PostObj, index: number) => (
         <div
           key={index}
@@ -51,6 +54,7 @@ const Post = () => {
           </div>
         </div>
       ))}
+
     </InfiniteScroll>
   );
 };
