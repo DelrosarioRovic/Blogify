@@ -5,7 +5,6 @@ import ThirdPartyAuth from "./third-party-auth";
 
 interface authenticationForm {
   isAuthenticationFormShow: boolean;
-  setIsLogIn: (value: boolean) => void;
   ifShowAuthForm: () => void;
 }
 
