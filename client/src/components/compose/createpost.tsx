@@ -5,12 +5,10 @@ import ApiCall from "../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
-
 interface picture {
   setaddPic: () => void
 }
+
 const createpost: React.FC<picture> = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -55,6 +53,7 @@ const createpost: React.FC<picture> = () => {
               value={title}
               placeholder="New post title here..."
               onChange={(e) => setTitle(e.target.value)}
+              required
             />
           </div>
           <Markdown />
@@ -66,10 +65,11 @@ const createpost: React.FC<picture> = () => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               rows={10}
+              required
             ></textarea>
           </div>
         </div>
-        <button className="px-8 py-[.35rem] bg-slate-600 mt-8 text-white rounded-md max-lg:ml-4">
+        <button className="px-8 py-[.35rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4">
           Post
         </button>
       </div>

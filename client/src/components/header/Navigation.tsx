@@ -20,7 +20,7 @@ const Navigation: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center gap-x-12">
+    <div className="flex items-center gap-5">
       <button onClick={handleComposeClick}>
         <NavLink
           to="/compose"

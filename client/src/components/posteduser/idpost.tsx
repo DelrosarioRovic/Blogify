@@ -42,7 +42,7 @@ function idpost() {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto py-4 border border-gray-200 md:rounded-xl">
+    <div className="max-w-4xl mt-8 mx-auto py-4 border border-gray-200 md:rounded-xl">
       <div className="px-12 pb-6 max-md:px-3">
         <div className="flex justify-between">
           <div className="flex gap-6">
