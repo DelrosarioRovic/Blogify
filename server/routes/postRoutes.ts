@@ -27,7 +27,8 @@ const getPostAggregatePipeline = () => {
         displayName: "$user.displayName",
         title: 1,
         content: 1,
-        date: { $dateToString: { format: "%m/%d/%Y", date: "$date" } }
+        date: { $dateToString: { format: "%m/%d/%Y", date: "$date" } },
+        profilePicture: "$user.profilePicture"
       }
     }
   ];
@@ -38,7 +39,8 @@ router.get('/post', async (req: Request, res: Response) => {
     const skip: number = Number(req.query.skip) || 0;
     const limit: number = Number(req.query.limit) || 5;
     const pipeline = [...getPostAggregatePipeline(), { $skip: skip }, { $limit: limit }];
-    const posts: any = await Post.aggregate(pipeline);      
+    const posts: any = await Post.aggregate(pipeline);   
+  
     res.json(posts);
   } catch (error) {
     console.error(error);
@@ -53,6 +55,7 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
     const findPost:any = await findPostById(postId);
     const pipeline = [...getPostAggregatePipeline(), { $match: { _id: findPost._id } }];
     const post: any = await Post.aggregate(pipeline);
+    console.log(post);   
     res.json(post);
   } catch (error) {
     console.error(error);

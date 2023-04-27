@@ -4,8 +4,13 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthentication from "../../../hooks/isAuthenticated";
 
-const UserProfile: React.FC = () => {
-  const { signOut, data } = useAuthentication();
+interface profilePicture {
+  displayName?: string
+}
+
+
+const UserProfile: React.FC<profilePicture> = (props) => {
+  const { signOut } = useAuthentication();
   const SignOutApi = async () => {
     await ApiCall("get", "http://localhost:4000/auth/sign-out");
     toast.success("Successfully Sign Out");
@@ -15,7 +20,7 @@ const UserProfile: React.FC = () => {
   return (
     <div className=" z-50 bg-white absolute top-[4rem] right-0 w-[15rem] max-sm:w-full p-2 rounded-md border-[0.5px] border-gray-200 shadow-xl text-sm">
       <p className=" text-gray-700 font-bold p-1 py-3">
-        {data?.displayName}
+        {props.displayName}
       </p>
       <hr />
       <ul className="block opacity-80 text-gray-800">

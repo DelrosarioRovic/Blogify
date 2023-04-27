@@ -22,7 +22,9 @@ const UserProfile: React.FC = () => {
       </div>
       {/* return only true */}
       {isProfileClick && (
-        <UserProfileMenu />
+        <UserProfileMenu 
+          displayName={data?.displayName}
+        />
       )}
     </div>
   );

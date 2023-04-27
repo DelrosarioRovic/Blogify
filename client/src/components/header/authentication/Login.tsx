@@ -12,7 +12,7 @@ interface loginForm {
 }
 
 const Login: React.FC<loginForm> = (props) => {
-  const {signIn} =useAuthentication();
+  const { signIn } =useAuthentication();
   const [eMail, setEmail] = useState<string>("");
   const [passWord, setPassword] = useState<string>("");
 

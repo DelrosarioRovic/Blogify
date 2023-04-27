@@ -1,26 +1,21 @@
 import { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Link, useParams } from "react-router-dom";
+
 import Like from "./comment_like_share/like";
 import Comment from "./comment_like_share/comment";
 import Share from "./comment_like_share/share";
-import { Link, useParams } from "react-router-dom";
 import apiCall from "../../API/Api-call";
 import UserAvatar from "../reusableComponent/userAvatar";
-
 import UserComment from "./usercomment/UserComment";
+import { PostObj } from "./post";
+
+
 function idpost() {
   const postId = useParams();
   const [loading, setLoading] = useState<boolean>(true);
-  const [post, setPost] = useState({
-    post_id: "",
-    user_id: "",
-    displayName: "",
-    title: "",
-    content: "",
-    date: "",
-    profilePicture: "" || null,
-  });
+  const [post, setPost] = useState<PostObj>({});
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -30,8 +25,8 @@ function idpost() {
           `http://localhost:4000/route/single-post/${postId.postId}`
         );
         setPost({
-          post_id: response.data[0]._id,
-          user_id: response.data[0].userId,
+          _id: response.data[0]._id,
+          userId: response.data[0].userId,
           displayName: response.data[0].displayName,
           title: response.data[0].title,
           content: response.data[0].content,

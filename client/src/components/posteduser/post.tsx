@@ -8,43 +8,39 @@ import Share from "./comment_like_share/share";
 import { useEffect, useState } from "react";
 import ApiCall from "../../API/Api-call";
 
-interface Post {
-  id: string;
-  userId: string;
-  displayName: string;
-  title: string;
-  content: string;
-  date: string;
+export interface PostObj {
+  _id?: string;
+  userId?: string;
+  displayName?: string;
+  title?: string;
+  content?: string;
+  date?: string;
+  profilePicture?: string | null;
 }
 
 const Post = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostObj[]>([]);
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMorePosts = async () => {
-    const limit = 3;
-    const skip = posts.length;
+    const limit:number = 3;
+    const skip:number = posts.length;
     const url = `http://localhost:4000/route/post?limit=${limit}&skip=${skip}`;
-
+    const response = await ApiCall("GET", url);
     try {
-      const response = await ApiCall("GET", url);
-      const currentPosts: Post[] = response.data.map((post: any) => ({
-        id: post._id,
-        userId: post.userId,
-        displayName: post.displayName,
-        title: post.title,
-        content: post.content,
-        date: post.date,
+      const newPosts = response.data.map((post: PostObj, index: number) => ({
+        ...post,
+        key: index,
       }));
-      setPosts([...posts, ...currentPosts]);
-      if (currentPosts.length < limit) {
+      setPosts([...posts, ...newPosts]);
+      if (newPosts < limit) {
         setHasMore(false);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
+  
   useEffect(() => {
     fetchMorePosts();
   }, []);
@@ -57,9 +53,9 @@ const Post = () => {
       loader={"loading ..."}
       endMessage={<p style={{ textAlign: "center" }}><b>No more posts to show!</b></p>}
     >
-      {posts.map((post: Post) => (
-        <div key={post.id} className="max-w-4xl mx-auto flex flex-col gap-4">
-          <Link to={`/post/${post.id}`}>
+      {posts.map((post: PostObj, index: number) => (
+        <div key={index} className="max-w-4xl mx-auto flex flex-col gap-4">
+          <Link to={`/post/${post._id}`}>
             <p className="text-2xl font-bold">{post.title}</p>
           </Link>
           <p className="text-gray-800">{post.content}</p>
@@ -68,7 +64,7 @@ const Post = () => {
             <p className="text-sm">{post.date}</p>
             <div className="flex flex-row gap-2">
               <Like Like={2} />
-              <Link to={`/post/${post.id}#comment`}>
+              <Link to={`/post/${post._id}#comment`}>
                 <Comment comments={6} />
               </Link>
               <Share />

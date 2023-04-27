@@ -21,7 +21,6 @@ const useAuthentication = () => {
         const res = await ApiCall("GET", "http://localhost:4000/route/user");
         if (res.status === 200) {
           dispatch({ type: 'SET_AUTHENTICATED', payload: true });
-          console.log(res);
           setData(res.data.user);
         } 
       } catch (error) {
