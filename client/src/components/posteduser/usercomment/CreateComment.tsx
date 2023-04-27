@@ -23,13 +23,18 @@ import { useParams } from "react-router-dom";
 
   
   return (
-    <div className="flex gap-6 flex-row">
-      <div className='rounded-full bg-slate-600 h-8 w-8 flex items-center justify-center'>
-        {authenticated ? ( <UserAvatar
-            profilePicture={data?.profilePicture}
-            displayName={data?.displayName}
-          />): ("D") }
-       
+    <div className="flex gap-3 flex-row">
+      <div className="h-8 w-8 ">
+        <div className=" overflow-hidden rounded-full bg-slate-600 h-8 w-8 flex items-center justify-center">
+          {authenticated ? (
+            <UserAvatar
+              profilePicture={data?.profilePicture}
+              displayName={data?.displayName}
+            />
+          ) : (
+            "D"
+          )}
+        </div>
       </div>
    
     <form onSubmit={handleSubmit} className="w-full">

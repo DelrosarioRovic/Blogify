@@ -52,7 +52,7 @@ const Register: React.FC<registerForm> = (props) => {
           Sign Up
         </button>
       </form>
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-gray-500 mt-2">
         Already Have an account?
         <button className="text-blue-500" onClick={props.checkStatus}>
           Login
