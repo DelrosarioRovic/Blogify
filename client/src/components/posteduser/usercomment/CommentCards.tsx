@@ -9,18 +9,19 @@ interface CardInfo {
   img: string;
   like: number;
   comment: number;
-  handleReply: () => void
-  handleComment: () => void
+  handleReply: () => void;
+  handleComment: () => void;
 }
 
 const CommentCards = (props: CardInfo) => {
-
-
   return (
     <div className="flex flex-row gap-3 mt-4 overflow-hidden">
-      <div className="h-8 w-8 rounded-full bg-red-500 flex justify-center items-center text-white">
-        {props.img}
+      <div className="w-8 h-8">
+        <div className="h-8 w-8 rounded-full bg-red-500 flex justify-center items-center text-white">
+          {props.img}
+        </div>
       </div>
+
       <div className="p-2 border w-full">
         <h1 className="font-semibold flex gap-3 items-center">
           {props.name}
@@ -38,7 +39,12 @@ const CommentCards = (props: CardInfo) => {
             <Comment comments={props.comment} />
           </span>
 
-          <span onClick={props.handleComment} className="cursor-pointer text-[.75rem] font-semibold">Reply</span>
+          <span
+            onClick={props.handleComment}
+            className="cursor-pointer text-[.75rem] font-semibold"
+          >
+            Reply
+          </span>
         </div>
       </div>
     </div>

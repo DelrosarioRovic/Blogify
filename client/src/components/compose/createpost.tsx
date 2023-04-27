@@ -18,7 +18,7 @@ const createpost: React.FC<picture> = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {
-          const result = await ApiCall("POST", "http://localhost:3000/compose", {
+          const result = await ApiCall("POST", "http://localhost:4000/compose", {
               title,
               content,
             });
