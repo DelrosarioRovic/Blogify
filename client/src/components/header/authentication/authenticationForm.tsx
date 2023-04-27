@@ -5,7 +5,6 @@ import ThirdPartyAuth from "./third-party-auth";
 
 interface authenticationForm {
   isAuthenticationFormShow: boolean;
-  setIsLogIn:   (value: boolean) => void;
   ifShowAuthForm: () => void;
 }
 
@@ -39,7 +38,6 @@ const AuthenticationForm: React.FC<authenticationForm> = (props) => {
             isLoginForm={isLoginForm}
             setIsLoginForm={setIsLoginForm}
             checkStatus={checkStatus}
-            setIsLogin={props.setIsLogIn}
             ifShowAuthForm={props.ifShowAuthForm}
           />
           <Register

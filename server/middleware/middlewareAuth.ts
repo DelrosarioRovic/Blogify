@@ -10,7 +10,6 @@ interface CustomRequest extends Request {
 
 const MiddlewareAuth = (req: CustomRequest, res: Response, next: NextFunction) => {
   const token = req.cookies.access_token;
-  console.log(token);
   if (!token) {
     req.userId = null; 
     return next(); 

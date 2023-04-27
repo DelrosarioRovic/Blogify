@@ -8,11 +8,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ThirdPartyAuth: React.FC = () => {
   const googleSigIn = async() => {
-    window.open("http://localhost:3000/auth/google", "_self");
+    window.open("http://localhost:4000/auth/google", "_self");
   }
 
   const gitHubSigIn = () => {
-    window.open("http://localhost:3000/auth/github", "_self");
+    window.open("http://localhost:4000/auth/github", "_self");
   }
 
   

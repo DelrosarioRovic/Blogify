@@ -1,5 +1,9 @@
 import React, {useState} from "react";
+import { Navigate } from 'react-router-dom';
 import ApiCall from "../../API/Api-call";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const createpost:React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -12,13 +16,14 @@ const createpost:React.FC = () => {
               title,
               content,
             });
-          console.log(result);
+            if (result.status === 200) {
+              toast.success(result.data.message);
+            }
       } catch (error) {
           console.log(error)
       }
      
   }
-
 
   return (
     <div className="max-w-4xl mx-auto min-h-[500px] border p-4 rounded-lg">
