@@ -16,6 +16,7 @@ export interface PostObj {
   content?: string;
   date?: string;
   profilePicture?: string | null;
+  numComments?: number;
 }
 
 const Post = () => {
@@ -45,6 +46,7 @@ const Post = () => {
     fetchMorePosts();
   }, []);
 
+
   return (
     <InfiniteScroll
       dataLength={posts.length}
@@ -72,7 +74,7 @@ const Post = () => {
             <div className="flex flex-row gap-2">
               <Like Like={2} />
               <Link to={`/post/${post._id}#comment`}>
-                <Comment comments={6} />
+                <Comment numComments={post?.numComments} />
               </Link>
               <Share />
             </div>

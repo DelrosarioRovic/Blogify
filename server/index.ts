@@ -10,6 +10,7 @@ import thirdPartyMwAuth from "./middleware/thirdpartymwAuth";
 import authControllers from "./controllers/authControllers";
 import authThirdPartyControllers from "./controllers/authThirdPartyController";
 import composeController from "./controllers/compose-controller";
+import commentController from "./controllers/comment-controller";
 import postRoutes from "./routes/postRoutes";
 import userRoutes from "./routes/userRoutes";
 
@@ -45,6 +46,8 @@ app.use('/auth', authThirdPartyControllers);
 app.use('/auth', authControllers);
 //create post controllers
 app.use(composeController);
+app.use(commentController);
+
 
 
 app.listen(4000, () => {

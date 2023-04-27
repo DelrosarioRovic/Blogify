@@ -31,6 +31,7 @@ function idpost() {
           content: response.data[0].content,
           date: response.data[0].date,
           profilePicture: response.data[0].profilePicture || null,
+          numComments: response.data[0].numComments 
         });
         setLoading(false);
       } catch (err) {
@@ -81,7 +82,7 @@ function idpost() {
           ) : (
             <div className="flex gap-2">
               <Like Like={2} />
-              <Comment comments={2} />
+              <Comment numComments={2} />
               <Share />
             </div>
           )}
@@ -111,7 +112,7 @@ function idpost() {
           </div>
         </div>
       </div>
-      <UserComment id="comment" />
+      <UserComment id="comment" numComments={post.numComments} />
     </div>
   );
 }
