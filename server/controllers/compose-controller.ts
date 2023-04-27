@@ -12,7 +12,7 @@ router.post("/compose", MiddlewareAuth, async(req:CustomRequest, res: Response) 
     const googleUserId = req.googleUserId;
     
     const userLocal = await User.findById(userId);
-    const userProvider = await User.findOne({ googleId: googleUserId });
+    const userProvider = googleUserId ? await User.findOne({ googleId: googleUserId }) : null;
   
     const localOrProvided:any = userLocal || userProvider;
     if (!localOrProvided) {

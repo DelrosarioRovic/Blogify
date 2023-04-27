@@ -16,6 +16,7 @@ export interface PostObj {
   content?: string;
   date?: string;
   profilePicture?: string | null;
+  numComments?: number;
 }
 
 const Post = () => {
@@ -45,6 +46,7 @@ const Post = () => {
     fetchMorePosts();
   }, []);
 
+
   return (
     <InfiniteScroll
       dataLength={posts.length}
@@ -54,6 +56,7 @@ const Post = () => {
       endMessage={<p style={{ textAlign: "center" }}><b>No more posts to show!</b></p>}
     >
       {posts.map((post: PostObj, index: number) => (
+       
         <div key={index} className="max-w-4xl mx-auto flex flex-col gap-4">
           <Link to={`/post/${post._id}`}>
             <p className="text-2xl font-bold">{post.title}</p>
@@ -65,7 +68,7 @@ const Post = () => {
             <div className="flex flex-row gap-2">
               <Like Like={2} />
               <Link to={`/post/${post._id}#comment`}>
-                <Comment comments={6} />
+                <Comment numComments={post?.numComments} />
               </Link>
               <Share />
             </div>
