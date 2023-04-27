@@ -1,12 +1,12 @@
-import { Router, Request, Response } from 'express';
-import Post from '../models/post.model';
-import Comment from '../models/comment.model';
+import { Router, Request, Response } from "express";
+import Post from "../models/post.model";
+import Comment from "../models/comment.model";
 
 const router = Router();
 
 const findPostById = async (postId: string) => {
   return await Post.findById(postId);
-}
+};
 
 const getPostAggregatePipeline = () => {
   return [
@@ -15,19 +15,19 @@ const getPostAggregatePipeline = () => {
         from: "users",
         localField: "user",
         foreignField: "_id",
-        as: "user"
-      }
+        as: "user",
+      },
     },
     {
-      $unwind: "$user"
+      $unwind: "$user",
     },
     {
       $lookup: {
         from: "comments",
         localField: "_id",
         foreignField: "post",
-        as: "comments"
-      }
+        as: "comments",
+      },
     },
     {
       $project: {
@@ -38,43 +38,59 @@ const getPostAggregatePipeline = () => {
         content: 1,
         date: { $dateToString: { format: "%m/%d/%Y", date: "$date" } },
         profilePicture: "$user.profilePicture",
-        numComments: { $size: "$comments" }
-      }
-    }
+        numComments: { $size: "$comments" },
+      },
+    },
   ];
-}
+};
 
-router.get('/post', async (req: Request, res: Response) => {
+router.get("/post", async (req: Request, res: Response) => {
   try {
     const skip: number = Number(req.query.skip) || 0;
     const limit: number = Number(req.query.limit) || 5;
-    const pipeline = [...getPostAggregatePipeline(), { $skip: skip }, { $limit: limit }];
-    const posts: any = await Post.aggregate(pipeline);   
-    
+    const pipeline = [
+      ...getPostAggregatePipeline(),
+      { $skip: skip },
+      { $limit: limit },
+    ];
+    const posts: any = await Post.aggregate(pipeline);
+
     res.json(posts);
   } catch (error) {
-    
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 });
-
 
 router.get("/single-post/:postId", async (req: Request, res: Response) => {
   try {
     const postId = req.params.postId;
-    const findPost:any = await findPostById(postId);
-    const pipeline = [...getPostAggregatePipeline(), { $match: { _id: findPost._id } }];
+    const findPost: any = await findPostById(postId);
+    const pipeline = [
+      ...getPostAggregatePipeline(),
+      { $match: { _id: findPost._id } },
+    ];
     const post: any = await Post.aggregate(pipeline);
 
-    const comments = await Comment.find({ post: postId })
-      .populate('user', 'displayName profilePicture') 
+
+
+    const Unfinishcomments = await Comment.find({ post: postId })
+      .populate("user", "displayName profilePicture")
       .exec();
- 
-    res.json({post, comments});
+
+    const comments = Unfinishcomments.map((comment) => ({
+      ...comment.toJSON(),
+      date: comment.date.toLocaleDateString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+      }),
+    }));
+
+    res.json({ post, comments });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
