@@ -44,15 +44,18 @@ const Post = () => {
   return (
     <>
       {posts.map((item: PostObj) => (
+        <div key={item.post_id} className="max-w-2xl mx-auto mt-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-300 relative">
+
+       <img src={``} alt={`post_cover`} className="bg-black w-full h-36"/>
+       
         <div
-          key={item.post_id}
-          className="bg-stone-100 bg-opacity-[.4] max-md:px-4 z-[1] relative mt-4 active:outline active:outline-[2px] active:outline-slate-700 max-w-2xl mx-auto flex flex-col gap-4 sm:border max-sm:border-y border-gray-300 sm:rounded-md md:px-12 py-4"
+          className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4"
         >
           <Link
             to={"/post/" + item.post_id}
-            className=" after:absolute after:w-full after:h-full after:top-0 after:left-0 after:z-0 cursor-pointer"
+            className="text-[2rem] font-bold after:absolute after:w-full after:h-full after:top-0 after:left-0 after:z-0 hover:text-blue-950 cursor-pointer"
           >
-            <p className="text-[2rem] font-bold">{item.title}</p>
+            {item.title}
           </Link>
           <p className="text-gray-800">{item.content.substring(0, 200)}...</p>
           <div className="flex gap-4 justify-start items-center text-gray-500 font-semibold">
@@ -69,6 +72,7 @@ const Post = () => {
               <Share />
             </div>
           </div>
+        </div>
         </div>
       ))}
     </>

@@ -7,7 +7,7 @@ import Router from './components/router/router';
 const App:React.FC= () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   return (
-    <div className='w-full min-h-screen max-w-4xl mx-auto max-xl:px-6'>
+    <div className='w-full min-h-screen max-w-4xl mx-auto'>
       <Header 
        isLogin={isLogin}
        setIsLogin={setIsLogin}
