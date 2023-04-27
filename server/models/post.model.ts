@@ -16,7 +16,12 @@ const blogPostSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  //test
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment'
+  }]
 });
 
 const Post = mongoose.model("Post", blogPostSchema);

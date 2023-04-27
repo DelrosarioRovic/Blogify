@@ -47,7 +47,6 @@ const AuthenticationForm: React.FC<authenticationForm> = (props) => {
             isLoginForm={isLoginForm}
             setIsLoginForm={setIsLoginForm}
             checkStatus={checkStatus}
-            setIsLogin={props.setIsLogIn}
             ifShowAuthForm={props.ifShowAuthForm}
           />
           <Register

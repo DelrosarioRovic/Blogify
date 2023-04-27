@@ -11,9 +11,9 @@ const apiCall = async (method: string, url: string, data?: any) => {
         'Content-Type': 'application/json'
       }
     });
-    return response.data;
-  } catch (error) {
-    return error;
+    return response;
+  } catch (error:any) {
+    return error.response;
   }
 };
 

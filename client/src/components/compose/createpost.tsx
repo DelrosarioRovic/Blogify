@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
+
 interface picture {
   setaddPic: () => void
 }
