@@ -4,11 +4,10 @@ import Like from "./comment_like_share/like";
 import Share from "./comment_like_share/share";
 import { useEffect, useState } from "react";
 import ApiCall from "../../API/Api-call";
-
-
+import UserAvatar from "../reusableComponent/userAvatar";
 export interface PostObj {
   post_id: string;
-  user_id:string,
+  user_id: string;
   displayName: string;
   title: string;
   content: string;
@@ -22,11 +21,14 @@ const Post = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const response = await ApiCall("GET", "http://localhost:3000/route/post");
+        const response = await ApiCall(
+          "GET",
+          "http://localhost:3000/route/post"
+        );
         const posts = response.map((item: any) => {
           return {
             post_id: item._id,
-            user_id:item.userId,
+            user_id: item.userId,
             displayName: item.displayName,
             title: item.title,
             content: item.content,
@@ -40,14 +42,26 @@ const Post = () => {
   }, []);
 
   return (
-    <div className="w-full h-full bg-transparent">
+    <>
       {posts.map((item: PostObj) => (
-        <div key={item.post_id} className="max-w-4xl mx-auto flex flex-col gap-4">
-          <Link to={"/post/"+item.post_id}>
-            <p className="text-[2rem] font-bold">{item.title}</p>
+        <div key={item.post_id} className="max-w-2xl mx-auto mt-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-300 relative">
+
+       <img src={``} alt={`post_cover`} className="bg-black w-full h-36"/>
+
+        <div
+          className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4"
+        >
+          <Link
+            to={"/post/" + item.post_id}
+            className="text-[2rem] font-bold after:absolute after:w-full after:h-full after:top-0 after:left-0 after:z-0 hover:text-blue-950 cursor-pointer"
+          >
+            {item.title}
           </Link>
-          <p className="text-gray-800">{item.content}</p>
+          <p className="text-gray-800">{item.content.substring(0, 200)}...</p>
           <div className="flex gap-4 justify-start items-center text-gray-500 font-semibold">
+            <div className="h-9 w-9 rounded-full overflow-hidden bg-black">
+              <UserAvatar profilePicture={``} displayName={``} />
+            </div>
             <p className="text-[.85rem] ">{item.displayName}</p>
             <p className="text-[.85rem] ">{item.date}</p>
             <div className="flex flex-row gap-2">
@@ -59,8 +73,9 @@ const Post = () => {
             </div>
           </div>
         </div>
+        </div>
       ))}
-    </div>
+    </>
   );
 };
 

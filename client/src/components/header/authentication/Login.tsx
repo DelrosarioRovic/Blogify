@@ -70,7 +70,7 @@ const Login: React.FC<loginForm> = (props) => {
           LOGIN
         </button>
       </form>
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-gray-500 mt-2">
         Don't Have an Account?
         <button className="text-blue-500" onClick={props.checkStatus}>
           {" "}
