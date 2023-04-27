@@ -66,8 +66,12 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
     const findPost:any = await findPostById(postId);
     const pipeline = [...getPostAggregatePipeline(), { $match: { _id: findPost._id } }];
     const post: any = await Post.aggregate(pipeline);
-  
-    res.json(post);
+
+    const comments = await Comment.find({ post: postId })
+      .populate('user', 'displayName profilePicture') 
+      .exec();
+ 
+    res.json({post, comments});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
