@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
+import { Date } from "mongoose";
 
 const router = Router();
 
@@ -75,26 +76,27 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
     const populateComments = async (comments: any) => {
       for (let i = 0; i < comments.length; i++) {
         const comment = comments[i];
+        
         if (comment.replies.length > 0) {
-          const populatedReplies = await Comment.find({ _id: { $in: comment.replies }})
-            .populate('user', 'displayName profilePicture')
+          const populatedReplies = await Comment.find({
+            _id: { $in: comment.replies },
+          })
+            .populate("user", "displayName profilePicture")
             .exec();
           comment.replies = await populateComments(populatedReplies);
         }
       }
       return comments;
-    }
-    
+    };
+
     const Unfinishcomments = await Comment.find({
       post: postId,
       parentComment: { $exists: false },
     })
       .populate("user", "displayName profilePicture")
       .exec();
-    
+
     const comments = await populateComments(Unfinishcomments);
-    console.log(comments);
-    
 
     res.json({ post, comments });
   } catch (error) {

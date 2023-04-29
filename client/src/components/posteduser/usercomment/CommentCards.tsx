@@ -6,7 +6,7 @@ interface CardInfo {
   name: string;
   date: string;
   Comment: string;
-  img: string;
+  img: React.ReactNode;
   like: number;
   comment: number;
   handleReply: () => void;

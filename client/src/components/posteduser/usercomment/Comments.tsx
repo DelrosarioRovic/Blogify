@@ -3,12 +3,14 @@ import CommentCards from "./CommentCards";
 import CreateComment from "./CreateComment";
 import singlePost from "../../../hooks/single-post";
 import { Comment } from "../../../interface/hook/CommentObj";
+import UserAvatar from "../../reusableComponent/userAvatar";
 
 const UsersComments: React.FC = () => {
   const { comment } = singlePost();
   const [replyIndexAr, setReplyIndexAr] = useState<string[]>([]);
   const [commentIndexAr, setCommentIndexAr] = useState<string[]>([]);
 
+  console.log(comment);
   const toggleIndex = (id: string, state: string[]) => {
     return state.includes(id) ? state.filter((i) => i !== id) : [...state, id];
   };
@@ -27,9 +29,9 @@ const UsersComments: React.FC = () => {
         <CommentCards
           handleComment={() => handleCommentClick(comment._id)}
           handleReply={() => handleReplyClick(comment._id)}
-          like={1}
-          comment={2}
-          img="A"
+          like={0}
+          comment={comment.replies.length}
+          img={<UserAvatar profilePicture={comment.user.profilePicture} displayName={comment.user.displayName} />}
           name={comment.user.displayName}
           date={comment.date}
           Comment={comment.text}
