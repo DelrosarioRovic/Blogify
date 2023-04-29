@@ -4,14 +4,26 @@ import useAuthentication from '../../../hooks/isAuthenticated';
 import ApiCall from '../../../API/Api-call';
 import { useParams } from "react-router-dom";
 
- const CreateComment = () => {
+interface type {
+  type: string;
+  id?: string;
+}
+
+
+ const CreateComment: React.FC<type> = (props) => {
   const postId = useParams();
   const { authenticated, data } = useAuthentication();
   const [comment, setComment] = useState<string>('');
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>)  => {
     event.preventDefault();
+
+    let url = 'http://localhost:4000/comment';
+    if (props.type === 'reply') {
+      url = `http://localhost:4000/comment/${props.id}/replies`;
+    }
+
     try {
-      const response = ApiCall('post', 'http://localhost:4000/comment',{
+      const response = ApiCall('post', url,{
         comment,
         postId
       })
