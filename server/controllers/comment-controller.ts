@@ -30,9 +30,8 @@ router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) 
     });
 
     newComment.save();
+    return res.status(200).json({ message: "Success" });
 
-
-    console.log("Successfully Post Comment");
 });
 
 router.post("/comment/:commentId/replies", MiddlewareAuth, async(req:CustomRequest, res: Response)=> {
@@ -64,8 +63,7 @@ router.post("/comment/:commentId/replies", MiddlewareAuth, async(req:CustomReque
     });
     parentComment.replies.push(newComment);
     await parentComment.save();
-
-    console.log("Successfully Post Comment");
+    return res.status(200).json({ message: "Success" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

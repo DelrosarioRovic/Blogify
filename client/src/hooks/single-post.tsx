@@ -26,7 +26,6 @@ const singlePost = () => {
         "get",
         `http://localhost:4000/route/single-post/${postId.postId}`
       );
-      console.log(response);
       setPost(response.data.post[0]);
       setComment(response.data.comments);
       setLoading(false);
@@ -37,6 +36,8 @@ const singlePost = () => {
 
   useEffect(() => {
     fetchSinglePost();
+    const intervalId = setInterval(fetchSinglePost, 5000); // Send request every 5 seconds
+    return () => clearInterval(intervalId); // Clean up the interval
   }, []);
 
   return { post, comment, loading };

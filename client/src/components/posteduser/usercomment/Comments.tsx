@@ -37,7 +37,7 @@ const UsersComments: React.FC = () => {
           Comment={comment.text}
         />
         <div className={`${replyIndexAr.includes(comment._id) ? "block" : "hidden"} mt-3 `}>
-          <CreateComment type={"reply"} id={comment._id} />
+          <CreateComment type={"reply"} id={comment._id} setReplyIndexAr={setReplyIndexAr}/>
         </div>
         <div className={`${commentIndexAr.includes(comment._id) ? "block" : "hidden"} pl-9 gap-3`}>
           {comment.replies && renderComments(comment.replies)}

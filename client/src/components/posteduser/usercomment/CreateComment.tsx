@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 interface type {
   type: string;
   id?: string;
+  setReplyIndexAr: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 
@@ -14,7 +15,7 @@ interface type {
   const postId = useParams();
   const { authenticated, data } = useAuthentication();
   const [comment, setComment] = useState<string>('');
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>)  => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>)  => {
     event.preventDefault();
 
     let url = 'http://localhost:4000/comment';
@@ -23,10 +24,15 @@ interface type {
     }
 
     try {
-      const response = ApiCall('post', url,{
+      const response = await ApiCall('post', url,{
         comment,
         postId
       })
+      
+      if (response.status === 200) {
+        setComment("");
+        props.setReplyIndexAr((prevArr) => prevArr.filter((id) => id !== props.id));
+      }
       console.log(response);
     } catch (error) {
       console.log(error);

@@ -12,7 +12,7 @@ import singlePost from "../../hooks/single-post";
 
 function idpost() {
   const { post, loading } = singlePost();
-  console.log(post);
+  
   return (
     <div className="max-w-4xl mx-auto py-4 px-12 border border-gray-200 rounded-xl">
       <div className="flex justify-between">
