@@ -5,7 +5,8 @@ import { PostObj } from "../interface/hook/PostObj";
 
 const useFetchPosts = () => {
   const [posts, setPosts] = useState<PostObj[]>([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchMorePosts = async () => {
     const limit: number = 3;
@@ -18,6 +19,7 @@ const useFetchPosts = () => {
         key: index,
       }));
       setPosts([...posts, ...newPosts]);
+      setLoading(false);
       if (newPosts < limit) {
         setHasMore(false);
       }
@@ -25,12 +27,12 @@ const useFetchPosts = () => {
       console.log(error);
     }
   };
-
+  
   useEffect(() => {
     fetchMorePosts();
   }, []);
 
-  return { posts, hasMore, fetchMorePosts };
+  return { posts, hasMore, fetchMorePosts, loading, setLoading };
 };
 
 export default useFetchPosts;

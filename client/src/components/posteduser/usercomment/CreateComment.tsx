@@ -63,6 +63,7 @@ interface type {
         rows={4}
         value={comment}
         onChange={(e) => setComment(e.target.value)}
+        required
       ></textarea>
       <button className="bg-slate-600 px-6 py-2 text-white rounded-lg">
         Submit
