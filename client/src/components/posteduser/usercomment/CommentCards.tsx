@@ -9,8 +9,9 @@ interface CardInfo {
   img: React.ReactNode;
   like: number;
   comment: number;
-  handleReply: () => void;
+  handleReply?: () => void;
   handleComment: () => void;
+  isMaxDepth: boolean;
 }
 
 const CommentCards = (props: CardInfo) => {
@@ -43,7 +44,7 @@ const CommentCards = (props: CardInfo) => {
             onClick={props.handleReply}
             className="cursor-pointer text-[.75rem] font-semibold"
           >
-            Reply
+            {props.isMaxDepth ? "Thread" : "Reply"}
           </span>
         </div>
       </div>

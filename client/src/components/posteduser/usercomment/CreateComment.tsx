@@ -12,6 +12,7 @@ interface type {
 
 const CreateComment: React.FC<type> = (props) => {
   const postId = useParams();
+  const [isShowBtn, SetIsShowBtn] = useState<boolean>(false);
   const { authenticated, data } = useAuthentication();
   const [comment, setComment] = useState<string>("");
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +32,6 @@ const CreateComment: React.FC<type> = (props) => {
       if (response.status === 200 && props.handleCloseReply) {
         props.handleCloseReply();
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
