@@ -3,6 +3,7 @@ import UserAvatar from "../../reusableComponent/userAvatar";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import ApiCall from "../../../API/Api-call";
 import { useParams } from "react-router-dom";
+import { CommentForm, ReplyForm } from "./comment&ReplyForm";
 
 interface type {
   type: string;
@@ -52,23 +53,23 @@ const CreateComment: React.FC<type> = (props) => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="w-full">
-        <textarea
-          className="w-full border p-2 resize-y"
-          id="email-input"
-          placeholder="Comment"
-          rows={4}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          required
-        ></textarea>
-        <button className="bg-slate-600 px-6 py-2 text-white rounded-lg">
-          Submit
-        </button>
-        {props.type === "reply" && (
-          <span onClick={props.handleCloseReply}>cancel</span>
-        )}
-      </form>
+      {props.type === "reply" ? (
+        <ReplyForm
+          handleSubmit={handleSubmit}
+          comment={comment}
+          setComment={setComment}
+          placeholder={props.type}
+          handleCloseReply={props.handleCloseReply}
+        />
+      ) : (
+        <CommentForm
+          handleSubmit={handleSubmit}
+          comment={comment}
+          setComment={setComment}
+          placeholder={props.type}
+          row={1}
+        />
+      )}
     </div>
   );
 };
