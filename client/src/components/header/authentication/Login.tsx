@@ -3,13 +3,9 @@ import ApiCall from "../../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useAuthentication from "../../../hooks/isAuthenticated";
-  
-interface loginForm {
-  isLoginForm: boolean;
-  setIsLoginForm: (value: boolean) => void;
-  checkStatus: () => void;
-  ifShowAuthForm: () => void;
-}
+// props interface
+import { loginForm } from "../../../interface/props/login&RegFormProps";
+
 
 const Login: React.FC<loginForm> = (props) => {
   const { signIn } =useAuthentication();

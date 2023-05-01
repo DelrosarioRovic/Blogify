@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { GoSignIn } from 'react-icons/go';
 import AuthenticationForm from "./authenticationForm";
 import UserProfile from "./userProfile";

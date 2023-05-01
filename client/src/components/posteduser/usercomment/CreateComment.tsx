@@ -4,17 +4,35 @@ import useAuthentication from '../../../hooks/isAuthenticated';
 import ApiCall from '../../../API/Api-call';
 import { useParams } from "react-router-dom";
 
- const CreateComment = () => {
+interface type {
+  type: string;
+  id?: string;
+  setReplyIndexAr: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+
+ const CreateComment: React.FC<type> = (props) => {
   const postId = useParams();
   const { authenticated, data } = useAuthentication();
   const [comment, setComment] = useState<string>('');
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>)  => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>)  => {
     event.preventDefault();
+
+    let url = 'http://localhost:4000/comment';
+    if (props.type === 'reply') {
+      url = `http://localhost:4000/comment/${props.id}/replies`;
+    }
+
     try {
-      const response = ApiCall('post', 'http://localhost:4000/comment',{
+      const response = await ApiCall('post', url,{
         comment,
         postId
       })
+      
+      if (response.status === 200) {
+        setComment("");
+        props.setReplyIndexAr((prevArr) => prevArr.filter((id) => id !== props.id));
+      }
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -45,6 +63,7 @@ import { useParams } from "react-router-dom";
         rows={4}
         value={comment}
         onChange={(e) => setComment(e.target.value)}
+        required
       ></textarea>
       <button className="bg-slate-600 px-6 py-2 text-white rounded-lg">
         Submit

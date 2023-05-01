@@ -1,71 +1,52 @@
 import React, { useState } from "react";
 import CommentCards from "./CommentCards";
 import CreateComment from "./CreateComment";
-const usersComments = () => {
-  const [firstComment, setfirstComment] = useState(true);
-  const [secondComment, setSecondComment] = useState(true);
-  const [thirdComment, setThirdComment] = useState(true);
+import singlePost from "../../../hooks/single-post";
+import { Comment } from "../../../interface/hook/CommentObj";
+import UserAvatar from "../../reusableComponent/userAvatar";
 
-  const [fisrtreply, SetFirstReply] = useState(true)
-  const [secondreply, SetSecondReply] = useState(true)
+const UsersComments: React.FC = () => {
+  const { comment } = singlePost();
+  const [replyIndexAr, setReplyIndexAr] = useState<string[]>([]);
+  const [commentIndexAr, setCommentIndexAr] = useState<string[]>([]);
 
+  console.log(comment);
+  const toggleIndex = (id: string, state: string[]) => {
+    return state.includes(id) ? state.filter((i) => i !== id) : [...state, id];
+  };
 
-  return (
-    <>
-      <CommentCards
-        handleReply={() => setfirstComment((preValue) => !preValue)}
-        handleComment={() => SetFirstReply((preValue => !preValue))}
-        like={1}
-        comment={2}
-        img="A"
-        name={`Alexiess Manalastas`}
-        date={`March 21, 2000`}
-        Comment={`You might want to consider the case that 32°F equates to 0°C. Your comment works well. But might confuse some.`}
-      />
-       <div className={`${fisrtreply ? "hidden" : ""} mt-3 `}>
-        <CreateComment />
-        </div>  
+  const handleReplyClick = (id: string) => {
+    setReplyIndexAr((prevArr) => toggleIndex(id, prevArr));
+  };
 
-      <div className={`${firstComment ? "hidden" : " "} pl-9 gap-3`}>
+  const handleCommentClick = (id: string) => {
+    setCommentIndexAr((prevArr) => toggleIndex(id, prevArr));
+  };
+
+  const renderComments = (comments: Comment[]) => {
+    return comments.map((comment) => (
+      <React.Fragment key={comment._id}>
         <CommentCards
-          handleReply={() => setSecondComment((preValue) => !preValue)}
-          handleComment={() => SetSecondReply((preValue => !preValue))}
-          like={1}
-          comment={1}
-          img="J"
-          name={`Jono Nombeng`}
-          date={`November 1, 2000`}
-          Comment={`Ow come on you so bad at design😥`}
+          handleComment={() => handleCommentClick(comment._id)}
+          handleReply={() => handleReplyClick(comment._id)}
+          like={0}
+          comment={comment.replies.length}
+          img={<UserAvatar profilePicture={comment.user.profilePicture} displayName={comment.user.displayName} />}
+          name={comment.user.displayName}
+          date={comment.date}
+          Comment={comment.text}
         />
-        
-        <div className={`${secondComment ? "hidden" : " "} pl-10 gap-3`}>
-          <CommentCards
-            handleReply={() => setSecondComment((preValue) => !preValue)}
-            handleComment={() => SetSecondReply((preValue => !preValue))}
-            like={1}
-            comment={0}
-            img="J"
-            name={`Jhon doe Cutes`}
-            date={`January 1, 2050`}
-            Comment={`Good job 🤣😥😥`}
-          />
+        <div className={`${replyIndexAr.includes(comment._id) ? "block" : "hidden"} mt-3 `}>
+          <CreateComment type={"reply"} id={comment._id} setReplyIndexAr={setReplyIndexAr}/>
         </div>
+        <div className={`${commentIndexAr.includes(comment._id) ? "block" : "hidden"} pl-9 gap-3`}>
+          {comment.replies && renderComments(comment.replies)}
+        </div>
+      </React.Fragment>
+    ));
+  };
 
-
-        <CommentCards
-          handleReply={() => setThirdComment((preValue) => !preValue)}
-          handleComment={() => SetSecondReply((preValue => !preValue))}
-          like={5}
-          comment={0}
-          img="B"
-          name={`Bochiks Cutie`}
-          date={`February 2, 6000`}
-          Comment={`Nice good work much better to make some padding right thanks :) `}
-        />
-        <div className={`${thirdComment ? "hidden" : " "} pl-12 gap-3`}></div>
-      </div>
-    </>
-  );
+  return <>{renderComments(comment)}</>;
 };
 
-export default usersComments;
+export default UsersComments;

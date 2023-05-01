@@ -6,15 +6,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
-
-interface picture {
-  setaddPic: () => void
-}
-const createpost: React.FC<picture> = () => {
+const createpost: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [addPic, setaddPic] = useState("")
+  const [addPic, setaddPic] = useState<string>("");
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {

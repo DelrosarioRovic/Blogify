@@ -3,17 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import ApiCall from "../API/Api-call";
 import { AuthState } from "../redux/reducer/authReducer"; 
 
-export interface UserAccountInfo {
-  _id: string;
-  email: string;
-  displayName: string;
-  profilePicture: string | null;
-}
+// interface hook
+import { AuthUserInfo } from '../interface/hook/AuthUserInfo';
 
 const useAuthentication = () => {
   const dispatch = useDispatch();
   const authenticated = useSelector((state: AuthState) => state.authenticated);
-  const [data, setData] = useState<UserAccountInfo | null>(null);
+  const [data, setData] = useState<AuthUserInfo | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
