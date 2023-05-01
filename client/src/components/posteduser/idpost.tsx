@@ -12,14 +12,14 @@ function idpost() {
   const { post, loading } = singlePost();
   
   return (
-    <div className="max-w-4xl mx-auto py-4 border border-gray-200 rounded-xl mt-12">
+    <div className="max-w-4xl mx-auto py-4 md:border border-gray-200 rounded-xl mt-12">
       <div className="px-12 max-md:px-4">
       <div className="flex justify-between">
         <div className="flex gap-6">
           {loading ? (
             <Skeleton circle={true} width={"2.5rem"} height={"2.5rem"} />
           ) : (
-            <div className="flex justify-center items-center w-10 h-10 bg-slate-600 rounded-full text-white overflow-hidden">
+            <div className=" flex justify-center items-center w-10 h-10 bg-slate-600 rounded-full text-white overflow-hidden">
               <UserAvatar
                 profilePicture={post.profilePicture}
                 displayName={post.displayName}

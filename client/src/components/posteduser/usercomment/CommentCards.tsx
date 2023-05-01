@@ -23,10 +23,10 @@ const CommentCards = (props: CardInfo) => {
       </div>
 
       <div className="p-2 border w-full">
-        <h1 className="font-semibold flex gap-3 items-center">
+        <h1 className="font-semibold flex gap-3 items-center max-sm:text-[.80rem] whitespace-nowrap">
           {props.name}
           <span className="bg-slate-500 h-1 w-1 rounded-full -ml-[8px]"></span>
-          <span className="font-[400] text-[.75rem] text-gray-500 ">
+          <span className="font-[400] text-[.70rem] text-gray-500 ">
             {props.date}
           </span>
         </h1>
