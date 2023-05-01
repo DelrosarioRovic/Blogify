@@ -1,12 +1,14 @@
-import { Router, Request, Response } from 'express';
-import Post from '../models/post.model';
-import Comment from '../models/comment.model';
+import { Router, Request, Response } from "express";
+import Post from "../models/post.model";
+import Comment from "../models/comment.model";
+import { Date } from "mongoose";
+import { log } from "console";
 
 const router = Router();
 
 const findPostById = async (postId: string) => {
   return await Post.findById(postId);
-}
+};
 
 const getPostAggregatePipeline = () => {
   return [
@@ -15,19 +17,19 @@ const getPostAggregatePipeline = () => {
         from: "users",
         localField: "user",
         foreignField: "_id",
-        as: "user"
-      }
+        as: "user",
+      },
     },
     {
-      $unwind: "$user"
+      $unwind: "$user",
     },
     {
       $lookup: {
         from: "comments",
         localField: "_id",
         foreignField: "post",
-        as: "comments"
-      }
+        as: "comments",
+      },
     },
     {
       $project: {
@@ -38,39 +40,74 @@ const getPostAggregatePipeline = () => {
         content: 1,
         date: { $dateToString: { format: "%m/%d/%Y", date: "$date" } },
         profilePicture: "$user.profilePicture",
-        numComments: { $size: "$comments" }
-      }
-    }
+        numComments: { $size: "$comments" },
+      },
+    },
   ];
-}
+};
 
-router.get('/post', async (req: Request, res: Response) => {
+router.get("/post", async (req: Request, res: Response) => {
   try {
     const skip: number = Number(req.query.skip) || 0;
     const limit: number = Number(req.query.limit) || 5;
-    const pipeline = [...getPostAggregatePipeline(), { $skip: skip }, { $limit: limit }];
-    const posts: any = await Post.aggregate(pipeline);   
-    
+    const pipeline = [
+      ...getPostAggregatePipeline(),
+      { $skip: skip },
+      { $limit: limit },
+    ];
+    const posts: any = await Post.aggregate(pipeline);
+
     res.json(posts);
   } catch (error) {
-    
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 });
-
 
 router.get("/single-post/:postId", async (req: Request, res: Response) => {
   try {
     const postId = req.params.postId;
-    const findPost:any = await findPostById(postId);
-    const pipeline = [...getPostAggregatePipeline(), { $match: { _id: findPost._id } }];
+    const findPost: any = await findPostById(postId);
+    const pipeline = [
+      ...getPostAggregatePipeline(),
+      { $match: { _id: findPost._id } },
+    ];
     const post: any = await Post.aggregate(pipeline);
-  
-    res.json(post);
+
+    const populateComments = async (comments: any) => {
+      for (let i = 0; i < comments.length; i++) {
+        const comment = comments[i];
+        
+        if (comment.replies.length > 0) {
+          const populatedReplies = await Comment.find({
+            _id: { $in: comment.replies },
+          })
+            .populate("user", "displayName profilePicture")
+            .exec();
+          comment.replies = await populateComments(populatedReplies);
+        }
+      }
+      return comments;
+    };
+
+    const Unfinishcomments = await Comment.find({
+      post: postId,
+      parentComment: { $exists: false },
+    })
+      .populate("user", "displayName profilePicture")
+      .exec();
+
+    const comments = await populateComments(Unfinishcomments);
+    
+    console.log(post);
+    console.log(comments);
+    
+    
+    res.json({ post, comments });
+
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 });
 

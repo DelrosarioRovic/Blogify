@@ -1,9 +1,6 @@
 import React from "react";
-
-export interface ProfilePictureProps {
-  profilePicture?: string | null;
-  displayName?: string;
-}
+// interface props
+import { ProfilePictureProps } from "../../interface/props/profilePictureProps";
 
 const userAvatar: React.FC<ProfilePictureProps> = (props) => {
   const { profilePicture, displayName } = props;

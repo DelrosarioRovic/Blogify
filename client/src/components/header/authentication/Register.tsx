@@ -2,12 +2,8 @@ import React, {useState} from "react";
 import ApiCall from "../../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-interface registerForm {
-  isLoginForm: boolean;
-  setIsLoginForm: (value: boolean) => void;
-  checkStatus: () => void;
-}
+//interface props
+import { registerForm } from "../../../interface/props/login&RegFormProps";
 
 const Register: React.FC<registerForm> = (props) => {
 

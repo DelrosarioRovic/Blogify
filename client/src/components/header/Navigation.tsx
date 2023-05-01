@@ -1,9 +1,10 @@
 import React from "react";
-import NotAuthenticated from "./authentication/notAuthenticated";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import useAuthentication from "../../hooks/isAuthenticated";
+import NotAuthenticated from "./authentication/notAuthenticated";
 
 const Navigation: React.FC = () => {
   const { authenticated } = useAuthentication();

@@ -10,7 +10,7 @@ const UserComment = (props: comment) => {
   return (
     <div id={`${props.id}`} className="border-t px-12 max-md:px-3 py-3">
       <h1 className="mb-8"> Comments {`(${props?.numComments})`}</h1>
-      <CreateComment />
+      <CreateComment type={"comment"}/>
       <div className="pt-8">
         <Comments />
       </div>

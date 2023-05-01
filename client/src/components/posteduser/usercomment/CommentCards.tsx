@@ -6,7 +6,7 @@ interface CardInfo {
   name: string;
   date: string;
   Comment: string;
-  img: string;
+  img: React.ReactNode;
   like: number;
   comment: number;
   handleReply: () => void;
@@ -35,12 +35,12 @@ const CommentCards = (props: CardInfo) => {
           <span>
             <Like Like={props.like} />
           </span>
-          <span onClick={props.handleReply}>
+          <span onClick={props.handleComment}>
             <Comment numComments={props.comment} />
           </span>
 
           <span
-            onClick={props.handleComment}
+            onClick={props.handleReply}
             className="cursor-pointer text-[.75rem] font-semibold"
           >
             Reply

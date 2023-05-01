@@ -5,14 +5,12 @@ import ApiCall from "../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-interface picture {
-  setaddPic: () => void
-}
 
-const createpost: React.FC<picture> = () => {
+const createpost: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [addPic, setaddPic] = useState("")
+  const [addPic, setaddPic] = useState<string>("");
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {
@@ -22,7 +20,7 @@ const createpost: React.FC<picture> = () => {
             });
             if (result.status === 200) {
               toast.success(result.data.message);
-            }
+            } 
       } catch (error) {
           console.log(error)
       }
@@ -31,7 +29,7 @@ const createpost: React.FC<picture> = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mt-8 relative max-w-4xl mx-auto min-h-[500px]">
+      <div className="mt-12 relative max-w-4xl mx-auto min-h-[500px]">
         <div className=" md:border rounded-md">
           <div className="p-5 flex flex-col">
             <div className="mb-3 w-auto py-2">
