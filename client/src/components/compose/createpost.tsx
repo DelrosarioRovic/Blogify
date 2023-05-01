@@ -20,7 +20,7 @@ const createpost: React.FC = () => {
             });
             if (result.status === 200) {
               toast.success(result.data.message);
-            }
+            } 
       } catch (error) {
           console.log(error)
       }
@@ -29,7 +29,7 @@ const createpost: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mt-8 relative max-w-4xl mx-auto min-h-[500px]">
+      <div className="mt-12 relative max-w-4xl mx-auto min-h-[500px]">
         <div className=" md:border rounded-md">
           <div className="p-5 flex flex-col">
             <div className="mb-3 w-auto py-2">
@@ -51,6 +51,7 @@ const createpost: React.FC = () => {
               value={title}
               placeholder="New post title here..."
               onChange={(e) => setTitle(e.target.value)}
+              required
             />
           </div>
           <Markdown />
@@ -62,10 +63,11 @@ const createpost: React.FC = () => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               rows={10}
+              required
             ></textarea>
           </div>
         </div>
-        <button className="px-8 py-[.35rem] bg-slate-600 mt-8 text-white rounded-md max-lg:ml-4">
+        <button className="px-8 py-[.35rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4">
           Post
         </button>
       </div>

@@ -11,7 +11,7 @@ const App: React.FC = () => {
     <Provider store={store}>
       <div className="w-full min-h-screen max-w-4xl mx-auto">
         <Header />
-        <div className="pt-24">
+        <div className="pt-20">
           <Router />
         </div>
         <ToastContainer style={{ fontSize: "14px" }} />

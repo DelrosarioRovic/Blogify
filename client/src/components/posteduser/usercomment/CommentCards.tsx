@@ -16,18 +16,21 @@ interface CardInfo {
 
 const CommentCards = (props: CardInfo) => {
   return (
-    <div className="flex flex-row gap-3 mt-4 overflow-hidden">
-      <div className="w-10 h-10">
-        <div className=" overflow-hidden h-10 w-10 rounded-full bg-red-500 flex justify-center items-center text-white">
-          {props.img}
+    <div className="flex flex-row gap-3 overflow-hidden mt-3">
+      <div className="flex flex-col items-center gap-2">
+        <div className="w-8 h-8">
+          <div className=" overflow-hidden h-8 w-8 rounded-full bg-red-500 flex justify-center items-center text-white">
+            {props.img}
+          </div>
         </div>
+        <div className="w-[1px] h-full bg-slate-600  rounded-full"></div>
       </div>
 
       <div className="p-2 border w-full">
-        <h1 className="font-semibold flex gap-3 items-center">
+        <h1 className="font-semibold flex sm:gap-3 sm:items-center max-sm:text-[.80rem] whitespace-nowrap max-sm:flex-col">
           {props.name}
-          <span className="bg-slate-500 h-1 w-1 rounded-full -ml-[8px]"></span>
-          <span className="font-[400] text-[.75rem] text-gray-500 ">
+          <span className="bg-slate-500 h-1 w-1 rounded-full -ml-[8px] max-sm:hidden"></span>
+          <span className="font-[400] text-[.70rem] text-gray-500 ">
             {props.date}
           </span>
         </h1>

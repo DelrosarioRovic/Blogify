@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
+import { Date } from "mongoose";
 
 const router = Router();
 
@@ -96,7 +97,9 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
       .exec();
 
     const comments = await populateComments(Unfinishcomments);
+
     res.json({ post, comments });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });

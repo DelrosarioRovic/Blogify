@@ -35,6 +35,7 @@ const singlePost = () => {
     }
   };
 
+
   useEffect(() => {
     fetchSinglePost();
     const intervalId = setInterval(fetchSinglePost, 5000); // Send request every 5 seconds

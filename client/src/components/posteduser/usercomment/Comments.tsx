@@ -20,7 +20,7 @@ const UsersComments: React.FC = () => {
 
   const handleReplyClick = (id: string) => {
     if (!authenticated) {
-      toast.info("Please Login First")
+      toast.info("Please Login First");
     }
     setReplyIndexAr((prevArr) => toggleIndex(id, prevArr));
   };
@@ -38,7 +38,9 @@ const UsersComments: React.FC = () => {
         <React.Fragment key={comment._id}>
           <CommentCards
             handleComment={() => handleCommentClick(comment._id)}
-            handleReply={!isMaxDepth ? () => handleReplyClick(comment._id): undefined}
+            handleReply={
+              !isMaxDepth ? () => handleReplyClick(comment._id) : undefined
+            }
             like={0}
             comment={comment.replies.length}
             img={
@@ -52,25 +54,32 @@ const UsersComments: React.FC = () => {
             Comment={comment.text}
             isMaxDepth={isMaxDepth}
           />
-          {authenticated && !isMaxDepth && replyIndexAr.includes(comment._id) && (
-            <div className="mt-3">
-              <CreateComment
-                type={"reply"}
-                id={comment._id}
-                handleCloseReply={() => handleReplyClick(comment._id)}
-              />
-            </div>
-          )}
-          {hasReplies && !isMaxDepth && commentIndexAr.includes(comment._id) && (
-            <div className="pl-9 gap-3">
+          {authenticated &&
+            !isMaxDepth &&
+            replyIndexAr.includes(comment._id) && (
+              <div className="mt-3">
+                <CreateComment
+                  type={"reply"}
+                  id={comment._id}
+                  handleCloseReply={() => handleReplyClick(comment._id)}
+                />
+              </div>
+            )}
+
+          {hasReplies &&
+            !isMaxDepth &&
+            commentIndexAr.includes(comment._id) && (
+              <div className="flex flex-row  w-full overflow-hidden">
+              <div className="w-full ml-6 relative before:absolute before:-left-[.55rem] before:max-lg:-left-[.50rem] before:top-0 before:w-[1px] before:h-[100%] before:bg-slate-500">
               {renderComments(comment.replies, depth + 1)}
-            </div>
-          )}
+              </div>
+              </div>
+            )}
         </React.Fragment>
       );
     });
   };
-  
+
   return <>{renderComments(comment)}</>;
 };
 

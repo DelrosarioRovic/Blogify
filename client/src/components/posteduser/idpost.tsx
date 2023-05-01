@@ -1,7 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
-
 import Like from "./comment_like_share/like";
 import Comment from "./comment_like_share/comment";
 import Share from "./comment_like_share/share";
@@ -9,18 +8,18 @@ import UserAvatar from "../reusableComponent/userAvatar";
 import UserComment from "./usercomment/UserComment";
 import singlePost from "../../hooks/single-post";
 
-
 function idpost() {
   const { post, loading } = singlePost();
   
   return (
-    <div className="max-w-4xl mx-auto py-4 px-12 border border-gray-200 rounded-xl">
+    <div className="max-w-4xl mx-auto py-4 md:border border-gray-200 rounded-xl mt-12 shadow-md">
+      <div className="px-12 max-md:px-4">
       <div className="flex justify-between">
         <div className="flex gap-6">
           {loading ? (
             <Skeleton circle={true} width={"2.5rem"} height={"2.5rem"} />
           ) : (
-            <div className="flex justify-center items-center w-10 h-10 bg-slate-600 rounded-full text-white overflow-hidden">
+            <div className=" flex justify-center items-center w-10 h-10 bg-slate-600 rounded-full text-white overflow-hidden">
               <UserAvatar
                 profilePicture={post.profilePicture}
                 displayName={post.displayName}
@@ -74,6 +73,8 @@ function idpost() {
           )}
         </div>
       </div>
+      </div>
+      
       <UserComment id="comment" numComments={post.numComments} />
     </div>
   );
