@@ -4,8 +4,11 @@ import CreateComment from "./CreateComment";
 import singlePost from "../../../hooks/single-post";
 import { Comment } from "../../../interface/hook/CommentObj";
 import UserAvatar from "../../reusableComponent/userAvatar";
+import useAuthentication from "../../../hooks/isAuthenticated";
+import { toast } from "react-toastify";
 
 const UsersComments: React.FC = () => {
+  const { authenticated } = useAuthentication();
   const { comment } = singlePost();
   const [replyIndexAr, setReplyIndexAr] = useState<string[]>([]);
   const [commentIndexAr, setCommentIndexAr] = useState<string[]>([]);
@@ -16,6 +19,9 @@ const UsersComments: React.FC = () => {
   };
 
   const handleReplyClick = (id: string) => {
+    if (!authenticated) {
+      toast.info("Please Login First");
+    }
     setReplyIndexAr((prevArr) => toggleIndex(id, prevArr));
   };
 
@@ -31,17 +37,37 @@ const UsersComments: React.FC = () => {
           handleReply={() => handleReplyClick(comment._id)}
           like={0}
           comment={comment.replies.length}
-          img={<UserAvatar profilePicture={comment.user.profilePicture} displayName={comment.user.displayName} />}
+          img={
+            <UserAvatar
+              profilePicture={comment.user.profilePicture}
+              displayName={comment.user.displayName}
+            />
+          }
           name={comment.user.displayName}
           date={comment.date}
           Comment={comment.text}
         />
-        <div className={`${replyIndexAr.includes(comment._id) ? "block" : "hidden"} mt-3 `}>
-          <CreateComment type={"reply"} id={comment._id} setReplyIndexAr={setReplyIndexAr}/>
-        </div>
-        <div className={`${commentIndexAr.includes(comment._id) ? "block" : "hidden"} pl-9 gap-3`}>
-          {comment.replies && renderComments(comment.replies)}
-        </div>
+        {authenticated && (
+          <>
+            {replyIndexAr.includes(comment._id) && (
+              <div className="mt-3">
+                <CreateComment
+                  type={"reply"}
+                  id={comment._id}
+                  handleCloseReply={() => handleReplyClick(comment._id)}
+                />
+              </div>
+            )}
+          </>
+        )}
+
+        <>
+          {commentIndexAr.includes(comment._id) && (
+            <div className="pl-9 gap-3">
+              {comment.replies && renderComments(comment.replies)}
+            </div>
+          )}
+        </>
       </React.Fragment>
     ));
   };

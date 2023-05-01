@@ -26,6 +26,7 @@ const singlePost = () => {
         "get",
         `http://localhost:4000/route/single-post/${postId.postId}`
       );
+      console.log(response);
       setPost(response.data.post[0]);
       setComment(response.data.comments);
       setLoading(false);
