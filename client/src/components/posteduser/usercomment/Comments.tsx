@@ -31,16 +31,36 @@ const UsersComments: React.FC = () => {
           handleReply={() => handleReplyClick(comment._id)}
           like={0}
           comment={comment.replies.length}
-          img={<UserAvatar profilePicture={comment.user.profilePicture} displayName={comment.user.displayName} />}
+          img={
+            <UserAvatar
+              profilePicture={comment.user.profilePicture}
+              displayName={comment.user.displayName}
+            />
+          }
           name={comment.user.displayName}
           date={comment.date}
           Comment={comment.text}
         />
-        <div className={`${replyIndexAr.includes(comment._id) ? "block" : "hidden"} mt-3 `}>
-          <CreateComment type={"reply"} id={comment._id} setReplyIndexAr={setReplyIndexAr}/>
+        <div
+          className={`${
+            replyIndexAr.includes(comment._id) ? "block" : "hidden"
+          } mt-3 `}
+        >
+          <CreateComment
+            type={"reply"}
+            id={comment._id}
+            setReplyIndexAr={setReplyIndexAr}
+          />
         </div>
-        <div className={`${commentIndexAr.includes(comment._id) ? "block" : "hidden"} pl-9 gap-3`}>
-          {comment.replies && renderComments(comment.replies)}
+
+        <div
+          className={`${
+            commentIndexAr.includes(comment._id) ? "block" : "hidden"
+          } flex flex-row  w-full overflow-hidden`}
+        >
+          <div className="w-full ml-6 relative before:absolute before:-left-[.55rem] before:max-lg:-left-[.50rem] before:top-0 before:w-[1px] before:h-[100%] before:bg-slate-500">
+            {comment.replies && renderComments(comment.replies)}
+          </div>
         </div>
       </React.Fragment>
     ));

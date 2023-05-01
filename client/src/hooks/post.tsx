@@ -9,7 +9,7 @@ const useFetchPosts = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchMorePosts = async () => {
-    const limit: number = 3;
+    const limit: number = 4;
     const skip: number = posts.length;
     const url = `http://localhost:4000/route/post?limit=${limit}&skip=${skip}`;
     const response = await ApiCall("GET", url);
