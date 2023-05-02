@@ -35,7 +35,7 @@ const UsersComments: React.FC = () => {
       const hasReplies = comment.replies && comment.replies.length > 0;
 
       return (
-        <React.Fragment key={comment._id}>
+        <React.Fragment key={`${comment._id}-${depth}`}>
           <CommentCards
             handleComment={() => handleCommentClick(comment._id)}
             handleReply={

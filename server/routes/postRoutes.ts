@@ -12,23 +12,16 @@ const findPostById = async (postId: string) => {
 const getPostAggregatePipeline = () => {
   return [
     {
-      $lookup: {
-        from: "users",
-        localField: "user",
-        foreignField: "_id",
-        as: "user",
-      },
+      $lookup: { from: "users", localField: "user", foreignField: "_id", as: "user", },
     },
     {
       $unwind: "$user",
     },
     {
-      $lookup: {
-        from: "comments",
-        localField: "_id",
-        foreignField: "post",
-        as: "comments",
-      },
+      $lookup: { from: "comments", localField: "_id", foreignField: "post", as: "comments", },
+    },
+    {
+      $lookup: { from: "likes", localField: "_id", foreignField: "post", as: "likes", },
     },
     {
       $project: {
@@ -40,6 +33,7 @@ const getPostAggregatePipeline = () => {
         date: { $dateToString: { format: "%m/%d/%Y", date: "$date" } },
         profilePicture: "$user.profilePicture",
         numComments: { $size: "$comments" },
+        numLikes: { $size: "$likes" },
       },
     },
   ];

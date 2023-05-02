@@ -46,7 +46,7 @@ function idpost() {
           </div>
         </div>
         <div className="flex gap-4 items-center">
-          <Like Like={6} />
+          <Like Like={post.numLikes} />
           <Link to="#comment">
             <Comment numComments={2} />
           </Link>

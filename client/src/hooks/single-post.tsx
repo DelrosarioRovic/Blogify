@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import io, { Socket } from "socket.io-client";
 import ApiCall from "../API/Api-call";
 // interface hook
 import { PostObj } from "../interface/hook/PostObj";
@@ -17,16 +18,16 @@ const singlePost = () => {
     content: '',
     date: '',
     profilePicture: '',
-    numComments: 0 
+    numComments: 0 ,
+    numLikes: 0 ,
   });
-
+  
   const fetchSinglePost = async () => {
     try {
       const response = await ApiCall(
         "get",
         `http://localhost:4000/route/single-post/${postId.postId}`
       );
-      console.log(response);
       setPost(response.data.post[0]);
       setComment(response.data.comments);
       setLoading(false);
@@ -35,12 +36,22 @@ const singlePost = () => {
     }
   };
 
-
   useEffect(() => {
     fetchSinglePost();
-    const intervalId = setInterval(fetchSinglePost, 5000); // Send request every 5 seconds
-    return () => clearInterval(intervalId); // Clean up the interval
   }, []);
+
+  useEffect(() => {
+    const socket = io('http://localhost:4000');
+    socket.on('newComment', (newCommentIo) => {
+      console.log(newCommentIo);
+      setComment((prevComments) => [...prevComments, newCommentIo]);
+    });
+    console.log('useEffect cleanup function called');
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+  
 
   return { post, comment, loading };
 };
