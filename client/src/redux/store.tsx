@@ -5,7 +5,7 @@ import isSuccessReducer from './reducer/reUpdateUseState';
 
 const rootReducer = combineReducers({
   authReducer,
-  isSuccessReducer,
+  isSuccessReducer
 });
 
 const store = createStore(rootReducer);

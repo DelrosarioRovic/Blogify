@@ -11,6 +11,7 @@ const SinglePost = () => {
   const refreshCount = useSelector((state: any) => state.isSuccessReducer.refreshCount);
   const dispatch = useDispatch();
   const postId = useParams();
+  // console.log("why this function being called");
   const [loading, setLoading] = useState<boolean>(true);
   const [comment, setComment] = useState<Comment[]>([]);
   const [post, setPost] = useState<PostObj>({
@@ -41,14 +42,16 @@ const SinglePost = () => {
   };
 
   useEffect(() => {
-    fetchSinglePost();
-  }, [dispatch, refreshCount]);
-
+    if (postId && postId.postId) {
+      fetchSinglePost();
+    }
+  }, [postId, dispatch, refreshCount]);
+  
   const handleIncrement = () => {
     dispatch(incrementRefreshCount());
   };
 
-  return { post, comment, loading, fetchSinglePost, handleIncrement };
+  return { post, comment, loading, handleIncrement };
 };
 
 export default SinglePost;

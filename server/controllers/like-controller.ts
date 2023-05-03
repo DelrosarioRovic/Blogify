@@ -19,7 +19,6 @@ router.get("/like/:postId", MiddlewareAuth, async (req: CustomRequest, res: Resp
 
   if (like) {
     await like.deleteOne();
-    console.log("Unliked the post successfully");
     return res.status(200).json({ message: "Post unliked" });
   } else {
     const specificPost: any = await Post.findById(postId);

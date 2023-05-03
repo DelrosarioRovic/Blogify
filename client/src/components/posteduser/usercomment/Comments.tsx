@@ -61,7 +61,8 @@ const UsersComments: React.FC = () => {
                 <CreateComment
                   type={"reply"}
                   id={comment._id}
-                  handleCloseReply={() => handleReplyClick(comment._id)}
+                  handleCloseReply={() => {handleReplyClick(comment._id)}}
+                  handleOpenComment={() => {handleCommentClick(comment._id)}}
                 />
               </div>
             )}

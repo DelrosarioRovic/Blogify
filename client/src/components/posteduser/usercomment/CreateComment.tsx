@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import UserAvatar from "../../reusableComponent/userAvatar";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import ApiCall from "../../../API/Api-call";
@@ -6,13 +6,14 @@ import { useParams } from "react-router-dom";
 import { CommentForm, ReplyForm } from "./comment&ReplyForm";
 import singlePost from "../../../hooks/single-post";
 
-interface type {
+interface createCommentProps {
   type: string;
   id?: string;
   handleCloseReply?: () => void;
+  handleOpenComment? :() => void;
 }
 
-const CreateComment: React.FC<type> = (props) => {
+const CreateComment: React.FC<createCommentProps> = (props) => {
   const { handleIncrement } = singlePost();
   const postId = useParams();
   const { authenticated, data } = useAuthentication();
@@ -26,16 +27,10 @@ const CreateComment: React.FC<type> = (props) => {
     }
 
     try {
-      const response = await ApiCall("post", url, {
-        comment,
-        postId,
-      });
-      if (response.status) {
-        handleIncrement();
-      }
-      if (props.handleCloseReply) {
-        props.handleCloseReply();
-      }
+      const response = await ApiCall("post", url, { comment, postId });
+      response.status === 200 && handleIncrement(), setComment("");
+      props.handleOpenComment && props.handleOpenComment();
+      props.handleCloseReply && props.handleCloseReply();
     } catch (error) {
       console.log(error);
     }

@@ -1,13 +1,9 @@
 import { Router, Request, Response } from "express";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
-import { Date } from "mongoose";
 
 const router = Router();
 
-const findPostById = async (postId: string) => {
-  return await Post.findById(postId);
-};
 
 const getPostAggregatePipeline = () => {
   return [
@@ -60,7 +56,7 @@ router.get("/post", async (req: Request, res: Response) => {
 router.get("/single-post/:postId", async (req: Request, res: Response) => {
   try {
     const postId = req.params.postId;
-    const findPost: any = await findPostById(postId);
+    const findPost: any = await Post.findById(postId);
     const pipeline = [
       ...getPostAggregatePipeline(),
       { $match: { _id: findPost._id } },

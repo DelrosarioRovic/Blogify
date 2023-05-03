@@ -11,9 +11,11 @@ const Login: React.FC<loginForm> = (props) => {
   const { signIn } =useAuthentication();
   const [eMail, setEmail] = useState<string>("");
   const [passWord, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const result:any = await ApiCall("post", "http://localhost:4000/auth/login", {
         email: eMail,
@@ -33,6 +35,8 @@ const Login: React.FC<loginForm> = (props) => {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,7 +66,7 @@ const Login: React.FC<loginForm> = (props) => {
         />
         <button
           type="submit"
-          className="bg-violet-700 text-white mt-2 py-2 rounded-sm"
+          className={`bg-violet-700 text-white mt-2 py-2 rounded-sm duration-300 ${loading && "opacity-50"}`}
         >
           LOGIN
         </button>
