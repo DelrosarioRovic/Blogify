@@ -4,6 +4,7 @@ import useAuthentication from "../../../hooks/isAuthenticated";
 import ApiCall from "../../../API/Api-call";
 import { useParams } from "react-router-dom";
 import { CommentForm, ReplyForm } from "./comment&ReplyForm";
+import singlePost from "../../../hooks/single-post";
 
 interface type {
   type: string;
@@ -12,6 +13,7 @@ interface type {
 }
 
 const CreateComment: React.FC<type> = (props) => {
+  const { handleIncrement } = singlePost();
   const postId = useParams();
   const { authenticated, data } = useAuthentication();
   const [comment, setComment] = useState<string>("");
@@ -28,8 +30,10 @@ const CreateComment: React.FC<type> = (props) => {
         comment,
         postId,
       });
-
-      if (response.status === 200 && props.handleCloseReply) {
+      if (response.status) {
+        handleIncrement();
+      }
+      if (props.handleCloseReply) {
         props.handleCloseReply();
       }
     } catch (error) {

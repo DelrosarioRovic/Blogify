@@ -3,7 +3,6 @@ import { MiddlewareAuth, CustomRequest } from "../middleware/middlewareAuth";
 import Post from "../models/post.model";
 import Like from "../models/like.model";
 import userAuth from "../middleware/userAuth";
-import { io } from "..";
 
 const router = express.Router();
 
@@ -31,11 +30,8 @@ router.get("/like/:postId", MiddlewareAuth, async (req: CustomRequest, res: Resp
       date: Date.now(),
     });
     
-    const newlikeIo = await newLike.save();
-    console.log(newlikeIo);
-    io.emit('newComment', newlikeIo);
+    await newLike.save();
 
-    console.log("Liked the post successfully");
     return res.status(200).json({ message: "Post liked" });
   }
 });

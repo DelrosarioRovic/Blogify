@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import { io } from "..";
 import { MiddlewareAuth, CustomRequest } from "../middleware/middlewareAuth";
 import userAuth from "../middleware/userAuth";
 import Post from "../models/post.model";
@@ -26,8 +25,8 @@ router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) 
       date: Date.now()
     });
 
-    const newCommentIo = await newComment.save();
-    io.emit('newComment', newCommentIo);
+    await newComment.save();
+
     return res.status(200).json({ message: "Success" });
 });
 
@@ -54,9 +53,8 @@ router.post("/comment/:commentId/replies", MiddlewareAuth, async(req:CustomReque
       date: Date.now()
     });
     parentComment.replies.push(newComment);
-    const newCommentIo = await parentComment.save();
-    console.log(io);
-    io.emit('newComment', newCommentIo);
+    await parentComment.save();
+   
 
     return res.status(200).json({ message: "Success" });
   } catch (error) {

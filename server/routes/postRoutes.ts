@@ -91,7 +91,6 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
       .exec();
 
     const comments = await populateComments(Unfinishcomments);
-
     res.json({ post, comments });
 
   } catch (error) {

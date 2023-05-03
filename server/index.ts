@@ -2,8 +2,6 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import http from "http";
-import { Server } from "socket.io";
 
 dotenv.config();
 
@@ -53,21 +51,7 @@ app.use(composeController);
 app.use(commentController);
 app.use(likeController);
 
-const server = http.createServer(app);
-export const io = new Server(server, {
-  cors: {
-    origin: ["http://localhost:5173", "http://localhost:5174"],
-    credentials: true, 
-  }
-});
 
-io.on("connection", (socket) => {
-  
-  socket.on("disconnect", () => {
- 
-  });
-});
-
-server.listen(4000, () => {
+app.listen(4000, () => {
   console.log("Server is listening on port 4000");
 });

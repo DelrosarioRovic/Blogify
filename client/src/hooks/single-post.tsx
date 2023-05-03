@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import io, { Socket } from "socket.io-client";
+import { useSelector, useDispatch } from "react-redux";
+import  { incrementRefreshCount } from "../redux/reducer/reUpdateUseState";
 import ApiCall from "../API/Api-call";
 // interface hook
 import { PostObj } from "../interface/hook/PostObj";
 import { Comment } from "../interface/hook/CommentObj";
 
-const singlePost = () => {
+const SinglePost = () => {
+  const refreshCount = useSelector((state: any) => state.isSuccessReducer.refreshCount);
+  const dispatch = useDispatch();
   const postId = useParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [comment, setComment] = useState<Comment[]>([]);
@@ -31,6 +34,7 @@ const singlePost = () => {
       setPost(response.data.post[0]);
       setComment(response.data.comments);
       setLoading(false);
+      
     } catch (err) {
       console.log(err);
     }
@@ -38,22 +42,13 @@ const singlePost = () => {
 
   useEffect(() => {
     fetchSinglePost();
-  }, []);
+  }, [dispatch, refreshCount]);
 
-  useEffect(() => {
-    const socket = io('http://localhost:4000');
-    socket.on('newComment', (newCommentIo) => {
-      console.log(newCommentIo);
-      setComment((prevComments) => [...prevComments, newCommentIo]);
-    });
-    console.log('useEffect cleanup function called');
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-  
+  const handleIncrement = () => {
+    dispatch(incrementRefreshCount());
+  };
 
-  return { post, comment, loading };
+  return { post, comment, loading, fetchSinglePost, handleIncrement };
 };
 
-export default singlePost;
+export default SinglePost;
