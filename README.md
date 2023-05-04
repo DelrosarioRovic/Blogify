@@ -16,7 +16,7 @@
 			<ul>
 				<li>User profiles</li>
 				<li>News feed</li>
-				<li>Posts (text, images, videos)</li>
+				<li>Posts (text, images)</li>
 				<li>Commenting and reactions</li>
 				<li>Notifications</li>
 			</ul>
