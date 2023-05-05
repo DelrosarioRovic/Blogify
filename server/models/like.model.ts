@@ -8,8 +8,11 @@ const likeSchema = new mongoose.Schema({
   },
   post: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Post",
-    required: true
+    ref: "Post"
+  },
+  comment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment"
   },
   date: {
     type: Date,

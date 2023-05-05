@@ -5,17 +5,24 @@ import ApiCall from "../../../API/Api-call";
 import SinglePost from "../../../hooks/single-post";
 
 interface like {
-    Like: number
+  Like: number;
+  type: string;
+  like_comment_id?: string;
 }
 
 const like = (props: like) => {
   const postId = useParams();
   const { handleIncrement } = SinglePost();
-  const likeBtn = async() => {
+  const likeBtn = async () => {
     try {
+      let url = `http://localhost:4000/like/${postId.postId}`;
+      if (props.type === "like-comment") {
+        url = `http://localhost:4000/like/${props.like_comment_id}/like-comment`;
+      }
+      console.log(url);
       const response = await ApiCall(
         "get",
-        `http://localhost:4000/like/${postId.postId}`
+        url
       );
       if (response.status === 200) {
         handleIncrement();
@@ -23,13 +30,16 @@ const like = (props: like) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   return (
-    <div className=" flex items-center text-2xl cursor-pointer" onClick={likeBtn}>
-      <AiOutlineLike color=""/>
+    <div
+      className=" flex items-center text-2xl cursor-pointer"
+      onClick={likeBtn}
+    >
+      <AiOutlineLike color="" />
       <span className="text-[.75rem]">{props.Like}</span>
     </div>
   );
-}
+};
 
 export default like;

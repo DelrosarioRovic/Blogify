@@ -8,6 +8,7 @@ export interface Comment {
       profilePicture: string;
     };
     replies: Comment[];
+    likes: string[];
     parentComment: string;
     post: string;
   }

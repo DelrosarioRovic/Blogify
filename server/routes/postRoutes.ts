@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
+import Like from "../models/like.model";
 
 const router = Router();
 
@@ -62,11 +63,17 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
       { $match: { _id: findPost._id } },
     ];
     const post: any = await Post.aggregate(pipeline);
-
+    
     const populateComments = async (comments: any) => {
       for (let i = 0; i < comments.length; i++) {
         const comment = comments[i];
-   
+        
+        const commentLikes: any = await Like.find({ comment: comment._id });
+        if (commentLikes.length > 0) {
+          comment.likes = commentLikes.map((like: any) => like._id);
+        }
+    
+
         if (comment.replies.length > 0) {
           const populatedReplies = await Comment.find({
             _id: { $in: comment.replies },
@@ -78,6 +85,7 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
       }
       return comments;
     };
+    
 
     const Unfinishcomments = await Comment.find({
       post: postId,
@@ -85,10 +93,9 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
     })
       .populate("user", "displayName profilePicture")
       .exec();
-
     const comments = await populateComments(Unfinishcomments);
+    console.log(comments);
     res.json({ post, comments });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
