@@ -1,7 +1,6 @@
 import { Router, Request, Response } from "express";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
-import Like from "../models/like.model";
 
 const router = Router();
 
@@ -18,9 +17,6 @@ const getPostAggregatePipeline = () => {
       $lookup: { from: "comments", localField: "_id", foreignField: "post", as: "comments", },
     },
     {
-      $lookup: { from: "likes", localField: "_id", foreignField: "post", as: "likes", },
-    },
-    {
       $project: {
         _id: 1,
         userId: "$user._id",
@@ -30,7 +26,13 @@ const getPostAggregatePipeline = () => {
         date: { $dateToString: { format: "%m/%d/%Y", date: "$date" } },
         profilePicture: "$user.profilePicture",
         numComments: { $size: "$comments" },
-        numLikes: { $size: "$likes" },
+        numLikes: {
+          $cond: {
+            if: { $isArray: "$likes" },
+            then: { $size: "$likes" },
+            else: 0
+          }
+        }
       },
     },
   ];
@@ -46,7 +48,7 @@ router.get("/post", async (req: Request, res: Response) => {
       { $limit: limit },
     ];
     const posts: any = await Post.aggregate(pipeline);
-
+    
     res.json(posts);
   } catch (error) {
     console.error(error);
@@ -63,17 +65,13 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
       { $match: { _id: findPost._id } },
     ];
     const post: any = await Post.aggregate(pipeline);
-    
+  
     const populateComments = async (comments: any) => {
       for (let i = 0; i < comments.length; i++) {
         const comment = comments[i];
         
-        const commentLikes: any = await Like.find({ comment: comment._id });
-        if (commentLikes.length > 0) {
-          comment.likes = commentLikes.map((like: any) => like._id);
-        }
+        const likeCount = comment.likes.length;
     
-
         if (comment.replies.length > 0) {
           const populatedReplies = await Comment.find({
             _id: { $in: comment.replies },
@@ -82,6 +80,7 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
             .exec();
           comment.replies = await populateComments(populatedReplies);
         }
+        comment.likeCount = likeCount;
       }
       return comments;
     };
@@ -94,7 +93,7 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
       .populate("user", "displayName profilePicture")
       .exec();
     const comments = await populateComments(Unfinishcomments);
-    console.log(comments);
+
     res.json({ post, comments });
   } catch (error) {
     console.error(error);

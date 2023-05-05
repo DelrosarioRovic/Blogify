@@ -42,7 +42,7 @@ const UsersComments: React.FC = () => {
             handleReply={
               !isMaxDepth ? () => handleReplyClick(comment._id) : undefined
             }
-            like={comment.likes.length}
+            like={comment.likeCount}
             comment={comment.replies.length}
             img={
               <UserAvatar

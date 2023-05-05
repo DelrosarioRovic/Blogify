@@ -6,7 +6,7 @@ import SinglePost from "../../../hooks/single-post";
 
 interface like {
   Like: number;
-  type: string;
+  type?: string;
   like_comment_id?: string;
 }
 
@@ -21,7 +21,7 @@ const like = (props: like) => {
       }
       console.log(url);
       const response = await ApiCall(
-        "get",
+        "put",
         url
       );
       if (response.status === 200) {
@@ -31,6 +31,7 @@ const like = (props: like) => {
       console.log(error);
     }
   };
+  console.log(props.Like);
   return (
     <div
       className=" flex items-center text-2xl cursor-pointer"

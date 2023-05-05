@@ -8,7 +8,7 @@ export interface Comment {
       profilePicture: string;
     };
     replies: Comment[];
-    likes: string[];
+    likeCount: number;
     parentComment: string;
     post: string;
   }
