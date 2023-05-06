@@ -10,7 +10,7 @@ interface type {
   id?: string;
   handleCloseReply?: () => void;
 }
-
+  
 const CreateComment: React.FC<type> = (props) => {
   const postId = useParams();
   const [isShowBtn, SetIsShowBtn] = useState<boolean>(false);
