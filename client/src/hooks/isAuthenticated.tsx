@@ -8,7 +8,7 @@ import { AuthUserInfo } from '../interface/hook/AuthUserInfo';
 
 const useAuthentication = () => {
   const dispatch = useDispatch();
-  const authenticated = useSelector((state: AuthState) => state.authenticated);
+  const authenticated = useSelector((state: { authReducer: AuthState }) => state.authReducer.authenticated);
   const [data, setData] = useState<AuthUserInfo | null>(null);
 
   useEffect(() => {

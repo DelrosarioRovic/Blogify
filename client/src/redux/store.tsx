@@ -1,7 +1,13 @@
-import { legacy_createStore as createStore } from 'redux';
+import { combineReducers, legacy_createStore as createStore } from 'redux';
 
 import authReducer from './reducer/authReducer';
+import isSuccessReducer from './reducer/reUpdateUseState';
 
-const store = createStore(authReducer);
+const rootReducer = combineReducers({
+  authReducer,
+  isSuccessReducer
+});
+
+const store = createStore(rootReducer);
 
 export default store;

@@ -17,11 +17,19 @@ const blogPostSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  likeCount: {
+    type: Number,
+    default: 0
+  },
   //test
   comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'
-  }]
+  }],
 });
 
 const Post = mongoose.model("Post", blogPostSchema);

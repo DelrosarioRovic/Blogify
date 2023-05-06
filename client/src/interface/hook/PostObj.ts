@@ -7,4 +7,5 @@ export interface PostObj {
     date: string;
     profilePicture: string | null;
     numComments: number;
+    numLikes: number;
   }

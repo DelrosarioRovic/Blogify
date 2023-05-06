@@ -14,6 +14,7 @@ const UsersComments: React.FC = () => {
   const [replyIndexAr, setReplyIndexAr] = useState<string[]>([]);
   const [commentIndexAr, setCommentIndexAr] = useState<string[]>([]);
 
+
   const toggleIndex = (id: string, state: string[]) => {
     return state.includes(id) ? state.filter((i) => i !== id) : [...state, id];
   };
@@ -33,15 +34,15 @@ const UsersComments: React.FC = () => {
     return comments.map((comment) => {
       const isMaxDepth = depth >= 2;
       const hasReplies = comment.replies && comment.replies.length > 0;
-
       return (
-        <React.Fragment key={comment._id}>
+        <React.Fragment key={`${comment._id}-${depth}`}>
           <CommentCards
+            like_comment_id={comment._id}
             handleComment={() => handleCommentClick(comment._id)}
             handleReply={
               !isMaxDepth ? () => handleReplyClick(comment._id) : undefined
             }
-            like={0}
+            like={comment.likeCount}
             comment={comment.replies.length}
             img={
               <UserAvatar
@@ -61,7 +62,8 @@ const UsersComments: React.FC = () => {
                 <CreateComment
                   type={"reply"}
                   id={comment._id}
-                  handleCloseReply={() => handleReplyClick(comment._id)}
+                  handleCloseReply={() => {handleReplyClick(comment._id)}}
+                  handleOpenComment={() => {handleCommentClick(comment._id)}}
                 />
               </div>
             )}
