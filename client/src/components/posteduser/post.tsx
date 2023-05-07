@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "react-loading-skeleton/dist/skeleton.css";
+
 import Comment from "./comment_like_share/comment";
 import Like from "./comment_like_share/like";
 import Share from "./comment_like_share/share";
@@ -42,7 +43,7 @@ const Post = () => {
           <p className="text-sm">{post.displayName}</p>
           <p className="text-[.75rem] font-[400]">{post.date}</p>
           <div className="flex flex-row gap-2">
-            <Like Like={2} />
+            <Like Like={post.numLikes} />
             <Link to={`/post/${post._id}#comment`}>
               <Comment numComments={post.numComments} />
             </Link>

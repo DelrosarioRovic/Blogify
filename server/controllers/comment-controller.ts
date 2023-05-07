@@ -1,19 +1,15 @@
 import express, { Request, Response } from "express";
 import { MiddlewareAuth, CustomRequest } from "../middleware/middlewareAuth";
+import userAuth from "../middleware/userAuth";
 import Post from "../models/post.model";
-import User from "../models/users.model";
 import Comment from "../models/comment.model";
 
 const router = express.Router();
 
-router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) => {
-    const userId =  req.userId;
-    const googleUserId = req.googleUserId;
-  
-    const userLocal = await User.findById(userId);
-    const userProvider = googleUserId ? await User.findOne({ googleId: googleUserId }) : null;
-    const localOrProvided:any = userLocal || userProvider;
 
+router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) => {
+     const localOrProvided = await userAuth(req);
+  
     if (!localOrProvided) {
       console.log("User required");
       return res.status(401).json({message:"Please Sign In First"});
@@ -29,20 +25,15 @@ router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) 
       date: Date.now()
     });
 
-    newComment.save();
-    return res.status(200).json({ message: "Success" });
+    await newComment.save();
 
+    return res.status(200).json({ message: "Success" });
 });
 
 router.post("/comment/:commentId/replies", MiddlewareAuth, async(req:CustomRequest, res: Response)=> {
   const { comment } = req.body;
   const { commentId } = req.params;
-  const userId =  req.userId;
-  const googleUserId = req.googleUserId;
-
-  const userLocal = await User.findById(userId);
-  const userProvider = googleUserId ? await User.findOne({ googleId: googleUserId }) : null;
-  const localOrProvided:any = userLocal || userProvider;
+  const localOrProvided = await userAuth(req);
 
   if (!localOrProvided) {
     console.log("User required");
@@ -63,6 +54,8 @@ router.post("/comment/:commentId/replies", MiddlewareAuth, async(req:CustomReque
     });
     parentComment.replies.push(newComment);
     await parentComment.save();
+   
+
     return res.status(200).json({ message: "Success" });
   } catch (error) {
     console.error(error);

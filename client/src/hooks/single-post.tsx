@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import  { incrementRefreshCount } from "../redux/reducer/reUpdateUseState";
 import ApiCall from "../API/Api-call";
 // interface hook
 import { PostObj } from "../interface/hook/PostObj";
 import { Comment } from "../interface/hook/CommentObj";
 
-const singlePost = () => {
+const SinglePost = () => {
+  const refreshCount = useSelector((state: any) => state.isSuccessReducer.refreshCount);
+  const dispatch = useDispatch();
   const postId = useParams();
+  // console.log("why this function being called");
   const [loading, setLoading] = useState<boolean>(true);
   const [comment, setComment] = useState<Comment[]>([]);
   const [post, setPost] = useState<PostObj>({
@@ -17,32 +22,39 @@ const singlePost = () => {
     content: '',
     date: '',
     profilePicture: '',
-    numComments: 0 
+    numComments: 0 ,
+    numLikes: 0 ,
   });
-
+  
   const fetchSinglePost = async () => {
     try {
       const response = await ApiCall(
         "get",
         `http://localhost:4000/route/single-post/${postId.postId}`
       );
-      console.log(response);
       setPost(response.data.post[0]);
       setComment(response.data.comments);
+      
       setLoading(false);
+      
     } catch (err) {
       console.log(err);
     }
   };
 
-
   useEffect(() => {
-    fetchSinglePost();
-    const intervalId = setInterval(fetchSinglePost, 5000); // Send request every 5 seconds
-    return () => clearInterval(intervalId); // Clean up the interval
-  }, []);
+    if (postId && postId.postId) {
+      fetchSinglePost();
+    }
+  }, [postId, dispatch, refreshCount]);
+  
+  const handleIncrement = () => {
+    dispatch(incrementRefreshCount());
+  };
 
-  return { post, comment, loading };
+console.log(post);
+
+  return { post, comment, loading, handleIncrement };
 };
 
-export default singlePost;
+export default SinglePost;

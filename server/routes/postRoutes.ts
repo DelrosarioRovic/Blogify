@@ -1,34 +1,20 @@
 import { Router, Request, Response } from "express";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
-import { Date } from "mongoose";
 
 const router = Router();
 
-const findPostById = async (postId: string) => {
-  return await Post.findById(postId);
-};
 
 const getPostAggregatePipeline = () => {
   return [
     {
-      $lookup: {
-        from: "users",
-        localField: "user",
-        foreignField: "_id",
-        as: "user",
-      },
+      $lookup: { from: "users", localField: "user", foreignField: "_id", as: "user", },
     },
     {
       $unwind: "$user",
     },
     {
-      $lookup: {
-        from: "comments",
-        localField: "_id",
-        foreignField: "post",
-        as: "comments",
-      },
+      $lookup: { from: "comments", localField: "_id", foreignField: "post", as: "comments", },
     },
     {
       $project: {
@@ -40,6 +26,13 @@ const getPostAggregatePipeline = () => {
         date: { $dateToString: { format: "%m/%d/%Y", date: "$date" } },
         profilePicture: "$user.profilePicture",
         numComments: { $size: "$comments" },
+        numLikes: {
+          $cond: {
+            if: { $isArray: "$likes" },
+            then: { $size: "$likes" },
+            else: 0
+          }
+        }
       },
     },
   ];
@@ -55,7 +48,7 @@ router.get("/post", async (req: Request, res: Response) => {
       { $limit: limit },
     ];
     const posts: any = await Post.aggregate(pipeline);
-
+    
     res.json(posts);
   } catch (error) {
     console.error(error);
@@ -66,17 +59,19 @@ router.get("/post", async (req: Request, res: Response) => {
 router.get("/single-post/:postId", async (req: Request, res: Response) => {
   try {
     const postId = req.params.postId;
-    const findPost: any = await findPostById(postId);
+    const findPost: any = await Post.findById(postId);
     const pipeline = [
       ...getPostAggregatePipeline(),
       { $match: { _id: findPost._id } },
     ];
     const post: any = await Post.aggregate(pipeline);
-
+  
     const populateComments = async (comments: any) => {
       for (let i = 0; i < comments.length; i++) {
         const comment = comments[i];
-   
+        
+        const likeCount = comment.likes.length;
+    
         if (comment.replies.length > 0) {
           const populatedReplies = await Comment.find({
             _id: { $in: comment.replies },
@@ -85,9 +80,11 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
             .exec();
           comment.replies = await populateComments(populatedReplies);
         }
+        comment.likeCount = likeCount;
       }
       return comments;
     };
+    
 
     const Unfinishcomments = await Comment.find({
       post: postId,
@@ -95,11 +92,9 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
     })
       .populate("user", "displayName profilePicture")
       .exec();
-
     const comments = await populateComments(Unfinishcomments);
 
     res.json({ post, comments });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });

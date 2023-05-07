@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Like from "../comment_like_share/like";
 import Comment from "../comment_like_share/comment";
 
 interface CardInfo {
+  like_comment_id?: string;
   name: string;
   date: string;
   Comment: string;
@@ -37,7 +38,7 @@ const CommentCards = (props: CardInfo) => {
         <div className="mt-2">{props.Comment}</div>
         <div className="flex flex-row items-center gap-2 pt-4">
           <span>
-            <Like Like={props.like} />
+            <Like Like={props.like} type="like-comment" like_comment_id={props.like_comment_id}/>
           </span>
           <span onClick={props.handleComment}>
             <Comment numComments={props.comment} />
