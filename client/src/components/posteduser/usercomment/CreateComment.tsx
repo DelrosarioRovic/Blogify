@@ -5,8 +5,8 @@ import ApiCall from "../../../API/Api-call";
 import { useParams } from "react-router-dom";
 import { CommentForm, ReplyForm } from "./comment&ReplyForm";
 import singlePost from "../../../hooks/single-post";
-
-interface createCommentProps {
+import {AiOutlineUser} from "react-icons/ai"
+ interface createCommentProps {
   type: string;
   id?: string;
   handleCloseReply?: () => void;
@@ -39,14 +39,14 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
   return (
     <div className="flex gap-3 flex-row">
       <div className="h-8 w-8 ">
-        <div className=" overflow-hidden rounded-full bg-slate-600 h-8 w-8 flex items-center justify-center">
+        <div className=" overflow-hidden rounded-full bg-blue-700 h-8 w-8 flex items-center justify-center">
           {authenticated ? (
             <UserAvatar
               profilePicture={data?.profilePicture}
               displayName={data?.displayName}
             />
           ) : (
-            "D"
+            <AiOutlineUser  className="text-white"/>
           )}
         </div>
       </div>

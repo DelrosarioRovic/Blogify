@@ -1,16 +1,16 @@
 import { Markdown } from "./markdown/Markdown";
 import React, {useState} from "react";
-import { Navigate } from 'react-router-dom';
 import ApiCall from "../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 const createpost: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [addPic, setaddPic] = useState<string>("");
 
+
+  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {

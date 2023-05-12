@@ -63,7 +63,7 @@ const Post = () => {
         loader={"loading ..."}
         endMessage={
           <p style={{ textAlign: "center" }}>
-            <b>No more posts to show!</b>
+            <p className="text-gray-500">No more posts to show!</p>
           </p>
         }
       >

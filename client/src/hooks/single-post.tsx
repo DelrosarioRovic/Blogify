@@ -52,6 +52,8 @@ const SinglePost = () => {
     dispatch(incrementRefreshCount());
   };
 
+console.log(post);
+
   return { post, comment, loading, handleIncrement };
 };
 

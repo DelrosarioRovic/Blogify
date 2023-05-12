@@ -45,10 +45,17 @@ const ReplyForm: React.FC<CommentReplyPropsForm> = (props) => {
         onChange={(e) => props.setComment(e.target.value)}
         required
       ></textarea>
-      <button className="bg-slate-600 px-6 py-2 text-white rounded-lg">
-        Submit
-      </button>
-      <span onClick={props.handleCloseReply}>cancel</span>
+      <div className=" flex  gap-3">
+        <button className="bg-slate-600 px-6 py-2 text-white rounded-lg active:scale-75 duration-300">
+          Submit
+        </button>
+        <span
+          onClick={props.handleCloseReply}
+          className=" cursor-pointer bg-slate-600 px-6 py-2 text-white rounded-lg active:scale-75 duration-300"
+        >
+          cancel
+        </span>
+      </div>
     </form>
   );
 };

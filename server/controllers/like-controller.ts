@@ -44,6 +44,9 @@ router.put(
       const updatedPost = await Post.findByIdAndUpdate(postId, updateQuery, {
         new: true,
       });
+
+    console.log("Success");
+    
       return res.status(200).json({ message: "Successfully Like" });
     } catch (err) {
       console.error(err);
