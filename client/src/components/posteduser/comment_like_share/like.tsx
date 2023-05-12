@@ -9,13 +9,13 @@ interface like {
   Like: number;
   type?: string;
   like_comment_id?: string;
-  
+  likes: [string]
 }
 const like = (props: like) => {
-  const { data } = useAuthentication()
+  const { data } = useAuthentication();
   const postId = useParams();
   const { handleIncrement } = SinglePost();
-  const [activeLiked, setactiveLike] = useState(false)
+ 
   const likeBtn = async () => {
     try {
       let url = `http://localhost:4000/like/${postId.postId}`;
@@ -29,7 +29,6 @@ const like = (props: like) => {
       );
       if (response.status === 200) {
         handleIncrement();
-        setactiveLike(true)
       }else{
         toast.info("Login first 😭");
       }
@@ -41,11 +40,12 @@ const like = (props: like) => {
   console.log(data);
   
   return (
+    //data?._id === props.likes[0]
     <div
-      className=" flex items-center text-2xl cursor-pointer active:scale-75 duration-150"
+      className="flex items-center text-2xl cursor-pointer active:scale-75 duration-150"
       onClick={likeBtn}
     >
-      <AiOutlineLike  className={``} />
+      <AiOutlineLike className={``} style={{ color: data?._id === props.likes[0] ? "blue" : "inherit" }} />
       <span className="text-[.75rem]">{props.Like}</span>
     </div>
   );

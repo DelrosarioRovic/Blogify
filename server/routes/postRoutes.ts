@@ -23,6 +23,7 @@ const getPostAggregatePipeline = () => {
         displayName: "$user.displayName",
         title: 1,
         content: 1,
+        likes: 1,
         date: { $dateToString: { format: "%m/%d/%Y", date: "$date" } },
         profilePicture: "$user.profilePicture",
         numComments: { $size: "$comments" },
@@ -93,7 +94,7 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
       .populate("user", "displayName profilePicture")
       .exec();
     const comments = await populateComments(Unfinishcomments);
-
+    console.log(post);
     res.json({ post, comments });
   } catch (error) {
     console.error(error);

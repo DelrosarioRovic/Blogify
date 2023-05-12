@@ -8,4 +8,5 @@ export interface PostObj {
     profilePicture: string | null;
     numComments: number;
     numLikes: number;
+    likes: [string]
   }
