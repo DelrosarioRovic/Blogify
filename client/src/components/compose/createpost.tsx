@@ -3,6 +3,9 @@ import React, {useState} from "react";
 import ApiCall from "../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ImageUploader } from "../reusableComponent/uploadPicture";
+import cloudUrlImg from "../../API/cloudPhotoUrl";
+import UploadImageDisplay from "../reusableComponent/uploadImageDisplay";
 
 const createpost: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -17,6 +20,7 @@ const createpost: React.FC = () => {
           const result = await ApiCall("POST", "http://localhost:4000/compose", {
               title,
               content,
+              addPic
             });
             if (result.status === 200) {
               toast.success(result.data.message);
@@ -26,6 +30,10 @@ const createpost: React.FC = () => {
       }
      
   }
+
+  const handleImageUpload = async(base64String: string) => {
+    setaddPic(await cloudUrlImg(base64String));
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -39,11 +47,14 @@ const createpost: React.FC = () => {
               >
                 Add cover image
               </label>
-              <input type="file" accept="image" id="uploadimage" onChange={(e) => setaddPic(e.target.value)} value={addPic} className="hidden" />
+              
             </div>
-
-            <img src={`${addPic}`} className="w-full"/>
-
+            <ImageUploader onImageUpload={handleImageUpload} />
+            
+              {addPic !== "" && (
+                <UploadImageDisplay addPic={addPic} setAddPic={setaddPic}/>
+              )}
+            
             <input
               className="outline-none text-5xl pl-2 font-extrabold"
               type="text"

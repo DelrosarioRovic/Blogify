@@ -5,12 +5,14 @@ import ApiCall from "../../../API/Api-call";
 import SinglePost from "../../../hooks/single-post";
 import { toast } from 'react-toastify';
 import useAuthentication from "../../../hooks/isAuthenticated";
+
 interface like {
   Like: number;
   type?: string;
   like_comment_id?: string;
   likes: [string]
 }
+
 const like = (props: like) => {
   const { data } = useAuthentication();
   const postId = useParams();

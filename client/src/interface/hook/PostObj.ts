@@ -4,6 +4,7 @@ export interface PostObj {
     displayName: string;
     title: string;
     content: string;
+    picture: string;
     date: string;
     profilePicture: string | null;
     numComments: number;

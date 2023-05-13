@@ -16,15 +16,29 @@ router.post(
       console.log("User required");
       return res.status(401).json({ message: "Please Sign In First" });
     }
-    const { title, content } = req.body;
+    const { title, content, addPic } = req.body;
 
-    const newPost = new Post({
-      user: localOrProvided._id,
-      title: title,
-      content: content,
-      date: Date.now(),
-    });
-    newPost.save();
+    if (addPic==="") {
+      const newPost = new Post({
+        user: localOrProvided._id,
+        title: title,
+        content: content,
+        date: Date.now(),
+      });
+      newPost.save();
+      console.log("WithoutPic");
+    } else {
+      const newPostWithPic = new Post({
+        user: localOrProvided._id,
+        title: title,
+        content: content,
+        date: Date.now(),
+        picture: addPic
+      });
+      newPostWithPic.save();
+      console.log("WithPic");
+    }
+
     res.status(200).json({ message: "Post created successfully!" });
   }
 );
