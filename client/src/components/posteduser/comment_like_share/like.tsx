@@ -22,7 +22,6 @@ const like = (props: like) => {
       if (props.type === "like-comment") {
         url = `http://localhost:4000/like/${props.like_comment_id}/like-comment`;
       }
-      console.log(url);
       const response = await ApiCall(
         "put",
         url
@@ -36,11 +35,8 @@ const like = (props: like) => {
       console.log(error);
     }
   };
-  console.log(props.Like);
-  console.log(data);
-  
+
   return (
-    //data?._id === props.likes[0]
     <div
       className="flex items-center text-2xl cursor-pointer active:scale-75 duration-150"
       onClick={likeBtn}

@@ -11,5 +11,6 @@ export interface Comment {
     likeCount: number;
     parentComment: string;
     post: string;
+    likes: [string];
   }
   

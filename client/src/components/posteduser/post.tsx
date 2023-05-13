@@ -43,7 +43,7 @@ const Post = () => {
           <p className="text-sm">{post.displayName}</p>
           <p className="text-[.75rem] font-[400]">{post.date}</p>
           <div className="flex flex-row gap-2">
-            <Like Like={post.numLikes} />
+            <Like Like={post.numLikes} likes={post.likes}/>
             <Link to={`/post/${post._id}#comment`}>
               <Comment numComments={post.numComments} />
             </Link>

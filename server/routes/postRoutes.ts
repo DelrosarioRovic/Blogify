@@ -94,7 +94,7 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
       .populate("user", "displayName profilePicture")
       .exec();
     const comments = await populateComments(Unfinishcomments);
-    console.log(post);
+
     res.json({ post, comments });
   } catch (error) {
     console.error(error);

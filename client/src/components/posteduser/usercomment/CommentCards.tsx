@@ -13,6 +13,7 @@ interface CardInfo {
   handleReply?: () => void;
   handleComment: () => void;
   isMaxDepth: boolean;
+  likeComment: [string]
 }
 
 const CommentCards = (props: CardInfo) => {
@@ -38,7 +39,7 @@ const CommentCards = (props: CardInfo) => {
         <div className="mt-2">{props.Comment}</div>
         <div className="flex flex-row items-center gap-2 pt-4">
           <span>
-            <Like Like={props.like} type="like-comment" like_comment_id={props.like_comment_id}/>
+            <Like Like={props.like} type="like-comment" like_comment_id={props.like_comment_id} likes={props.likeComment} />
           </span>
           <span onClick={props.handleComment}>
             <Comment numComments={props.comment} />
