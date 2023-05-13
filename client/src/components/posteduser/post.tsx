@@ -8,6 +8,7 @@ import Like from "./comment_like_share/like";
 import Share from "./comment_like_share/share";
 import useFetchPosts from "../../hooks/post";
 import { PostObj } from "../../interface/hook/PostObj";
+import UserAvatar from "../reusableComponent/userAvatar";
 
 const Post = () => {
   const { posts, hasMore, fetchMorePosts, loading } = useFetchPosts();
@@ -31,13 +32,19 @@ const Post = () => {
     >
       <div className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4">
         {post.picture && <img src={post.picture} alt="" className="w-full" />}
+        <div className="flex items-center ">
+          <span className="w-12 h-12 rounded-full overflow-hidden">
+            <UserAvatar profilePicture={post.profilePicture} displayName={post.displayName}/>
+          </span>
+         
+          <Link
+            to={`/post/${post._id}`}
+            className="hover:text-blue-900 text-2xl font-bold after:absolute after:top-0 after:left-0 after:w-full after:h-full h-full"
+          >
+            {post.title}
+          </Link>
+        </div>
         
-        <Link
-          to={`/post/${post._id}`}
-          className="hover:text-blue-900 text-2xl font-bold after:absolute after:top-0 after:left-0 after:w-full after:h-full"
-        >
-          {post.title}
-        </Link>
         <p className="text-gray-800">
           {post.content.substring(0, 150)} {post.content.length >= 150 && "..."}
         </p>

@@ -29,8 +29,8 @@ const Login: React.FC<loginForm> = (props) => {
         signIn();
         props.ifShowAuthForm();
         //clear input
-        setEmail("")
-        setPassword("")
+        setEmail("");
+        setPassword("");
       } else {
         toast.warning(result.data.message);
       }

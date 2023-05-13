@@ -24,6 +24,7 @@ const SinglePost = () => {
     profilePicture: '',
     numComments: 0 ,
     numLikes: 0 ,
+    picture: '',
     likes: ['']
   });
   

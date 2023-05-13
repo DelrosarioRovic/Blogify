@@ -1,14 +1,16 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import Like from "./comment_like_share/like";
 import Comment from "./comment_like_share/comment";
-import Share from "./comment_like_share/share";
 import UserAvatar from "../reusableComponent/userAvatar";
 import UserComment from "./usercomment/UserComment";
 import singlePost from "../../hooks/single-post";
+import useAuthentication from "../../hooks/isAuthenticated";
 
 function idpost() {
+  const { data } = useAuthentication();
   const { post, loading } = singlePost();
   
   return (
@@ -50,7 +52,8 @@ function idpost() {
           <Link to="#comment">
             <Comment numComments={2} />
           </Link>
-          <Share />
+            { post.userId === data?._id && <BsThreeDotsVertical /> }
+
         </div>
       </div>
       <div className="my-6">

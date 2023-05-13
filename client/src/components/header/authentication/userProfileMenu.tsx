@@ -7,9 +7,12 @@ import useAuthentication from "../../../hooks/isAuthenticated";
 const UserProfile: React.FC = () => {
   const { data, signOut } = useAuthentication();
   const SignOutApi = async () => {
-    await ApiCall("get", "http://localhost:4000/auth/sign-out");
-    toast.success("Successfully Sign Out");
-    signOut();
+    const response = await ApiCall("get", "http://localhost:4000/auth/sign-out");
+    response.status === 200 && (
+      toast.success("Successfully Sign Out"),
+      signOut()
+    );
+    
   };
 
   return (

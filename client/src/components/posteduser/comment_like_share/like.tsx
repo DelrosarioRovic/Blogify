@@ -14,7 +14,7 @@ interface like {
 }
 
 const like = (props: like) => {
-  const { data } = useAuthentication();
+  const { authenticated,data } = useAuthentication();
   const postId = useParams();
   const { handleIncrement } = SinglePost();
  
@@ -28,22 +28,18 @@ const like = (props: like) => {
         "put",
         url
       );
-      if (response.status === 200) {
-        handleIncrement();
-      }else{
-        toast.info("Login first 😭");
-      }
+      response.status === 200 ? handleIncrement() : toast.info("Login first 😭");
     } catch (error) {
       console.log(error);
     }
   };
-
+ 
   return (
     <div
       className="flex items-center text-2xl cursor-pointer active:scale-75 duration-150"
       onClick={likeBtn}
     >
-      <AiOutlineLike className={``} style={{ color: data?._id === props.likes[0] ? "blue" : "inherit" }} />
+      <AiOutlineLike className={``} style={{ color: authenticated && data && props.likes.includes(data._id) ? "blue" : "" }} />
       <span className="text-[.75rem]">{props.Like}</span>
     </div>
   );
