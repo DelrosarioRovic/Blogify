@@ -3,28 +3,49 @@ import React, {useState} from "react";
 import ApiCall from "../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ImageUploader } from "../reusableComponent/uploadPicture";
+import cloudUrlImg from "../../API/cloudPhotoUrl";
+import UploadImageDisplay from "../reusableComponent/uploadImageDisplay";
+import { useLocation, Navigate} from "react-router-dom";
+import { PostObj } from "../../interface/hook/PostObj";
 
 const createpost: React.FC = () => {
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
-  const [addPic, setaddPic] = useState<string>("");
-
-
+  const location = useLocation();
+  const updateCurrentData: PostObj = location.state;
+  const [isSuccessFullySubmitted, setSuccessFullySubmitted] = useState<boolean>(false);
+  const [promise, setPromise] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>(updateCurrentData ? updateCurrentData.title : "");
+  const [content, setContent] = useState<string>(updateCurrentData ? updateCurrentData.content : "");
+  const [addPic, setaddPic] = useState<string>(updateCurrentData ? updateCurrentData.picture || "" : "");
   
+ 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+      setPromise(true);
       try {
-          const result = await ApiCall("POST", "http://localhost:4000/compose", {
-              title,
-              content,
-            });
-            if (result.status === 200) {
-              toast.success(result.data.message);
-            } 
+        const result = await ApiCall("POST", "http://localhost:4000/compose", {
+            _id: updateCurrentData ? updateCurrentData._id : "",
+            title,
+            content,
+            addPic
+          });
+          if (result.status === 200) {
+            toast.success(result.data.message);
+            setSuccessFullySubmitted(true);
+          } 
       } catch (error) {
           console.log(error)
+      } finally {
+        setPromise(false);
       }
-     
+  }
+
+  const handleImageUpload = async(base64String: string) => {
+    setaddPic(await cloudUrlImg(base64String));
+  };
+  // redirect to home page if the request is successfull.
+  if (isSuccessFullySubmitted) {
+    return <Navigate to="/" />;
   }
 
   return (
@@ -39,11 +60,14 @@ const createpost: React.FC = () => {
               >
                 Add cover image
               </label>
-              <input type="file" accept="image" id="uploadimage" onChange={(e) => setaddPic(e.target.value)} value={addPic} className="hidden" />
+              
             </div>
-
-            <img src={`${addPic}`} className="w-full"/>
-
+            <ImageUploader onImageUpload={handleImageUpload} />
+            
+              {addPic !== "" && (
+                <UploadImageDisplay addPic={addPic} setAddPic={setaddPic}/>
+              )}
+            
             <input
               className="outline-none text-5xl pl-2 font-extrabold"
               type="text"
@@ -67,8 +91,9 @@ const createpost: React.FC = () => {
             ></textarea>
           </div>
         </div>
-        <button className="px-8 py-[.35rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4">
-          Post
+        <button className={`px-8 py-[.35rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4
+        ${promise && "opacity-50"}`}>
+          { updateCurrentData ? "Update": "Post" }
         </button>
       </div>
     </form>

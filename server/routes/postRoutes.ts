@@ -23,6 +23,8 @@ const getPostAggregatePipeline = () => {
         displayName: "$user.displayName",
         title: 1,
         content: 1,
+        likes: 1,
+        picture: 1,
         date: { $dateToString: { format: "%m/%d/%Y", date: "$date" } },
         profilePicture: "$user.profilePicture",
         numComments: { $size: "$comments" },
@@ -48,7 +50,7 @@ router.get("/post", async (req: Request, res: Response) => {
       { $limit: limit },
     ];
     const posts: any = await Post.aggregate(pipeline);
-    
+    console.log(posts);
     res.json(posts);
   } catch (error) {
     console.error(error);

@@ -7,9 +7,12 @@ import useAuthentication from "../../../hooks/isAuthenticated";
 const UserProfile: React.FC = () => {
   const { data, signOut } = useAuthentication();
   const SignOutApi = async () => {
-    await ApiCall("get", "http://localhost:4000/auth/sign-out");
-    toast.success("Successfully Sign Out");
-    signOut();
+    const response = await ApiCall("get", "http://localhost:4000/auth/sign-out");
+    response.status === 200 && (
+      toast.success("Successfully Sign Out"),
+      signOut()
+    );
+    
   };
 
   return (
@@ -18,14 +21,14 @@ const UserProfile: React.FC = () => {
         {data?.displayName}
       </p>
       <hr />
-      <ul className="block opacity-80 text-gray-800">
-        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md mt-2">
+      <ul className="block opacity-80 text-gray-800 py-1">
+        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <a href="">Compose</a>
         </li>
         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <a href="">My Profile</a>
         </li>
-        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md mb-2">
+        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <a href="">Profile Settings</a>
         </li>
         <hr />

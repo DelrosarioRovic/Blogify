@@ -5,47 +5,41 @@ import ApiCall from "../../../API/Api-call";
 import SinglePost from "../../../hooks/single-post";
 import { toast } from 'react-toastify';
 import useAuthentication from "../../../hooks/isAuthenticated";
+
 interface like {
   Like: number;
   type?: string;
   like_comment_id?: string;
-  
+  likes: [string]
 }
+
 const like = (props: like) => {
-  const { data } = useAuthentication()
+  const { authenticated,data } = useAuthentication();
   const postId = useParams();
   const { handleIncrement } = SinglePost();
-  const [activeLiked, setactiveLike] = useState(false)
+ 
   const likeBtn = async () => {
     try {
       let url = `http://localhost:4000/like/${postId.postId}`;
       if (props.type === "like-comment") {
         url = `http://localhost:4000/like/${props.like_comment_id}/like-comment`;
       }
-      console.log(url);
       const response = await ApiCall(
         "put",
         url
       );
-      if (response.status === 200) {
-        handleIncrement();
-        setactiveLike(true)
-      }else{
-        toast.info("Login first 😭");
-      }
+      response.status === 200 ? handleIncrement() : toast.info("Login first 😭");
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(props.Like);
-  console.log(data);
-  
+ 
   return (
     <div
-      className=" flex items-center text-2xl cursor-pointer active:scale-75 duration-150"
+      className="flex items-center text-2xl cursor-pointer active:scale-75 duration-150"
       onClick={likeBtn}
     >
-      <AiOutlineLike  className={``} />
+      <AiOutlineLike className={``} style={{ color: authenticated && data && props.likes.includes(data._id) ? "blue" : "" }} />
       <span className="text-[.75rem]">{props.Like}</span>
     </div>
   );

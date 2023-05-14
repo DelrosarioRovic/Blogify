@@ -24,6 +24,8 @@ const SinglePost = () => {
     profilePicture: '',
     numComments: 0 ,
     numLikes: 0 ,
+    picture: '',
+    likes: ['']
   });
   
   const fetchSinglePost = async () => {
@@ -51,8 +53,6 @@ const SinglePost = () => {
   const handleIncrement = () => {
     dispatch(incrementRefreshCount());
   };
-
-console.log(post);
 
   return { post, comment, loading, handleIncrement };
 };

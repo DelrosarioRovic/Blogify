@@ -13,6 +13,7 @@ import authThirdPartyControllers from "./controllers/authThirdPartyController";
 import composeController from "./controllers/compose-controller";
 import commentController from "./controllers/comment-controller";
 import likeController from "./controllers/like-controller";
+import deleteController from "./controllers/deleteComment&Post";
 import postRoutes from "./routes/postRoutes";
 import userRoutes from "./routes/userRoutes";
 
@@ -40,6 +41,7 @@ app.use(
 //third Party authentication middleware
 thirdPartyMwAuth();
 
+
 //routes
 app.use("/route", postRoutes);
 app.use("/route", userRoutes);
@@ -48,8 +50,12 @@ app.use('/auth', authThirdPartyControllers);
 app.use('/auth', authControllers);
 //create post controllers
 app.use(composeController);
+//create comment controllers
 app.use(commentController);
+//like controllers
 app.use(likeController);
+//delete post
+app.use(deleteController);
 
 
 app.listen(4000, () => {
