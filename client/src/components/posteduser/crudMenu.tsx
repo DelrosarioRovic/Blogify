@@ -28,7 +28,7 @@ const crudMenu:React.FC <crudMenuLink> = (props) => {
                         <Link to={props.toEdit} state={props.data}>Edit</Link>
                         </li>
                         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
-                            <DeletePost type={props.toDelete}/>
+                            <DeletePost type={props.toDelete} id={props.data._id}/>
                         </li>
                         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
                             <Link to={props.toShare}>Share</Link>

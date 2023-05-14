@@ -1,12 +1,16 @@
 import React from "react"
+import ApiCall from "../../API/Api-call";
+
 interface deletetype {
-    type: string
+    type: string;
+    id: string;
 }
 const deletePost:React.FC<deletetype> = (props) => {
-    const handleDelete = () => {
-        props.type === "deletePost" ? 
-        console.log("this post is delete") : 
-        console.log("this comment is deleted");
+    let url = `http://localhost:4000/deletePost`;
+    const handleDelete = async() => {
+        const response = await ApiCall("delete", url, {id: props.id} );
+
+        console.log(response.status);
     }
 
 
