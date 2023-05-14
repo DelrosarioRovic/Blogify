@@ -21,14 +21,14 @@ const UserProfile: React.FC = () => {
         {data?.displayName}
       </p>
       <hr />
-      <ul className="block opacity-80 text-gray-800">
-        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md mt-2">
+      <ul className="block opacity-80 text-gray-800 py-1">
+        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <a href="">Compose</a>
         </li>
         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <a href="">My Profile</a>
         </li>
-        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md mb-2">
+        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <a href="">Profile Settings</a>
         </li>
         <hr />

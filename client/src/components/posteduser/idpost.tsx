@@ -1,16 +1,17 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
-import { BsThreeDotsVertical } from 'react-icons/bs';
+
 import Like from "./comment_like_share/like";
 import Comment from "./comment_like_share/comment";
 import UserAvatar from "../reusableComponent/userAvatar";
 import UserComment from "./usercomment/UserComment";
 import singlePost from "../../hooks/single-post";
 import useAuthentication from "../../hooks/isAuthenticated";
+import CrudMenu from "./crudMenu";
 
 function idpost() {
-  const { data } = useAuthentication();
+  const { data, authenticated } = useAuthentication();
   const { post, loading } = singlePost();
   
   return (
@@ -52,7 +53,11 @@ function idpost() {
           <Link to="#comment">
             <Comment numComments={2} />
           </Link>
-            { post.userId === data?._id && <BsThreeDotsVertical /> }
+          {/* crudPost */}
+            { 
+              authenticated && post.userId === data?._id && 
+                <CrudMenu toEdit={`/compose/${post._id}`} data={post} toDelete="deletePost" toShare=""/> 
+            }
 
         </div>
       </div>

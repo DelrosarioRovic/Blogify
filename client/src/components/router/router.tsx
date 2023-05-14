@@ -11,6 +11,7 @@ const router:React.FC = () => {
   return (
     <Routes>
       <Route path="/compose" element={authenticated ? <Createpost /> : <Navigate to="/" />} />
+      <Route path="/compose/:postId" element={<Createpost />} /> 
       <Route path="/" element={<Post />} />
       <Route path="/post/:postId" element={<Idpost />} />
     </Routes>
