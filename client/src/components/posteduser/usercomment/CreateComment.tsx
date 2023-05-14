@@ -5,12 +5,12 @@ import ApiCall from "../../../API/Api-call";
 import { useParams } from "react-router-dom";
 import { CommentForm, ReplyForm } from "./comment&ReplyForm";
 import singlePost from "../../../hooks/single-post";
-import {AiOutlineUser} from "react-icons/ai"
- interface createCommentProps {
+import { AiOutlineUser } from "react-icons/ai";
+interface createCommentProps {
   type: string;
   id?: string;
   handleCloseReply?: () => void;
-  handleOpenComment? :() => void;
+  handleOpenComment?: () => void;
 }
 
 const CreateComment: React.FC<createCommentProps> = (props) => {
@@ -46,7 +46,7 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
               displayName={data?.displayName}
             />
           ) : (
-            <AiOutlineUser  className="text-white"/>
+            <AiOutlineUser className="text-white" />
           )}
         </div>
       </div>

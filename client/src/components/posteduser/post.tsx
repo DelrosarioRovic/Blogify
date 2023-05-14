@@ -5,7 +5,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import Comment from "./comment_like_share/comment";
 import Like from "./comment_like_share/like";
-import Share from "./comment_like_share/share";
 import useFetchPosts from "../../hooks/post";
 import { PostObj } from "../../interface/hook/PostObj";
 import UserAvatar from "../reusableComponent/userAvatar";
@@ -30,33 +29,39 @@ const Post = () => {
       key={index}
       className=" mt-1 active:outline max-w-2xl mx-auto mb-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-300 relative"
     >
-      <div className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4">
-        {post.picture && <img src={post.picture} alt="" className="w-full" />}
-        <div className="flex items-center ">
-          <span className="w-12 h-12 rounded-full overflow-hidden">
-            <UserAvatar profilePicture={post.profilePicture} displayName={post.displayName}/>
-          </span>
-         
-          <Link
-            to={`/post/${post._id}`}
-            className="hover:text-blue-900 text-2xl font-bold after:absolute after:top-0 after:left-0 after:w-full after:h-full h-full"
-          >
-            {post.title}
-          </Link>
-        </div>
-        
-        <p className="text-gray-800">
-          {post.content.substring(0, 150)} {post.content.length >= 150 && "..."}
-        </p>
-        <div className="flex gap-4 justify-start items-center text-gray-500 font-semibold">
-          <p className="text-sm">{post.displayName}</p>
-          <p className="text-[.75rem] font-[400]">{post.date}</p>
-          <div className="flex flex-row gap-2">
-            <Like Like={post.numLikes} likes={post.likes}/>
-            <Link to={`/post/${post._id}#comment`}>
-              <Comment numComments={post.numComments} />
+      <div>
+        {post.picture && <img src={post.picture} alt="" className="w-full h-full object-cover object-center bg-no-repeat bg-cover" />}
+
+        <div className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4">
+          <div className="flex items-center gap-4">
+            <span className="w-12 h-12 rounded-full overflow-hidden">
+              <UserAvatar
+                profilePicture={post.profilePicture}
+                displayName={post.displayName}
+              />
+            </span>
+
+            <Link
+              to={`/post/${post._id}`}
+              className="hover:text-blue-900 text-2xl font-bold after:absolute after:top-0 after:left-0 after:w-full after:h-full h-full"
+            >
+              {post.title}
             </Link>
-            <Share />
+          </div>
+
+          <p className="text-gray-800">
+            {post.content.substring(0, 150)}{" "}
+            {post.content.length >= 150 && "..."}
+          </p>
+          <div className="flex gap-4 justify-start items-center text-gray-500 font-semibold">
+            <p className="text-sm">{post.displayName}</p>
+            <p className="text-[.75rem] font-[400]">{post.date}</p>
+            <div className="flex flex-row gap-2">
+              <Like Like={post.numLikes} likes={post.likes} />
+              <Link to={`/post/${post._id}#comment`}>
+                <Comment numComments={post.numComments} />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

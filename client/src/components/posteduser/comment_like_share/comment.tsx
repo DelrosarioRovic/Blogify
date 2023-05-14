@@ -1,8 +1,10 @@
 import React from 'react'
 import { AiOutlineComment  } from 'react-icons/ai'
+
 interface nOfComments {
   numComments?: number
 }
+
 function comment(props: nOfComments) {
 
   return (

@@ -21,7 +21,7 @@ const CommentCards = (props: CardInfo) => {
     <div className="flex flex-row gap-3 overflow-hidden mt-3">
       <div className="flex flex-col items-center gap-2">
         <div className="w-8 h-8">
-          <div className=" overflow-hidden h-8 w-8 rounded-full bg-red-500 flex justify-center items-center text-white">
+          <div className=" overflow-hidden h-8 w-8 rounded-full bg-blue-700 flex justify-center items-center text-white">
             {props.img}
           </div>
         </div>
