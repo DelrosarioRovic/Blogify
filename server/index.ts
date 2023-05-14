@@ -41,6 +41,7 @@ app.use(
 //third Party authentication middleware
 thirdPartyMwAuth();
 
+
 //routes
 app.use("/route", postRoutes);
 app.use("/route", userRoutes);

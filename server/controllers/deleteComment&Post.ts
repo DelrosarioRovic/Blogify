@@ -15,7 +15,7 @@ router.delete("/deletePost", MiddlewareAuth, async(req: CustomRequest, res: Resp
     }
 
     // Delete all comments associated with the post
-    await Comment.deleteMany({ postId: id });
+    await Comment.deleteMany({ post: id });
 
     // Delete the post itself
     await Post.findByIdAndDelete(id);
