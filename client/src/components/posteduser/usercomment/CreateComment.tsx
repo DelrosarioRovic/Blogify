@@ -6,8 +6,10 @@ import { useParams } from "react-router-dom";
 import { CommentForm, ReplyForm } from "./comment&ReplyForm";
 import singlePost from "../../../hooks/single-post";
 import {AiOutlineUser} from "react-icons/ai"
+import { useLocation } from "react-router-dom";
+
  interface createCommentProps {
-  type: string;
+  type?: string;
   id?: string;
   handleCloseReply?: () => void;
   handleOpenComment? :() => void;

@@ -4,6 +4,7 @@ import Createpost from "../compose/createpost";
 import Post from "../posteduser/post";
 import Idpost from "../posteduser/idpost";
 import useAuthentication from "../../hooks/isAuthenticated";
+import CreateComment from "../posteduser/usercomment/CreateComment";
 
 const router:React.FC = () => {
   const { authenticated } = useAuthentication();
@@ -14,6 +15,7 @@ const router:React.FC = () => {
       <Route path="/compose/:postId" element={<Createpost />} /> 
       <Route path="/" element={<Post />} />
       <Route path="/post/:postId" element={<Idpost />} />
+      <Route path="/comment/:commentId" element={<CreateComment />} />
     </Routes>
   );
 }

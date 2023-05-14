@@ -5,7 +5,7 @@ interface CommentReplyPropsForm {
   setComment: React.Dispatch<React.SetStateAction<string>>;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
   handleCloseReply?: () => void;
-  placeholder: string;
+  placeholder?: string;
   row?: number;
 }
 

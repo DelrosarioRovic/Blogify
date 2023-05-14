@@ -14,7 +14,6 @@ const UsersComments: React.FC = () => {
   const [replyIndexAr, setReplyIndexAr] = useState<string[]>([]);
   const [commentIndexAr, setCommentIndexAr] = useState<string[]>([]);
 
-
   const toggleIndex = (id: string, state: string[]) => {
     return state.includes(id) ? state.filter((i) => i !== id) : [...state, id];
   };
@@ -38,7 +37,7 @@ const UsersComments: React.FC = () => {
       return (
         <React.Fragment key={`${comment._id}-${depth}`}>
           <CommentCards
-            like_comment_id={comment._id}
+            comment_id={comment._id}
             handleComment={() => handleCommentClick(comment._id)}
             handleReply={
               !isMaxDepth ? () => handleReplyClick(comment._id) : undefined
@@ -56,6 +55,7 @@ const UsersComments: React.FC = () => {
             date={moment(comment.date).fromNow()}
             Comment={comment.text}
             isMaxDepth={isMaxDepth}
+            commentUserId={comment.user._id}
           />
           {authenticated &&
             !isMaxDepth &&

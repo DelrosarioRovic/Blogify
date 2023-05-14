@@ -56,7 +56,12 @@ function idpost() {
           {/* crudPost */}
             { 
               authenticated && post.userId === data?._id && 
-                <CrudMenu toEdit={`/compose/${post._id}`} data={post} toDelete="deletePost" toShare=""/> 
+                <CrudMenu 
+                 toEdit={`/compose/${post._id}`}
+                 data={post} toDelete="deletePost" 
+                 toShare="" 
+                 type="post" 
+                /> 
             }
 
         </div>
