@@ -16,7 +16,8 @@ router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) 
     }
 
     const { comment, postId } = req.body;
-    const specificPost:any = await Post.findById(postId.postId);
+    console.log(comment, postId);
+    const specificPost:any = await Post.findById(postId.postId || postId);
 
     const newComment = new Comment({
       text: comment,
@@ -25,7 +26,7 @@ router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) 
       date: Date.now()
     });
 
-    await newComment.save();
+    // await newComment.save();
 
     return res.status(200).json({ message: "Success" });
 });
@@ -34,12 +35,12 @@ router.post("/comment/:commentId/replies", MiddlewareAuth, async(req:CustomReque
   const { comment } = req.body;
   const { commentId } = req.params;
   const localOrProvided = await userAuth(req);
-
+  console.log(comment, commentId + "reply") ;
   if (!localOrProvided) {
     console.log("User required");
     return res.status(401).json({message:"Please Sign In First"});
   }
-    
+ 
   try {
     const parentComment = await Comment.findById(commentId);
     if (!parentComment) {
@@ -52,8 +53,8 @@ router.post("/comment/:commentId/replies", MiddlewareAuth, async(req:CustomReque
       parentComment: commentId,
       date: Date.now()
     });
-    parentComment.replies.push(newComment);
-    await parentComment.save();
+    // parentComment.replies.push(newComment);
+    // await parentComment.save();
    
 
     return res.status(200).json({ message: "Success" });

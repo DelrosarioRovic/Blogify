@@ -16,20 +16,35 @@ import { useLocation } from "react-router-dom";
 }
 
 const CreateComment: React.FC<createCommentProps> = (props) => {
-  const { handleIncrement } = singlePost();
+  const location = useLocation();
+  const updateCurrentData = location.state;
   const postId = useParams();
+  const { handleIncrement } = singlePost();
   const { authenticated, data } = useAuthentication();
-  const [comment, setComment] = useState<string>("");
+  const [comment, setComment] = useState<string>(updateCurrentData ? updateCurrentData.commentContent : "");
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    let url = "http://localhost:4000/comment";
-    if (props.type === "reply") {
-      url = `http://localhost:4000/comment/${props.id}/replies`;
+    
+    let url="";
+    if (updateCurrentData && updateCurrentData.typeCR) {
+      url = "http://localhost:4000/comment";
+      if (updateCurrentData.typeCR === "reply") {
+        url = `http://localhost:4000/comment/${updateCurrentData.parentCommentId}/replies`;
+      }
+    } else {
+      url = "http://localhost:4000/comment";
+      if (props.type === "reply") {
+        url = `http://localhost:4000/comment/${props.id}/replies`;
+      }
     }
-
+    console.log(url);
     try {
-      const response = await ApiCall("post", url, { comment, postId });
+      const response = await ApiCall("post", url, {
+        id:updateCurrentData ? updateCurrentData.commentId : "", 
+        comment,
+        ...(updateCurrentData ? { postId: updateCurrentData.postId } : { postId })
+      });
+
       response.status === 200 && handleIncrement(), setComment("");
       props.handleOpenComment && props.handleOpenComment();
       props.handleCloseReply && props.handleCloseReply();

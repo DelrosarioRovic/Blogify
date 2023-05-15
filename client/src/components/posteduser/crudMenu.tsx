@@ -11,12 +11,18 @@ interface crudMenuLink {
     toShare: string;
     //post data
     data?: PostObj;
+    //reply or comment
+    commentId?:string;
+    typeCR?:string;
+    postId?: string;
+    content?: string;
+    //reply
+    parentCommentId?: string;
 }
 
  
 const crudMenu:React.FC <crudMenuLink> = (props) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    
     return (
         <div className='relative flex'> 
             <button onClick={()=> setIsOpen(!isOpen)}>
@@ -29,7 +35,12 @@ const crudMenu:React.FC <crudMenuLink> = (props) => {
                             {props.type === "post" ? (
                                 <Link to={props.toEdit} state={props.data}>Edit</Link>
                             ) : (
-                                <Link to={props.toEdit} state={props.toEdit}>Edit</Link>
+                                <Link 
+                                    to={props.toEdit} 
+                                    state={props.parentCommentId && props.typeCR ==="reply" && props.postId ? 
+                                    { commentId: props.commentId, typeCR: "reply", parentCommentId: props.parentCommentId, commentContent: props.content, postId: props.postId } : 
+                                    { commentId: props.commentId, typeCR: "comment", commentContent: props.content, postId: props.postId} 
+                                }>Edit</Link>
                             )}
                         </li>
                         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">

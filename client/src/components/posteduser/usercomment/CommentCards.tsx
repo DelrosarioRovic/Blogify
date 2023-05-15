@@ -3,6 +3,7 @@ import Like from "../comment_like_share/like";
 import Comment from "../comment_like_share/comment";
 import CrudMenu from "../crudMenu";
 import useAuthentication from "../../../hooks/isAuthenticated";
+import { useParams } from "react-router-dom";
 
 interface CardInfo {
   comment_id?: string;
@@ -10,6 +11,7 @@ interface CardInfo {
   date: string;
   Comment: string;
   img: React.ReactNode;
+  parentCommentId?: string;
   commentUserId: string;
   like: number;
   comment: number;
@@ -20,6 +22,8 @@ interface CardInfo {
 }
 
 const CommentCards = (props: CardInfo) => {
+  const postId = useParams().postId;
+  
   const { data, authenticated } = useAuthentication();
   return (
     <div className="flex flex-row gap-3 overflow-hidden mt-3">
@@ -43,11 +47,16 @@ const CommentCards = (props: CardInfo) => {
           </h1>
           { props.commentUserId === data?._id && authenticated && (
             <CrudMenu 
+              commentId={props.comment_id}
+              content={props.Comment}
               toEdit={`/comment/${props.comment_id}`} 
               toDelete="" 
               toShare="" 
               type="comment"
-            />
+              postId={postId}
+              typeCR={props.parentCommentId ? "reply": "comment"}
+              parentCommentId={props.parentCommentId && props.parentCommentId} 
+            /> 
           )}
         </div>
         

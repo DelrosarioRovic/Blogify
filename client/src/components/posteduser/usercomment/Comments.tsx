@@ -31,13 +31,13 @@ const UsersComments: React.FC = () => {
 
   const renderComments = (comments: Comment[], depth = 0) => {
     return comments.map((comment) => {
-
       const isMaxDepth = depth >= 2;
       const hasReplies = comment.replies && comment.replies.length > 0;
       return (
         <React.Fragment key={`${comment._id}-${depth}`}>
           <CommentCards
             comment_id={comment._id}
+            parentCommentId={comment.parentComment}
             handleComment={() => handleCommentClick(comment._id)}
             handleReply={
               !isMaxDepth ? () => handleReplyClick(comment._id) : undefined
