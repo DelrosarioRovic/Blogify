@@ -37,7 +37,7 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
         url = `http://localhost:4000/comment/${props.id}/replies`;
       }
     }
-    console.log(url);
+ 
     try {
       const response = await ApiCall("post", url, {
         id:updateCurrentData ? updateCurrentData.commentId : "", 

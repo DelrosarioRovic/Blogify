@@ -37,7 +37,7 @@ router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) 
       });
   
       await newComment.save();
-      return res.status(200).json({ message: "Successfully add comment" });
+      return res.status(200).json({ message: "Successfully added a comment" });
     }
 
    
@@ -60,7 +60,13 @@ router.post("/comment/:parentCommentId/replies", MiddlewareAuth, async(req:Custo
     }
 
     if (id) {
-   
+      const commentUpdate = await Comment.findByIdAndUpdate(id, {
+        text: comment
+      }); 
+      if (!commentUpdate) {
+        return res.status(404).json({ message: "Comment not found!!" });
+      }
+      return res.status(200).json({ message: "Success update a comment" });
     } else {
       const newComment:any = await Comment.create({
         text: comment,
@@ -69,14 +75,12 @@ router.post("/comment/:parentCommentId/replies", MiddlewareAuth, async(req:Custo
         parentComment: parentCommentId,
         date: Date.now()
       });
-      // parentComment.replies.push(newComment);
-      // await parentComment.save();
+      parentComment.replies.push(newComment);
+      await parentComment.save();
+
+      return res.status(200).json({ message: "Successfully added a comment" });
     }
 
-    
-   
-
-    return res.status(200).json({ message: "Success" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
