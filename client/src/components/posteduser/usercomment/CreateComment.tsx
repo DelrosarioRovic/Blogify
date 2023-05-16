@@ -40,7 +40,7 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
  
     try {
       const response = await ApiCall("post", url, {
-        id:updateCurrentData ? updateCurrentData.commentId : "", 
+        id:updateCurrentData && updateCurrentData.commentId, 
         comment,
         ...(updateCurrentData ? { postId: updateCurrentData.postId } : { postId })
       });
@@ -83,6 +83,8 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
           setComment={setComment}
           placeholder={props.type}
           row={1}
+          //for updating your comment 
+          updateCurrentData={updateCurrentData}
         />
       )}
     </div>

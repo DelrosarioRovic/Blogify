@@ -38,8 +38,17 @@ const crudMenu:React.FC <crudMenuLink> = (props) => {
                                 <Link 
                                     to={props.toEdit} 
                                     state={props.parentCommentId && props.typeCR ==="reply" && props.postId ? 
-                                    { commentId: props.commentId, typeCR: "reply", parentCommentId: props.parentCommentId, commentContent: props.content, postId: props.postId } : 
-                                    { commentId: props.commentId, typeCR: "comment", commentContent: props.content, postId: props.postId} 
+                                    { commentId: props.commentId,
+                                      typeCR: props.typeCR, 
+                                      parentCommentId: props.parentCommentId, 
+                                      commentContent: props.content, 
+                                      postId: props.postId 
+                                    } : 
+                                    { commentId: props.commentId,
+                                      typeCR: props.typeCR,
+                                      commentContent: props.content,
+                                      postId: props.postId
+                                    } 
                                 }>Edit</Link>
                             )}
                         </li>

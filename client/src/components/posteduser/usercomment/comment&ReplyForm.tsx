@@ -7,6 +7,7 @@ interface CommentReplyPropsForm {
   handleCloseReply?: () => void;
   placeholder?: string;
   row?: number;
+  updateCurrentData?: any;
 }
 
 const CommentForm: React.FC<CommentReplyPropsForm> = (props) => {
@@ -19,7 +20,7 @@ const CommentForm: React.FC<CommentReplyPropsForm> = (props) => {
         className="w-full border p-2 resize-y"
         id="email-input"
         placeholder={props.placeholder}
-        rows={isShowBtn ? 4 : props.row}
+        rows={isShowBtn || props.updateCurrentData ? 4 : props.row}
         value={props.comment}
         onChange={(e) => props.setComment(e.target.value)}
         required
