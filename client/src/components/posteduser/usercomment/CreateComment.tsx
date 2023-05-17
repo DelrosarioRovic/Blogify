@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UserAvatar from "../../reusableComponent/userAvatar";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import ApiCall from "../../../API/Api-call";
-import { useParams } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import { CommentForm, ReplyForm } from "./comment&ReplyForm";
 import singlePost from "../../../hooks/single-post";
 import {AiOutlineUser} from "react-icons/ai"
@@ -18,9 +18,11 @@ import { useLocation } from "react-router-dom";
 const CreateComment: React.FC<createCommentProps> = (props) => {
   const location = useLocation();
   const updateCurrentData = location.state;
+  const { focus } = location.state || {};
   const postId = useParams();
   const { handleIncrement } = singlePost();
   const { authenticated, data } = useAuthentication();
+  const [isSuccessFullySubmitted, setSuccessFullySubmitted] = useState<boolean>(false);
   const [comment, setComment] = useState<string>(updateCurrentData ? updateCurrentData.commentContent : "");
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,13 +47,18 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
         ...(updateCurrentData ? { postId: updateCurrentData.postId } : { postId })
       });
 
-      response.status === 200 && handleIncrement(), setComment("");
+      response.status === 200 && handleIncrement(), setComment(""), setSuccessFullySubmitted(true);
       props.handleOpenComment && props.handleOpenComment();
       props.handleCloseReply && props.handleCloseReply();
+      //update comment
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (isSuccessFullySubmitted && updateCurrentData) {
+    return <Navigate to={`/post/${updateCurrentData.postId}`} />;
+  }
 
   return (
     <div className="flex gap-3 flex-row">
@@ -83,8 +90,9 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
           setComment={setComment}
           placeholder={props.type}
           row={1}
-          //for updating your comment 
+          //for updating your comment & reply
           updateCurrentData={updateCurrentData}
+          focus={focus}
         />
       )}
     </div>

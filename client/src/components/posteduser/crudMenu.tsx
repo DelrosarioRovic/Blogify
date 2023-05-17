@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useEffect, useRef, useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Link, useLocation } from 'react-router-dom';
 import { PostObj } from '../../interface/hook/PostObj';
@@ -23,6 +23,10 @@ interface crudMenuLink {
  
 const crudMenu:React.FC <crudMenuLink> = (props) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    //comment and reply function auto focus on input
+    const focusRef = useRef(null);
+
     return (
         <div className='relative flex'> 
             <button onClick={()=> setIsOpen(!isOpen)}>
@@ -42,12 +46,14 @@ const crudMenu:React.FC <crudMenuLink> = (props) => {
                                       typeCR: props.typeCR, 
                                       parentCommentId: props.parentCommentId, 
                                       commentContent: props.content, 
-                                      postId: props.postId 
+                                      postId: props.postId,
+                                      focus:focusRef 
                                     } : 
                                     { commentId: props.commentId,
                                       typeCR: props.typeCR,
                                       commentContent: props.content,
-                                      postId: props.postId
+                                      postId: props.postId,
+                                      focus:focusRef 
                                     } 
                                 }>Edit</Link>
                             )}

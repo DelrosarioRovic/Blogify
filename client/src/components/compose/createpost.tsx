@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ImageUploader } from "../reusableComponent/uploadPicture";
 import cloudUrlImg from "../../API/cloudPhotoUrl";
 import UploadImageDisplay from "../reusableComponent/uploadImageDisplay";
-import { useLocation, Navigate} from "react-router-dom";
+import { Link ,useLocation, Navigate} from "react-router-dom";
 import { PostObj } from "../../interface/hook/PostObj";
 
 const createpost: React.FC = () => {
@@ -91,10 +91,16 @@ const createpost: React.FC = () => {
             ></textarea>
           </div>
         </div>
-        <button className={`px-8 py-[.35rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4
-        ${promise && "opacity-50"}`}>
-          { updateCurrentData ? "Update": "Post" }
-        </button>
+        <div className="gap-2 flex">
+          <button className={`px-8 py-[.35rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4
+          ${promise && "opacity-50"}`}>
+            { updateCurrentData ? "Update": "Post" }
+          </button>
+          <span className="px-7 py-[0.5rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4 cursor-pointer">
+            <Link to={"/"}>Cancel</Link>
+          </span>
+        </div>
+        
       </div>
     </form>
   );

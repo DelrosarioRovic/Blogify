@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface CommentReplyPropsForm {
   comment: string;
@@ -8,14 +9,24 @@ interface CommentReplyPropsForm {
   placeholder?: string;
   row?: number;
   updateCurrentData?: any;
+  focus?:any
 }
 
 const CommentForm: React.FC<CommentReplyPropsForm> = (props) => {
   const [isShowBtn, setIsShowBtn] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (props.focus && props.focus.current) {
+      const textarea = props.focus.current;
+      textarea.focus();
+      textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+    }
+  }, [props.focus]);
+
   return (
     <form onSubmit={props.handleSubmit} className="w-full">
       <textarea
+        ref={props.focus}
         onClick={() => setIsShowBtn(true)}
         className="w-full border p-2 resize-y"
         id="email-input"
@@ -25,11 +36,23 @@ const CommentForm: React.FC<CommentReplyPropsForm> = (props) => {
         onChange={(e) => props.setComment(e.target.value)}
         required
       ></textarea>
-      {isShowBtn && (
+      
+      {props.updateCurrentData ? (
+        <div className="flex gap-2">
+          <button className="bg-slate-600 px-6 py-2 text-white rounded-lg">
+            Update
+          </button>
+          <span className="bg-slate-600 px-6 py-2 text-white rounded-lg cursor-pointer">
+            {props.updateCurrentData && <Link to={`/post/${props.updateCurrentData.postId}`}>Cancel</Link>}
+          </span>
+        </div>
+      ): isShowBtn && (
         <button className="bg-slate-600 px-6 py-2 text-white rounded-lg">
           Submit
         </button>
       )}
+     
+
     </form>
   );
 };
