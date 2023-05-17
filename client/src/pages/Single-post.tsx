@@ -2,13 +2,13 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 
-import Like from "./comment_like_share/like";
-import Comment from "./comment_like_share/comment";
-import UserAvatar from "../reusableComponent/userAvatar";
-import UserComment from "./usercomment/UserComment";
-import singlePost from "../../hooks/single-post";
-import useAuthentication from "../../hooks/isAuthenticated";
-import CrudMenu from "./crudMenu";
+import Like from "../components/posteduser/comment_like_share/like";
+import Comment from "../components/posteduser/comment_like_share/comment";
+import UserAvatar from "../components/reusableComponent/userAvatar";
+import UserComment from "../components/posteduser/usercomment/UserComment";
+import singlePost from "../hooks/single-post";
+import useAuthentication from "../hooks/isAuthenticated";
+import CrudMenu from "../components/posteduser/crudMenu";
 
 function idpost() {
   const { data, authenticated } = useAuthentication();

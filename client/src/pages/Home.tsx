@@ -3,12 +3,12 @@ import Skeleton from "react-loading-skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import Comment from "./comment_like_share/comment";
-import Like from "./comment_like_share/like";
-import Share from "./comment_like_share/share";
-import useFetchPosts from "../../hooks/post";
-import { PostObj } from "../../interface/hook/PostObj";
-import UserAvatar from "../reusableComponent/userAvatar";
+import Comment from "../components/posteduser/comment_like_share/comment";
+import Like from "../components/posteduser/comment_like_share/like";
+import Share from "../components/posteduser/comment_like_share/share";
+import useFetchPosts from "../hooks/post";
+import { PostObj } from "../interface/hook/PostObj";
+import UserAvatar from "../components/reusableComponent/userAvatar";
 
 const Post = () => {
   const { posts, hasMore, fetchMorePosts, loading } = useFetchPosts();
