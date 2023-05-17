@@ -22,12 +22,10 @@ function idpost() {
           {loading ? (
             <Skeleton circle={true} width={"2.5rem"} height={"2.5rem"} />
           ) : (
-            <div className=" flex justify-center items-center w-10 h-10 bg-slate-600 rounded-full text-white overflow-hidden">
               <UserAvatar
                 profilePicture={post.profilePicture}
                 displayName={post.displayName}
               />
-            </div>
           )}
           <div>
             <p className="font-semibold">
@@ -63,7 +61,6 @@ function idpost() {
                  type="post" 
                 /> 
             }
-
         </div>
       </div>
       <div className="my-6">

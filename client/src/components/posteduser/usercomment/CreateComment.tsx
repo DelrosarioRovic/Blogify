@@ -62,17 +62,17 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
 
   return (
     <div className="flex gap-3 flex-row">
-      <div className="h-8 w-8 ">
-        <div className=" overflow-hidden rounded-full bg-blue-700 h-8 w-8 flex items-center justify-center">
+      <div className="h-12 w-12 ">
           {authenticated ? (
             <UserAvatar
               profilePicture={data?.profilePicture}
               displayName={data?.displayName}
             />
           ) : (
-            <AiOutlineUser  className="text-white"/>
+            <div className=" overflow-hidden rounded-full bg-blue-500 h-11 w-11 flex items-center justify-center">
+              <AiOutlineUser  className="text-white"/>
+            </div>
           )}
-        </div>
       </div>
 
       {props.type === "reply" ? (

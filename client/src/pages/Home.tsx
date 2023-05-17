@@ -32,11 +32,14 @@ const Post = () => {
     >
       <div className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4">
         {post.picture && <img src={post.picture} alt="" className="w-full" />}
-        <div className="flex items-center ">
-          <span className="w-12 h-12 rounded-full overflow-hidden">
-            <UserAvatar profilePicture={post.profilePicture} displayName={post.displayName}/>
-          </span>
-         
+        <div className="flex items-center gap-x-3">
+          <div className="w-12 h-12">
+            <UserAvatar 
+                profilePicture={post.profilePicture} 
+                displayName={post.displayName}
+              />
+          </div>
+           
           <Link
             to={`/post/${post._id}`}
             className="hover:text-blue-900 text-2xl font-bold after:absolute after:top-0 after:left-0 after:w-full after:h-full h-full"
