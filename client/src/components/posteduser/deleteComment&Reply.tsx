@@ -1,5 +1,6 @@
 import React from "react";
 import ApiCall from "../../API/Api-call";
+import SinglePost from "../../hooks/single-post";
 
 
 interface deletetype {
@@ -9,15 +10,16 @@ interface deletetype {
 }
 
 const deleteCR:React.FC<deletetype> = (props)=> {
+    const { handleIncrement } = SinglePost();
     const handleDelete = async() => {
         let url = `http://localhost:4000/deleteComment`;
-        if (props.parentCommentId) {
-            url = `http://localhost:4000/deleteReply/${props.parentCommentId}`;
-        }
+
         const response = await ApiCall("delete", url, {
             id: props.id,
-            parentCommentId: props.parentCommentId && props.parentCommentId,
+            parentId: props.parentCommentId && props.parentCommentId,
         });
+
+        response.status === 200 && handleIncrement();
 
         console.log(response);
     }
