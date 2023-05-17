@@ -50,7 +50,7 @@ const CommentCards = (props: CardInfo) => {
               commentId={props.comment_id}
               content={props.Comment}
               toEdit={`/comment/${props.comment_id}`} 
-              toDelete="" 
+              toDelete="deleteComment" 
               toShare="" 
               type="comment"
               postId={postId}

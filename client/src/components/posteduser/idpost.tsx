@@ -58,7 +58,7 @@ function idpost() {
               authenticated && post.userId === data?._id && 
                 <CrudMenu 
                  toEdit={`/compose/${post._id}`}
-                 data={post} toDelete="deletePost" 
+                 data={post} 
                  toShare="" 
                  type="post" 
                 /> 

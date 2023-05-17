@@ -12,10 +12,10 @@ const router:React.FC = () => {
   return (
     <Routes>
       <Route path="/compose" element={authenticated ? <Createpost /> : <Navigate to="/" />} />
-      <Route path="/compose/:postId" element={<Createpost />} /> 
+      <Route path="/compose/:postId" element={authenticated ? <Createpost /> : <Navigate to="/" />} /> 
       <Route path="/" element={<Post />} />
       <Route path="/post/:postId" element={<Idpost />} />
-      <Route path="/comment/:commentId" element={<CreateComment />} />
+      <Route path="/comment/:commentId" element={authenticated ? <CreateComment /> : <Navigate to="/" /> } />
     </Routes>
   );
 }
