@@ -2,8 +2,8 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 
-import Like from "../components/posteduser/comment_like_share/like";
-import Comment from "../components/posteduser/comment_like_share/comment";
+import Like from "../components/reusableComponent/like";
+import Comment from "../components/reusableComponent/comment";
 import UserAvatar from "../components/reusableComponent/userAvatar";
 import UserComment from "../components/posteduser/usercomment/UserComment";
 import singlePost from "../hooks/single-post";

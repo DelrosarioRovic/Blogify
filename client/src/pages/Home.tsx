@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "react-loading-skeleton/dist/skeleton.css";
+import ClipLoader from "react-spinners/ClipLoader";
 
-import Comment from "../components/posteduser/comment_like_share/comment";
-import Like from "../components/posteduser/comment_like_share/like";
-import Share from "../components/posteduser/comment_like_share/share";
+import Comment from "../components/reusableComponent/comment";
+import Like from "../components/reusableComponent/like";
+import Share from "../components/reusableComponent/share";
 import useFetchPosts from "../hooks/post";
 import { PostObj } from "../interface/hook/PostObj";
 import UserAvatar from "../components/reusableComponent/userAvatar";
@@ -19,7 +20,12 @@ const Post = () => {
       className="max-w-2xl mx-auto mt-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-300 relative"
     >
       <div className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4">
-        <Skeleton width={"100%"} height={"1.5rem"} />
+        <div className="flex items-center gap-3">
+          <Skeleton circle={true} width={"2.5rem"} height={"2.5rem"} />
+          <div className="w-[80%] block">
+            <Skeleton width={"100%"} height={"1.5rem"} />
+          </div>
+        </div>
         <Skeleton count={5} />
       </div>
     </div>
@@ -72,7 +78,7 @@ const Post = () => {
         dataLength={posts.length}
         next={fetchMorePosts}
         hasMore={hasMore}
-        loader={"loading ..."}
+        loader={<div className="text-center my-3"><ClipLoader size={25} /></div> }
         endMessage={
           <p style={{ textAlign: "center" }}>
             <p className="text-gray-500">No more posts to show!</p>

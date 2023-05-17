@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { AiOutlineLike } from "react-icons/ai";
-import ApiCall from "../../../API/Api-call";
-import SinglePost from "../../../hooks/single-post";
+import ApiCall from "../../API/Api-call";
+import SinglePost from "../../hooks/single-post";
 import { toast } from 'react-toastify';
-import useAuthentication from "../../../hooks/isAuthenticated";
+import useAuthentication from "../../hooks/isAuthenticated";
 
 interface like {
   Like: number;
