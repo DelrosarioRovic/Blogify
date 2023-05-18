@@ -13,9 +13,15 @@ import CrudMenu from "../components/posteduser/crudMenu";
 function idpost() {
   const { data, authenticated } = useAuthentication();
   const { post, loading } = singlePost();
-  
+
   return (
     <div className="max-w-4xl mx-auto py-4 md:border border-gray-200 rounded-xl mt-12 shadow-md">
+      { post.picture && 
+        <div className="mb-12">
+          <img src={post.picture} className="w-full h-[400px] object-cover object-center" />
+        </div>
+      }
+
       <div className="px-12 max-md:px-4">
       <div className="flex justify-between">
         <div className="flex gap-6">

@@ -12,8 +12,8 @@ dist
 dist-ssr
 .vite
 *.local
-# .env
-
+.env
+blogify-386005-083f7ac2d5b6.json
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
