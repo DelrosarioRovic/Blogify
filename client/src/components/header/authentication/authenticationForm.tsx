@@ -36,7 +36,7 @@ const AuthenticationForm: React.FC<authenticationForm> = (props) => {
         </div>
         <div
           className={`flex flex-row w-[200%] ${
-            isLoginForm ? "h-[16rem]" : "h-[12rem]"
+            isLoginForm ? "h-[19.5rem]" : "h-[12rem]"
           }`}
         >
           <Login
