@@ -22,9 +22,9 @@ const NavigateNavLink:React.FC<NavLinkProps> = (props) => {
       }
 
     return (
-        <button onClick={handleComposeClick}>
+        <span onClick={handleComposeClick}>
             {props.link}
-        </button>
+        </span>
     )
 }
 
