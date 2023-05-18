@@ -24,7 +24,7 @@ const useAuthentication = () => {
       }
     };
     checkAuth();
-  }, [dispatch]);
+  }, [dispatch, authenticated]);
 
   const signIn = () => {
     dispatch({ type: 'SET_AUTHENTICATED', payload: true });

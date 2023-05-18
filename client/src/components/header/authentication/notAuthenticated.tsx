@@ -19,7 +19,7 @@ const NotAuthenticated: React.FC = () => {
         <UserProfile />
       ) : (
         <>
-          <button className="bg-blue-500 rounded-full p-3" onClick={ifShowAuthForm}>
+          <button className="bg-blue-500 rounded-full p-3 w-11 h-11" onClick={ifShowAuthForm}>
             <GoSignIn size={18} color="white" />
           </button>
           <AuthenticationForm

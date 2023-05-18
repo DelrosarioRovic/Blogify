@@ -15,7 +15,6 @@ router.put(
       const userId: any = await userAuth(req);
 
       if (!userId) {
-        console.log("User required");
         return res.status(401).json({ message: "Please Sign In First" });
       }
 
@@ -24,7 +23,6 @@ router.put(
         likes: { $elemMatch: { $eq: userId._id } },
       });
       const likedByUser = !!post;
-      console.log(likedByUser);
 
       let updateQuery;
       if (likedByUser) {
@@ -41,11 +39,9 @@ router.put(
         };
       }
 
-      const updatedPost = await Post.findByIdAndUpdate(postId, updateQuery, {
+      await Post.findByIdAndUpdate(postId, updateQuery, {
         new: true,
       });
-
-    console.log("Success");
     
       return res.status(200).json({ message: "Successfully Like" });
     } catch (err) {
@@ -62,9 +58,7 @@ router.put(
     try {
       const commentId = req.params.like_comment_id;
       const userId: any = await userAuth(req);
-      console.log(commentId, userId);
       if (!userId) {
-        console.log("User required");
         return res.status(401).json({ message: "Please Sign In First" });
       }
 
@@ -73,7 +67,6 @@ router.put(
         likes: { $elemMatch: { $eq: userId._id } },
       });
       const likedByUser = !!comment;
-      console.log(likedByUser);
 
       let updateQuery;
       if (likedByUser) {

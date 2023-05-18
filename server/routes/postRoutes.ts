@@ -50,7 +50,6 @@ router.get("/post", async (req: Request, res: Response) => {
       { $limit: limit },
     ];
     const posts: any = await Post.aggregate(pipeline);
-    console.log(posts);
     res.json(posts);
   } catch (error) {
     console.error(error);

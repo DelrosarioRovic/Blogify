@@ -1,24 +1,25 @@
-import { Markdown } from "./markdown/Markdown";
 import React, {useState} from "react";
-import ApiCall from "../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link ,useLocation, Navigate} from "react-router-dom";
+
+import { Markdown } from "./markdown/Markdown";
+import ApiCall from "../../API/Api-call";
 import { ImageUploader } from "../reusableComponent/uploadPicture";
-import cloudUrlImg from "../../API/cloudPhotoUrl";
 import UploadImageDisplay from "../reusableComponent/uploadImageDisplay";
-import { useLocation, Navigate} from "react-router-dom";
 import { PostObj } from "../../interface/hook/PostObj";
 
 const createpost: React.FC = () => {
+  //use for sending state from other location
   const location = useLocation();
   const updateCurrentData: PostObj = location.state;
-  const [isSuccessFullySubmitted, setSuccessFullySubmitted] = useState<boolean>(false);
+
   const [promise, setPromise] = useState<boolean>(false);
+  const [isSuccessFullySubmitted, setSuccessFullySubmitted] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(updateCurrentData ? updateCurrentData.title : "");
   const [content, setContent] = useState<string>(updateCurrentData ? updateCurrentData.content : "");
   const [addPic, setaddPic] = useState<string>(updateCurrentData ? updateCurrentData.picture || "" : "");
   
- 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       setPromise(true);
@@ -34,15 +35,12 @@ const createpost: React.FC = () => {
             setSuccessFullySubmitted(true);
           } 
       } catch (error) {
-          console.log(error)
+          console.log(error);
       } finally {
         setPromise(false);
       }
   }
 
-  const handleImageUpload = async(base64String: string) => {
-    setaddPic(await cloudUrlImg(base64String));
-  };
   // redirect to home page if the request is successfull.
   if (isSuccessFullySubmitted) {
     return <Navigate to="/" />;
@@ -53,19 +51,13 @@ const createpost: React.FC = () => {
       <div className="mt-12 relative max-w-4xl mx-auto min-h-[500px]">
         <div className=" md:border rounded-md">
           <div className="p-5 flex flex-col">
-            <div className="mb-3 w-auto py-2">
-              <label
-                htmlFor="uploadimage"
-                className="border-[2px] border-gray-800 p-2 cursor-pointer rounded-md"
-              >
-                Add cover image
-              </label>
-              
-            </div>
-            <ImageUploader onImageUpload={handleImageUpload} />
             
-              {addPic !== "" && (
+              {addPic !== "" ? (
                 <UploadImageDisplay addPic={addPic} setAddPic={setaddPic}/>
+              ): (
+                <div className="mb-3 w-auto py-2">
+                  <ImageUploader setAddPic={setaddPic} buttonName="Add Pic"/>
+                </div>
               )}
             
             <input
@@ -91,10 +83,16 @@ const createpost: React.FC = () => {
             ></textarea>
           </div>
         </div>
-        <button className={`px-8 py-[.35rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4
-        ${promise && "opacity-50"}`}>
-          { updateCurrentData ? "Update": "Post" }
-        </button>
+        <div className="gap-2 flex">
+          <button className={`px-8 py-[.35rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4
+          ${promise && "opacity-50"}`}>
+            { updateCurrentData ? "Update": "Post" }
+          </button>
+          <span className="px-7 py-[0.5rem] bg-slate-600 md:mt-6 text-white text-lg font-semibold active:scale-90 duration-300 rounded-md max-lg:ml-4 cursor-pointer">
+            <Link to={"/"}>Cancel</Link>
+          </span>
+        </div>
+        
       </div>
     </form>
   );

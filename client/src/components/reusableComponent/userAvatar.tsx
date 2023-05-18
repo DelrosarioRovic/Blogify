@@ -6,7 +6,7 @@ const userAvatar: React.FC<ProfilePictureProps> = (props) => {
   const { profilePicture, displayName } = props;
 
   return (
-    <>
+    <div className="rounded-full bg-blue-500 flex justify-center items-center w-11 h-11 overflow-hidden">
       {profilePicture ? (
         <img src={profilePicture} />
       ) : (
@@ -14,7 +14,7 @@ const userAvatar: React.FC<ProfilePictureProps> = (props) => {
           {displayName?.charAt(0).toUpperCase() ?? ''}
         </p>
       )}
-    </>
+    </div>
   );
 };
 

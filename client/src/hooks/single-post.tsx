@@ -11,7 +11,7 @@ const SinglePost = () => {
   const refreshCount = useSelector((state: any) => state.isSuccessReducer.refreshCount);
   const dispatch = useDispatch();
   const postId = useParams();
-  // console.log("why this function being called");
+
   const [loading, setLoading] = useState<boolean>(true);
   const [comment, setComment] = useState<Comment[]>([]);
   const [post, setPost] = useState<PostObj>({

@@ -12,7 +12,6 @@ router.post(
     const localOrProvided = await userAuth(req);
 
     if (!localOrProvided) {
-      console.log("User required");
       return res.status(401).json({ message: "Please Sign In First" });
     }
 

@@ -4,7 +4,7 @@ import store from "./redux/store";
 import Header from "./components/header/Header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Router from "./components/router/router";
+import Router from "./router/router";
 import Footer from "./components/footer/footer";
 const App: React.FC = () => {
   return (
