@@ -1,10 +1,14 @@
 import React from "react";
-import ApiCall from "../../../API/Api-call";
 import { toast } from "react-toastify";
+import { NavLink } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthentication from "../../../hooks/isAuthenticated";
+import ApiCall from "../../../API/Api-call";
+import NavigateNavLink from "../NavLink";
 
-interface userProfileMenu {
+//interface
+import { NavLinkProps } from "../../../interface/props/NavLinkProps";
+interface userProfileMenu extends NavLinkProps{
   displayName? : string;
 }
 
@@ -26,7 +30,7 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
       <hr />
       <ul className="block opacity-80 text-gray-800 py-1">
         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
-          <a href="">Compose</a>
+          <NavigateNavLink link={<NavLink to={"/compose"}>Compose</NavLink>} />
         </li>
         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <a href="">My Profile</a>

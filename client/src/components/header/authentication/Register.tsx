@@ -10,9 +10,11 @@ const Register: React.FC<registerForm> = (props) => {
   const [eMail, setEmail] = useState<string>('');
   const [passWord, setPassword] = useState<string>('');
   const [displayName, setDisplayName] =useState<string>('');
+  const [promiseRegister, setPromiseRegister] = useState<boolean>(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setPromiseRegister(true);
     try {
       const result:any = await ApiCall('post', 'http://localhost:4000/auth/register', {email: eMail, password: passWord, displayName: displayName});
       if (result.status === 200) {
@@ -26,14 +28,15 @@ const Register: React.FC<registerForm> = (props) => {
         toast.warning(result.data.message);
       }
     } catch (error) {
+      console.log(error);
       // handle error
+    } finally {
+      setPromiseRegister(false);
     }
   };
 
   return (
-    <div
-      className="w-1/2 duration-300 px-3"
-    >
+    <div className="w-1/2 duration-300 px-3">
       <form  onSubmit={handleSubmit} className="flex flex-col text-gray-500">
         <label htmlFor="displayName">Display Name</label>
         <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} className="bg-gray-300 py-2 px-1 rounded-sm text-gray-500 text-sm" required/>
@@ -43,8 +46,8 @@ const Register: React.FC<registerForm> = (props) => {
         <input type="password" value={passWord} onChange={(e) => setPassword(e.target.value)} className="bg-gray-300 py-2 px-1 rounded-sm text-gray-500 text-sm" required/>
         <button
           type="submit"
-          className="bg-violet-700 text-white mt-2 py-2 rounded-sm"
-        >
+          className={`bg-violet-700 text-white mt-2 py-2 rounded-sm 
+          ${promiseRegister && "opacity-50"}`}>
           Sign Up
         </button>
       </form>

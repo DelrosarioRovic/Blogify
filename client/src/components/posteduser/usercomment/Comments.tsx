@@ -73,7 +73,7 @@ const UsersComments: React.FC = () => {
           {hasReplies &&
             !isMaxDepth &&
             commentIndexAr.includes(comment._id) && (
-              <div className="flex flex-row  w-full overflow-hidden">
+              <div className="flex flex-row  w-full">
               <div className="w-full ml-6 relative before:absolute before:-left-[.55rem] before:max-lg:-left-[.50rem] before:top-0 before:w-[1px] before:h-[100%] before:bg-slate-500">
               {renderComments(comment.replies, depth + 1)}
               </div>

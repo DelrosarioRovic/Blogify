@@ -26,14 +26,14 @@ const CommentCards = (props: CardInfo) => {
   
   const { data, authenticated } = useAuthentication();
   return (
-    <div className="flex flex-row gap-3 overflow-hidden mt-3">
+    <div className="flex flex-row gap-3 mt-3">
       <div className="flex flex-col items-center gap-2">
         <div className="w-8 h-8">
-          <div className=" overflow-hidden h-8 w-8 rounded-full bg-red-500 flex justify-center items-center text-white">
+          <div className="overflow-hidden h-8 w-8 rounded-full bg-red-500 flex justify-center items-center text-white">
             {props.img}
           </div>
         </div>
-        <div className="w-[1px] h-full bg-slate-600  rounded-full"></div>
+        <div className="w-[1px] h-full bg-slate-600 rounded-full"></div>
       </div>
 
       <div className="p-2 border w-full">
@@ -50,7 +50,6 @@ const CommentCards = (props: CardInfo) => {
               commentId={props.comment_id}
               content={props.Comment}
               toEdit={`/comment/${props.comment_id}`} 
-              toDelete="deleteComment" 
               toShare="" 
               type="comment"
               postId={postId}
