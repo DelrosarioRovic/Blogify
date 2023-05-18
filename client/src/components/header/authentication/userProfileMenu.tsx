@@ -9,7 +9,7 @@ interface userProfileMenu {
 }
 
 const UserProfile: React.FC<userProfileMenu> = (props) => {
-  const { data, signOut } = useAuthentication();
+  const { signOut } = useAuthentication();
   const SignOutApi = async () => {
     const response = await ApiCall("get", "http://localhost:4000/auth/sign-out");
     response.status === 200 && (

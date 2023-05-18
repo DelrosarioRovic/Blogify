@@ -1,24 +1,25 @@
-import { Markdown } from "./markdown/Markdown";
 import React, {useState} from "react";
-import ApiCall from "../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ImageUploader } from "../reusableComponent/uploadPicture";
-import cloudUrlImg from "../../API/cloudPhotoUrl";
-import UploadImageDisplay from "../reusableComponent/uploadImageDisplay";
 import { Link ,useLocation, Navigate} from "react-router-dom";
+
+import { Markdown } from "./markdown/Markdown";
+import ApiCall from "../../API/Api-call";
+import { ImageUploader } from "../reusableComponent/uploadPicture";
+import UploadImageDisplay from "../reusableComponent/uploadImageDisplay";
 import { PostObj } from "../../interface/hook/PostObj";
 
 const createpost: React.FC = () => {
+  //use for sending state from other location
   const location = useLocation();
   const updateCurrentData: PostObj = location.state;
-  const [isSuccessFullySubmitted, setSuccessFullySubmitted] = useState<boolean>(false);
+
   const [promise, setPromise] = useState<boolean>(false);
+  const [isSuccessFullySubmitted, setSuccessFullySubmitted] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(updateCurrentData ? updateCurrentData.title : "");
   const [content, setContent] = useState<string>(updateCurrentData ? updateCurrentData.content : "");
   const [addPic, setaddPic] = useState<string>(updateCurrentData ? updateCurrentData.picture || "" : "");
   
- 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       setPromise(true);
@@ -40,9 +41,6 @@ const createpost: React.FC = () => {
       }
   }
 
-  const handleImageUpload = async(base64String: string) => {
-    setaddPic(await cloudUrlImg(base64String));
-  };
   // redirect to home page if the request is successfull.
   if (isSuccessFullySubmitted) {
     return <Navigate to="/" />;
@@ -62,7 +60,7 @@ const createpost: React.FC = () => {
               </label>
               
             </div>
-            <ImageUploader onImageUpload={handleImageUpload} />
+            <ImageUploader setAddPic={setaddPic} />
             
               {addPic !== "" && (
                 <UploadImageDisplay addPic={addPic} setAddPic={setaddPic}/>
