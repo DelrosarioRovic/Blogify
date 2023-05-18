@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UserProfileMenu from "./userProfileMenu";
 import UserAvatar from "../../reusableComponent/userAvatar";
 import useAuthentication from "../../../hooks/isAuthenticated"; 
+import { NavLink } from "react-router-dom";
 
 const UserProfile: React.FC = () => {
   const { data } = useAuthentication();
@@ -21,7 +22,7 @@ const UserProfile: React.FC = () => {
       </div>
       {/* return only true */}
       {isProfileClick && (
-        <UserProfileMenu displayName={data?.displayName}/>
+        <UserProfileMenu displayName={data?.displayName} link={<NavLink to={"/compose"}>Compose</NavLink>}/>
       )}
     </>
   );

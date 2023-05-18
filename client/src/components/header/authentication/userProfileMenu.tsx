@@ -30,7 +30,7 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
       <hr />
       <ul className="block opacity-80 text-gray-800 py-1">
         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
-          <NavigateNavLink link={<NavLink to={"/compose"}>Compose</NavLink>} />
+          <NavigateNavLink link={props.link} />
         </li>
         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <a href="">My Profile</a>
