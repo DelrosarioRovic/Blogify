@@ -11,7 +11,6 @@ router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) 
      const localOrProvided = await userAuth(req);
 
     if (!localOrProvided) {
-      console.log("User required");
       return res.status(401).json({message:"Please Sign In First"});
     }
 
@@ -49,7 +48,6 @@ router.post("/comment/:parentCommentId/replies", MiddlewareAuth, async(req:Custo
   const localOrProvided = await userAuth(req);
   
   if (!localOrProvided) {
-    console.log("User required");
     return res.status(401).json({message:"Please Sign In First"});
   }
  

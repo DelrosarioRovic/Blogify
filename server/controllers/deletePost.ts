@@ -10,7 +10,6 @@ router.delete("/deletePost", MiddlewareAuth, async(req: CustomRequest, res: Resp
     const localOrProvided = await userAuth(req);
     const { id } = req.body;
     if (!localOrProvided) {
-      console.log("User required");
       return res.status(401).json({ message: "Please Sign In First" });
     }
 

@@ -31,7 +31,6 @@ router.delete("/deleteComment", MiddlewareAuth, async(req: CustomRequest, res: R
     const {id, parentId} = req.body;
     
     if (!localOrProvided) {
-        console.log("User required");
         return res.status(401).json({ message: "Please Sign In First" });
     }
 

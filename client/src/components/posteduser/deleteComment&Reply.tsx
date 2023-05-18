@@ -20,8 +20,6 @@ const deleteCR:React.FC<deletetype> = (props)=> {
         });
 
         response.status === 200 && handleIncrement();
-
-        console.log(response);
     }
    
     return (

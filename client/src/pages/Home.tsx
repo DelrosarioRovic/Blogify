@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import InfiniteScroll from "react-infinite-scroll-component";
 import "react-loading-skeleton/dist/skeleton.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import Comment from "../components/reusableComponent/comment";

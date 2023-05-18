@@ -1,11 +1,13 @@
-import React, { ChangeEvent } from 'react';
-import cloudUrlImg from '../../API/cloudPhotoUrl';
+import React, { ChangeEvent, useState } from 'react';
+import cloudApi from '../../API/cloudPhotoUrl';
 
 interface Props {
   setAddPic:  React.Dispatch<React.SetStateAction<string>>;
+  buttonName: string;
 }
 
 const ImageUploader: React.FC<Props> = (props) => {
+  const { cloudUrlImg } = cloudApi();
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -26,7 +28,7 @@ const ImageUploader: React.FC<Props> = (props) => {
         htmlFor="uploadimage"
         className="border-[2px] border-gray-800 p-2 cursor-pointer rounded-md"
       >
-        Add cover image
+        {props.buttonName}
       </label>
     </div>
   );

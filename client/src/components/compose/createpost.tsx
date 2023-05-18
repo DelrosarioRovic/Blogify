@@ -35,7 +35,7 @@ const createpost: React.FC = () => {
             setSuccessFullySubmitted(true);
           } 
       } catch (error) {
-          console.log(error)
+          console.log(error);
       } finally {
         setPromise(false);
       }
@@ -51,19 +51,13 @@ const createpost: React.FC = () => {
       <div className="mt-12 relative max-w-4xl mx-auto min-h-[500px]">
         <div className=" md:border rounded-md">
           <div className="p-5 flex flex-col">
-            <div className="mb-3 w-auto py-2">
-              <label
-                htmlFor="uploadimage"
-                className="border-[2px] border-gray-800 p-2 cursor-pointer rounded-md"
-              >
-                Add cover image
-              </label>
-              
-            </div>
-            <ImageUploader setAddPic={setaddPic} />
             
-              {addPic !== "" && (
+              {addPic !== "" ? (
                 <UploadImageDisplay addPic={addPic} setAddPic={setaddPic}/>
+              ): (
+                <div className="mb-3 w-auto py-2">
+                  <ImageUploader setAddPic={setaddPic} buttonName="Add Pic"/>
+                </div>
               )}
             
             <input
