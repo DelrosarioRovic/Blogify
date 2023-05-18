@@ -10,11 +10,10 @@ import { useLocation } from "react-router-dom";
 
  interface createCommentProps {
   type?: string;
-  id?: string;
+  id: string;
   handleCloseReply?: () => void;
-  handleOpenComment? :() => void;
-}
-
+  handleOpenComment? :(id: string, cond: boolean) => void;
+ }
 const CreateComment: React.FC<createCommentProps> = (props) => {
   const location = useLocation();
   const updateCurrentData = location.state;
@@ -48,7 +47,7 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
       });
 
       response.status === 200 && handleIncrement(), setComment(""), setSuccessFullySubmitted(true);
-      props.handleOpenComment && props.handleOpenComment();
+      props.handleOpenComment && props.handleOpenComment(props.id, false);
       props.handleCloseReply && props.handleCloseReply();
       //update comment
     } catch (error) {

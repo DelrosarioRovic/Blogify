@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthentication from "../../../hooks/isAuthenticated";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface CommentReplyPropsForm {
   comment: string;
@@ -13,6 +16,7 @@ interface CommentReplyPropsForm {
 }
 
 const CommentForm: React.FC<CommentReplyPropsForm> = (props) => {
+  const { authenticated } = useAuthentication();
   const [isShowBtn, setIsShowBtn] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,7 +31,10 @@ const CommentForm: React.FC<CommentReplyPropsForm> = (props) => {
     <form onSubmit={props.handleSubmit} className="w-full">
       <textarea
         ref={props.focus}
-        onClick={() => setIsShowBtn(true)}
+        onClick={authenticated ? 
+          ()=> setIsShowBtn(true) : 
+          ()=> toast.info("Please Login First")
+        }
         className="w-full border p-2 resize-y"
         id="email-input"
         placeholder={props.placeholder}

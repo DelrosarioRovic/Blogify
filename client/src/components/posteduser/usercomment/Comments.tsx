@@ -14,20 +14,21 @@ const UsersComments: React.FC = () => {
   const [replyIndexAr, setReplyIndexAr] = useState<string[]>([]);
   const [commentIndexAr, setCommentIndexAr] = useState<string[]>([]);
 
-  const toggleIndex = (id: string, state: string[]) => {
-    return state.includes(id) ? state.filter((i) => i !== id) : [...state, id];
+  const toggleIndex = (id: string, state: string[], cond: boolean) => {
+    return state.includes(id) ? state.filter((i) => (cond ? i !== id: i === id)) : [...state, id];
   };
 
   const handleReplyClick = (id: string) => {
     if (!authenticated) {
       toast.info("Please Login First");
     }
-    setReplyIndexAr((prevArr) => toggleIndex(id, prevArr));
+    setReplyIndexAr((prevArr) => toggleIndex(id, prevArr, true));
   };
 
-  const handleCommentClick = (id: string) => {
-    setCommentIndexAr((prevArr) => toggleIndex(id, prevArr));
+  const handleCommentClick = (id: string, cond: boolean) => {
+    setCommentIndexAr((prevArr) => toggleIndex(id, prevArr, cond));
   };
+
 
   const renderComments = (comments: Comment[], depth = 0) => {
     return comments.map((comment) => {
@@ -38,7 +39,7 @@ const UsersComments: React.FC = () => {
           <CommentCards
             comment_id={comment._id}
             parentCommentId={comment.parentComment}
-            handleComment={() => handleCommentClick(comment._id)}
+            handleComment={() => handleCommentClick(comment._id, true)}
             handleReply={
               !isMaxDepth ? () => handleReplyClick(comment._id) : undefined
             }
@@ -65,7 +66,7 @@ const UsersComments: React.FC = () => {
                   type={"reply"}
                   id={comment._id}
                   handleCloseReply={() => {handleReplyClick(comment._id)}}
-                  handleOpenComment={() => {handleCommentClick(comment._id)}}
+                  handleOpenComment={handleCommentClick}
                 />
               </div>
             )}

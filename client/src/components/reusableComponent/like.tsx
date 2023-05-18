@@ -28,7 +28,7 @@ const like = (props: like) => {
         "put",
         url
       );
-      response.status === 200 ? handleIncrement() : toast.info("Login first 😭");
+      response.status === 200 ? handleIncrement() : toast.info("Please Login First");
     } catch (error) {
       console.log(error);
     }
