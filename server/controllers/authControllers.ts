@@ -36,7 +36,8 @@ router.post("/login", async(req: Request, res: Response) => {
 
 
 router.post("/register", async (req: Request, res: Response) => {
-    const { email, password, displayName } = req.body;
+    const { email, password, displayName, profilePicture } = req.body;
+    console.log(profilePicture);
     const user = await User.findOne({ email });
     
     if (user) {
@@ -44,14 +45,26 @@ router.post("/register", async (req: Request, res: Response) => {
     }
   
     if (!user) {
-      const hashPassword = await bcrypt.hash(password, 10);
-      const newUser = new User({
-        email: email,
-        password: hashPassword,
-        displayName: displayName,
-      });
-      await newUser.save();
-      return res.status(200).json({ message: "User created successfully"});
+      if (profilePicture) {
+        const hashPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({
+          email: email,
+          password: hashPassword,
+          displayName: displayName,
+          profilePicture: profilePicture
+        });
+        await newUser.save();
+        return res.status(200).json({ message: "User created successfully"});
+      } else {
+        const hashPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({
+          email: email,
+          password: hashPassword,
+          displayName: displayName,
+        });
+        await newUser.save();
+        return res.status(200).json({ message: "User created successfully"});
+      }
     }
 });
 
