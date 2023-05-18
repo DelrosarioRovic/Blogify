@@ -18,7 +18,7 @@ function idpost() {
     <div className="max-w-4xl mx-auto py-4 md:border border-gray-200 rounded-xl mt-12 shadow-md">
       { post.picture && 
         <div className="mb-12">
-          <img src={post.picture} />
+          <img src={post.picture} className="w-full h-[400px] object-cover object-center" />
         </div>
       }
 
