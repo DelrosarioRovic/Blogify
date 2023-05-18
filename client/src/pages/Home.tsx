@@ -80,9 +80,9 @@ const Post = () => {
         hasMore={hasMore}
         loader={<div className="text-center my-3"><ClipLoader size={25} /></div> }
         endMessage={
-          <p style={{ textAlign: "center" }}>
+          <span style={{ textAlign: "center" }}>
             <p className="text-gray-500">No more posts to show!</p>
-          </p>
+          </span>
         }
       >
         {loading ? skeletonPosts : realPosts}

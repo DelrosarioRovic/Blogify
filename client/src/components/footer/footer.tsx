@@ -22,17 +22,19 @@ export default function footer() {
       </div>
 
       <div className=" grid lg:grid-cols-2 mt-16">
-        <p className="max-w-md mx-auto flex flex-col justify-between">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium
-          natus quod eveniet aut perferendis distinctio iusto repudiandae,
-          provident velit earum?
+        <div className="max-w-md mx-auto flex flex-col justify-between">
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium
+            natus quod eveniet aut perferendis distinctio iusto repudiandae,
+            provident velit earum?
+          </p>
           <div className="flex gap-2 text-gray-900 max-lg:mt-8 max-md:justify-center">
             <AiFillGithub size={30} />
             <AiFillFacebook size={30} />
             <AiFillLinkedin size={30} />
             <FaDev size={30} />
           </div>
-        </p>
+        </div>
 
         <ul className="flex justify-center max-sm:gap-10 gap-24 font-semibold max-md:flex-col max-md:items-center max-md:gap-8 max-lg:mt-8">
           <li className="flex flex-col gap-2 max-md:items-center">
