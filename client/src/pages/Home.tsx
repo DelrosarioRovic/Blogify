@@ -44,6 +44,7 @@ const Post = () => {
             <UserAvatar
               profilePicture={post.profilePicture}
               displayName={post.displayName}
+              size="w-11 h-11"
             />
           </div>
           <Link

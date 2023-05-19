@@ -50,6 +50,7 @@ const UsersComments: React.FC = () => {
               <UserAvatar
                 profilePicture={comment.user.profilePicture}
                 displayName={comment.user.displayName}
+                size="h-11 w-11"
               />
             }
             name={comment.user.displayName}

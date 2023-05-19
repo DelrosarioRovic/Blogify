@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import ApiCall from "../../../API/Api-call";
@@ -33,7 +33,7 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
           <NavigateNavLink link={props.link} />
         </li>
         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
-          <a href="">My Profile</a>
+          <Link to={"/profile"}>My Profile</Link>
         </li>
         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <a href="">Profile Settings</a>

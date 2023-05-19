@@ -66,6 +66,7 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
             <UserAvatar
               profilePicture={data?.profilePicture}
               displayName={data?.displayName}
+              size="w-11 h-11"
             />
           ) : (
             <div className=" overflow-hidden rounded-full bg-blue-500 h-11 w-11 flex items-center justify-center">

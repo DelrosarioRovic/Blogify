@@ -18,6 +18,7 @@ const UserProfile: React.FC = () => {
         <UserAvatar
           profilePicture={data?.profilePicture}
           displayName={data?.displayName}
+          size="w-11 h-11"
         />
       </div>
       {/* return only true */}

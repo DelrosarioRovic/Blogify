@@ -31,6 +31,7 @@ function idpost() {
               <UserAvatar
                 profilePicture={post.profilePicture}
                 displayName={post.displayName}
+                size="w-11 h-11"
               />
           )}
           <div>
@@ -38,7 +39,7 @@ function idpost() {
               {loading ? (
                 <Skeleton width={"10rem"} height={"1rem"} />
               ) : (
-                post.displayName
+                <Link to={`/profile/${post._id}`}>{post.displayName}</Link>
               )}
             </p>
             <p className="font-thin text-[.75rem] text-gray-600">

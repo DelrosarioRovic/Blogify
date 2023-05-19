@@ -29,6 +29,7 @@ const Register: React.FC<registerForm> = (props) => {
         setEmail("");
         setPassword("");
         setDisplayName("");
+        setAddPic("");
       } else {
         toast.warning(result.data.message);
       }
