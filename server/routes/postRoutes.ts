@@ -102,4 +102,11 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/user-post/:userId", async (req: Request, res: Response) => {
+
+
+
+})
+
+
 export default router;

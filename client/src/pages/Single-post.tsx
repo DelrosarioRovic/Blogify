@@ -39,7 +39,7 @@ function idpost() {
               {loading ? (
                 <Skeleton width={"10rem"} height={"1rem"} />
               ) : (
-                <Link to={`/profile/${post._id}`}>{post.displayName}</Link>
+                <Link to={`/profile/${post.userId}`}>{post.displayName}</Link>
               )}
             </p>
             <p className="font-thin text-[.75rem] text-gray-600">

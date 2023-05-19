@@ -1,4 +1,4 @@
-import { Router, Response, NextFunction } from 'express';
+import { Router, Response, NextFunction, Request } from 'express';
 import { MiddlewareAuth, CustomRequest } from "../middleware/middlewareAuth";
 import User from "../models/users.model";
 const router = Router();
@@ -22,6 +22,12 @@ router.get(
       }
     }
   );
+
+router.get("/specific-user/:userId" ,async (req: Request, res: Response) => {
+  const id = req.params.userId;
+  const user = await User.findById(id);
+  return res.status(200).json({ user });
+})
 
 export default router;
 
