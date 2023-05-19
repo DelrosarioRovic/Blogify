@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
+import User from "../models/users.model";
 
 const router = Router();
 
@@ -103,7 +104,27 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
 });
 
 router.get("/user-post/:userId", async (req: Request, res: Response) => {
-
+  const userId = req.params.userId;
+  
+  try {
+    const user: any = await User.findById(userId);
+    
+    const pipeline = [
+      {
+        $match: {
+          user: user._id
+        }
+      },
+      ...getPostAggregatePipeline(),
+    ];
+    const userPost: any = await Post.aggregate(pipeline);
+    
+    res.status(200).json({userPost});
+  } catch (error) {
+    
+  }
+  
+  
 
 
 })

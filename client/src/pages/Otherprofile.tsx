@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProfileLayOut from "../components/reusableComponent/profileLayout";
 import seeProfile from "../hooks/see-user-profile";
 import UserPost from "../hooks/user-post";
 
 const OtherProfile:React.FC = () => {
-    UserPost();
+    const {fetchingPost, userPost} = UserPost();
     const { OtherUserData } = seeProfile();
+
+    useEffect (() => {
+        fetchingPost();
+    }, [])
 
     return (
       <ProfileLayOut 
@@ -13,6 +17,7 @@ const OtherProfile:React.FC = () => {
         textSize={true}
         displayName={OtherUserData?.displayName}
         profilePicture={OtherUserData?.profilePicture}
+        userProps={userPost}
       />
     )
 }
