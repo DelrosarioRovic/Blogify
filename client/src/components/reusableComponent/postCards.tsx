@@ -22,6 +22,7 @@ const PostCard:React.FC<PostObj> = (props) => {
               />
             </div>
             <Link
+              onClick={()=>window.scrollTo({ top: 0 })}
               to={`/post/${props._id}`}
               className="hover:text-blue-900 text-2xl font-bold after:absolute after:top-0 after:left-0 after:w-full after:h-full h-full"
             >

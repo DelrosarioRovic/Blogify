@@ -3,7 +3,7 @@ import { ProfilePictureProps } from "../../interface/props/profilePictureProps";
 import { PostObj } from "../../interface/hook/PostObj";
 import PostCard from "./postCards";
 import UserPost from "../../hooks/user-post";
-import skeletonPosts from "./skeleton-posts";
+import skeletonPosts from "../../skeleton/skeleton-posts";
 import Skeleton from "react-loading-skeleton";
 
 interface profileLayOutProps extends ProfilePictureProps {

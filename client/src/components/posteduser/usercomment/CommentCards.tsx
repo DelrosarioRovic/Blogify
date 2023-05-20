@@ -39,8 +39,8 @@ const CommentCards = (props: CardInfo) => {
 
       <div className="p-2 border w-full">
         <div className="flex justify-between">
-          <h1 className="font-semibold flex sm:gap-3 sm:items-center max-sm:text-[.80rem] whitespace-nowrap max-sm:flex-col">
-            <Link to={`/profile/${props.commentUserId}`}>{props.name}</Link>
+          <h1 className="font-semibold flex sm:gap-3 sm:items-center max-sm:text-[.80rem] whitespace-nowrap max-sm:flex-col hover:text-blue-900">
+            <Link to={`/profile/${props.commentUserId}`} onClick={()=>window.scrollTo({ top: 0 })}>{props.name}</Link>
             <span className="bg-slate-500 h-1 w-1 rounded-full -ml-[8px] max-sm:hidden"></span>
             <span className="font-[400] text-[.70rem] text-gray-500 ">
               {props.date}

@@ -1,7 +1,7 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 import ClipLoader from "react-spinners/ClipLoader";
 
-import skeletonPosts from "../components/reusableComponent/skeleton-posts";
+import skeletonPosts from "../skeleton/skeleton-posts";
 import useFetchPosts from "../hooks/post";
 import { PostObj } from "../interface/hook/PostObj";
 import PostCard from "../components/reusableComponent/postCards";
