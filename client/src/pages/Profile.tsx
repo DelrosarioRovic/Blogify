@@ -4,12 +4,10 @@ import useAuthentication from "../hooks/isAuthenticated";
 import UserPost from "../hooks/user-post";
 
 
+
 const Profile:React.FC = () => {
     const { data } = useAuthentication();
-    const { fetchingPost, userPost } = UserPost();
-    useEffect (() => {
-        fetchingPost();
-    }, [data])
+    const { userPost } = UserPost();
 
     return (
         <ProfileLayOut 

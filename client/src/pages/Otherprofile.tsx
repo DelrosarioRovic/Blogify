@@ -4,12 +4,8 @@ import seeProfile from "../hooks/see-user-profile";
 import UserPost from "../hooks/user-post";
 
 const OtherProfile:React.FC = () => {
-    const {fetchingPost, userPost} = UserPost();
+    const { userPost } = UserPost();
     const { OtherUserData } = seeProfile();
-
-    useEffect (() => {
-        fetchingPost();
-    }, [])
 
     return (
       <ProfileLayOut 
