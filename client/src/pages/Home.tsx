@@ -6,7 +6,6 @@ import useFetchPosts from "../hooks/post";
 import { PostObj } from "../interface/hook/PostObj";
 import PostCard from "../components/reusableComponent/postCards";
 
-
 const Post = () => {
   const { posts, hasMore, fetchMorePosts, loading } = useFetchPosts();
 
