@@ -49,7 +49,7 @@ const ProfileLayOut = (props: profileLayOutProps) => {
                     </div>
                 </div>
             </div>
-            <div className="max-w-4xl w-full mx-auto flex justify-center border-gray-300 border rounded-sm bg-white pt-16">
+            <div className="max-w-4xl w-full mx-auto flex justify-center border-gray-300 border rounded-sm bg-white pt-16 shadow-md">
                 <div className="flex flex-col items-center justify-center py-4 w-full gap-y-2">
                     <h2 className="text-3xl font-bold">{props.displayName}</h2>
                     <p>{loading ? <Skeleton width={"10rem"}/> : "This is a default Bio."} </p>
@@ -65,8 +65,8 @@ const ProfileLayOut = (props: profileLayOutProps) => {
                     </div>
                 </div>
             </div> 
-                <div className="flex flex-col justify-center mt-10">
-                    <h2 className="text-3xl text-center font-bold">Post</h2>
+                <div className="flex flex-col justify-center mt-10 gap-y-10">
+                    <h2 className="text-3xl text-center font-bold">Published Post{props.userProps.length > 1 && "s"}</h2>
                     {loading ? skeletonPosts :realPosts}
                 </div>
         </div>

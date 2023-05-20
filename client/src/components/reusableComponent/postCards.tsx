@@ -8,7 +8,7 @@ import UserAvatar from "./userAvatar";
 const PostCard:React.FC<PostObj> = (props) => {
     return (
         <div
-            className="w-full mt-1 active:outline max-w-2xl mx-auto mb-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-300 relative"
+            className="w-full mt-1 active:outline max-w-2xl mx-auto mb-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-300 relative shadow-md"
         >
         {props.picture && <img src={props.picture} alt="" className="w-full h-[200px] object-cover object-center " />}
         <div className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4">
