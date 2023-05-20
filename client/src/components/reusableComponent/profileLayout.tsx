@@ -4,6 +4,7 @@ import { PostObj } from "../../interface/hook/PostObj";
 import PostCard from "./postCards";
 import UserPost from "../../hooks/user-post";
 import skeletonPosts from "./skeleton-posts";
+import Skeleton from "react-loading-skeleton";
 
 interface profileLayOutProps extends ProfilePictureProps {
     userProps: PostObj[]; 
@@ -35,20 +36,23 @@ const ProfileLayOut = (props: profileLayOutProps) => {
             w-full h-[28vh] flex flex-col">
                 <div className="relative w-full h-full z-10">
                     <div className="bg-white w-40 h-40 rounded-full absolute left-1/2 transform -translate-x-1/2 -bottom-[35%] p-2">
-                        <UserAvatar 
-                            displayName={props.displayName}
-                            profilePicture={props.profilePicture}
-                            size={props.size}
-                            textSize={props.textSize}
-                         />
+                        {loading ? <Skeleton circle={true} width={"100%"} height={"100%"}/> : (
+                            <UserAvatar 
+                                displayName={props.displayName}
+                                profilePicture={props.profilePicture}
+                                size={props.size}
+                                textSize={props.textSize}
+                            />
+                        )}
+                        
                     </div>
                 </div>
             </div>
             <div className="max-w-4xl mx-auto flex justify-center mt-16">
                 <div className="flex flex-col items-center justify-center py-4 w-full gap-y-2">
                     <h2 className="text-3xl font-bold">{props.displayName}</h2>
-                    <p>This is a default Bio.</p>
-                    <p>Post</p>
+                    <p>{loading ? <Skeleton width={"10rem"}/> : "This is a default Bio."} </p>
+                    <p>{loading ? <Skeleton width={"7rem"}/> : "Post"}</p>
                 </div>
             </div> 
                 <div className="flex flex-col justify-center font-bold mt-10">
