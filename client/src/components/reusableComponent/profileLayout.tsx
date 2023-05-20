@@ -5,6 +5,7 @@ import PostCard from "./postCards";
 import UserPost from "../../hooks/user-post";
 import skeletonPosts from "../../skeleton/skeleton-posts";
 import Skeleton from "react-loading-skeleton";
+import { CgNotes } from 'react-icons/cg';
 
 interface profileLayOutProps extends ProfilePictureProps {
     userProps: PostObj[]; 
@@ -33,7 +34,7 @@ const ProfileLayOut = (props: profileLayOutProps) => {
     return (
         <div className="">
             <div className="after:bg-slate-950 after:absolute after:inset-0 after:w-full after:h-2/5 
-            w-full h-[28vh] flex flex-col">
+                w-full h-[28vh] flex flex-col">
                 <div className="relative w-full h-full z-10">
                     <div className="bg-white w-40 h-40 rounded-full absolute left-1/2 transform -translate-x-1/2 -bottom-[35%] p-2">
                         {loading ? <Skeleton circle={true} width={"100%"} height={"100%"}/> : (
@@ -48,15 +49,24 @@ const ProfileLayOut = (props: profileLayOutProps) => {
                     </div>
                 </div>
             </div>
-            <div className="max-w-4xl mx-auto flex justify-center mt-16">
+            <div className="max-w-4xl w-full mx-auto flex justify-center border-gray-300 border rounded-sm bg-white pt-16">
                 <div className="flex flex-col items-center justify-center py-4 w-full gap-y-2">
                     <h2 className="text-3xl font-bold">{props.displayName}</h2>
                     <p>{loading ? <Skeleton width={"10rem"}/> : "This is a default Bio."} </p>
-                    <p>{loading ? <Skeleton width={"7rem"}/> : "Post"}</p>
+                    <div>
+                        {loading ? (
+                            <Skeleton width={"7rem"} />
+                        ) : (
+                            <div className="flex gap-x-1">
+                                <CgNotes size={20} />
+                                {props.userProps.length} posts published
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div> 
-                <div className="flex flex-col justify-center font-bold mt-10">
-                    <h2 className="text-3xl text-center">Post</h2>
+                <div className="flex flex-col justify-center mt-10">
+                    <h2 className="text-3xl text-center font-bold">Post</h2>
                     {loading ? skeletonPosts :realPosts}
                 </div>
         </div>

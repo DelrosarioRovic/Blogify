@@ -17,7 +17,7 @@ const UserPost = () => {
             url = `http://localhost:4000/route/user-post/${otherUser.profileId}`;
         }
         const response = await ApiCall("get", url); 
-        console.log(response.status);
+   
         response.status === 200 && setUserPost(response.data.userPost);
         setLoading(false);
     };
