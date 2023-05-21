@@ -51,7 +51,9 @@ const ProfileLayOut = (props: ProfilePictureProps) => {
                     <p>{loading ? <Skeleton width={"10rem"}/> : "This is a default Bio."} </p>
                     <div>
                         {loading ? (
-                            <Skeleton width={"7rem"} count={2} />
+                            <div className="leading-[30px]">
+                                <Skeleton width={"7rem"} count={2} />
+                            </div>
                         ) : (
                             <div className="flex gap-x-1">
                                 <CgNotes size={20} />
@@ -64,7 +66,8 @@ const ProfileLayOut = (props: ProfilePictureProps) => {
                 <div className="flex flex-col justify-center mt-10 gap-y-5">
                     <h2 className="text-3xl text-center font-bold">Published Post{userPost.length > 1 && "s"}</h2>
                     <div>
-                        {totalPost !== 0 && userPost.length !== 0 ?
+                        
+                        {loading ? skeletonPosts : totalPost !== 0 && userPost.length !== 0 ?
                             (<InfiniteScroll
                                 dataLength={userPost.length}
                                 next={fetchingPost}
@@ -80,9 +83,9 @@ const ProfileLayOut = (props: ProfilePictureProps) => {
                                 </span>
                                 }
                             >
-                                {loading ? skeletonPosts : realPosts}
+                                {realPosts}
                             </InfiniteScroll>) : (
-                                <h2>No Post Yet.</h2>
+                                <h2 className="text-center font-bold text-2xl">No Posts</h2>
                             )
                         }
                         
