@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UserProfileMenu from "./userProfileMenu";
-import UserAvatar from "../../reusableComponent/userAvatar";
+import UserAvatar from "../../../reusableComponent/userAvatar";
 import useAuthentication from "../../../hooks/isAuthenticated"; 
 import { NavLink } from "react-router-dom";
 

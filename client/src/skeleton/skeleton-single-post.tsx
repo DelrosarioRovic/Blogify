@@ -6,7 +6,7 @@ const skeletonSinglePost = () => {
         <div className="px-12 max-md:px-4">
             <div className="flex justify-between">
                 <div className="flex gap-6">
-                    <Skeleton circle={true} width={"2.5rem"} height={"2.5rem"} />
+                    <Skeleton circle={true} width={"2.7rem"} height={"2.7rem"} />
                     <div>
                         <p><Skeleton width={"10rem"} height={"1rem"} /></p>
                         <p><Skeleton width={"7rem"} height={".75rem"} /></p>

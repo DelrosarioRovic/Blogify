@@ -1,13 +1,9 @@
 import React, { useEffect } from "react"
-import ProfileLayOut from "../components/reusableComponent/profileLayout";
+import ProfileLayOut from "../reusableComponent/profileLayout";
 import useAuthentication from "../hooks/isAuthenticated";
-import UserPost from "../hooks/user-post";
-
-
 
 const Profile:React.FC = () => {
     const { data } = useAuthentication();
-    const { userPost } = UserPost();
 
     return (
         <ProfileLayOut 
@@ -15,7 +11,6 @@ const Profile:React.FC = () => {
             profilePicture={data?.profilePicture}
             size="w-full h-full"
             textSize={true}
-            userProps={userPost}
         />
     )
 }

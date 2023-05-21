@@ -5,7 +5,7 @@ import CommentCards from "./CommentCards";
 import CreateComment from "./CreateComment";
 import singlePost from "../../../hooks/single-post";
 import { Comment } from "../../../interface/hook/CommentObj";
-import UserAvatar from "../../reusableComponent/userAvatar";
+import UserAvatar from "../../../reusableComponent/userAvatar";
 import useAuthentication from "../../../hooks/isAuthenticated";
 
 const UsersComments: React.FC = () => {

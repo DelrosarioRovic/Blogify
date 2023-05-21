@@ -1,6 +1,6 @@
 import React from "react";
-import Like from "../../reusableComponent/like";
-import Comment from "../../reusableComponent/comment";
+import Like from "../../../reusableComponent/like";
+import Comment from "../../../reusableComponent/comment";
 import CrudMenu from "../crudMenu";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import { useParams } from "react-router-dom";

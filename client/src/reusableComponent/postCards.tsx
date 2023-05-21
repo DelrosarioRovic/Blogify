@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PostObj } from "../../interface/hook/PostObj";
+import { PostObj } from "../interface/hook/PostObj";
 import Like from "./like";
 import Comment from "./comment";
 import UserAvatar from "./userAvatar";

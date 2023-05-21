@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import ApiCall from "../API/Api-call";
 import { useParams } from "react-router-dom";
+
+import ApiCall from "../API/Api-call";
 import useAuthentication from "./isAuthenticated";
 import { PostObj } from "../interface/hook/PostObj";
 
@@ -8,25 +9,44 @@ import { PostObj } from "../interface/hook/PostObj";
 const UserPost = () => {
     const otherUser = useParams();
     const { data } = useAuthentication();
+    const [totalPost, setTotalPost] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
+    const [hasMore, setHasMore] = useState<boolean>(true);
     const [userPost, setUserPost] = useState<PostObj[]>([]);
 
     const fetchingPost = async () => {
-        let url = `http://localhost:4000/route/user-post/${data?._id}`;
+        const limit: number = 2;
+        const skip: number = userPost.length;
+        let url = `http://localhost:4000/route/user-post/${data?._id}?limit=${limit}&skip=${skip}`;
         if (otherUser && otherUser.profileId) {
-            url = `http://localhost:4000/route/user-post/${otherUser.profileId}`;
+            url = `http://localhost:4000/route/user-post/${otherUser.profileId}?limit=${limit}&skip=${skip}`;
         }
-        const response = await ApiCall("get", url); 
-   
-        response.status === 200 && setUserPost(response.data.userPost);
-        setLoading(false);
+        const response = await ApiCall("get", url);
+        if (response.data.userPost.length === 0 && response.data.totalPost === 0) {
+            setUserPost([]);
+            setTotalPost(0);
+            setLoading(false);
+        } else {
+            const newUserPosts = response.data.userPost.map((post: PostObj, index: number) => ({
+                ...post,
+                key: index,
+              }));
+            response.status === 200 && 
+            setUserPost([...userPost, ...newUserPosts]),
+            setTotalPost(response.data.totalPost);
+            setLoading(false);
+            if (newUserPosts < limit) {
+                setHasMore(false);
+            }
+        }
+        
     };
 
     useEffect (() => {
         fetchingPost();
     }, otherUser && otherUser.profileId ? []:[data]);
 
-    return { userPost, loading }
+    return { userPost, loading, hasMore, fetchingPost, totalPost }
 }
 
 export default UserPost;

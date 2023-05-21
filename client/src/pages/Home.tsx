@@ -4,7 +4,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import skeletonPosts from "../skeleton/skeleton-posts";
 import useFetchPosts from "../hooks/post";
 import { PostObj } from "../interface/hook/PostObj";
-import PostCard from "../components/reusableComponent/postCards";
+import PostCard from "../reusableComponent/postCards";
 
 const Post = () => {
   const { posts, hasMore, fetchMorePosts, loading } = useFetchPosts();

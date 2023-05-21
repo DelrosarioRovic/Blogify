@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //interface props
 import { registerForm } from "../../../interface/props/login&RegFormProps";
-import { ImageUploader } from "../../reusableComponent/uploadPicture";
+import { ImageUploader } from "../../../reusableComponent/uploadPicture";
 
 const Register: React.FC<registerForm> = (props) => {
 

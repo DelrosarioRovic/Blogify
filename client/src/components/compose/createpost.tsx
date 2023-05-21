@@ -5,8 +5,8 @@ import { Link ,useLocation, Navigate} from "react-router-dom";
 
 import { Markdown } from "./markdown/Markdown";
 import ApiCall from "../../API/Api-call";
-import { ImageUploader } from "../reusableComponent/uploadPicture";
-import UploadImageDisplay from "../reusableComponent/uploadImageDisplay";
+import { ImageUploader } from "../../reusableComponent/uploadPicture";
+import UploadImageDisplay from "../../reusableComponent/uploadImageDisplay";
 import { PostObj } from "../../interface/hook/PostObj";
 
 const createpost: React.FC = () => {

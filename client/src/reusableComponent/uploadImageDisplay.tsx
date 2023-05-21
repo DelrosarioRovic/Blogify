@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageUploader } from "./uploadPicture";
-import cloudApi from "../../API/cloudPhotoUrl";
+import cloudApi from "../API/cloudPhotoUrl";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 

@@ -1,11 +1,11 @@
-import CrudMenu from "../posteduser/crudMenu";
+import CrudMenu from "../components/posteduser/crudMenu";
 import Like from "./like";
 import Comment from "./comment";
-import UserComment from "../posteduser/usercomment/UserComment";
+import UserComment from "../components/posteduser/usercomment/UserComment";
 import UserAvatar from "./userAvatar";
 import { Link } from "react-router-dom";
-import { PostObj } from "../../interface/hook/PostObj";
-import useAuthentication from "../../hooks/isAuthenticated";
+import { PostObj } from "../interface/hook/PostObj";
+import useAuthentication from "../hooks/isAuthenticated";
 
 interface SinglePostCardProps extends PostObj {
     post: PostObj;

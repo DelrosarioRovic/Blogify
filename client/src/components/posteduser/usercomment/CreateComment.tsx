@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserAvatar from "../../reusableComponent/userAvatar";
+import UserAvatar from "../../../reusableComponent/userAvatar";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import ApiCall from "../../../API/Api-call";
 import { Link, useParams, Navigate } from "react-router-dom";

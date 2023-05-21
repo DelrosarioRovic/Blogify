@@ -1,20 +1,16 @@
 import UserAvatar from "./userAvatar";
-import { ProfilePictureProps } from "../../interface/props/profilePictureProps";
-import { PostObj } from "../../interface/hook/PostObj";
+import { ProfilePictureProps } from "../interface/props/profilePictureProps";
 import PostCard from "./postCards";
-import UserPost from "../../hooks/user-post";
-import skeletonPosts from "../../skeleton/skeleton-posts";
+import UserPost from "../hooks/user-post";
+import skeletonPosts from "../skeleton/skeleton-posts";
 import Skeleton from "react-loading-skeleton";
 import { CgNotes } from 'react-icons/cg';
+import InfiniteScroll from "react-infinite-scroll-component";
+import ClipLoader from "react-spinners/ClipLoader";
 
-interface profileLayOutProps extends ProfilePictureProps {
-    userProps: PostObj[]; 
-}
-
-const ProfileLayOut = (props: profileLayOutProps) => {
-    const { loading } = UserPost();
-
-    const realPosts = props.userProps.map((item, index) => (
+const ProfileLayOut = (props: ProfilePictureProps) => {
+    const { loading, fetchingPost, hasMore, userPost, totalPost } = UserPost();
+    const realPosts = userPost.map((item, index) => (
         <PostCard 
             key={index}
             _id={item._id}
@@ -55,19 +51,42 @@ const ProfileLayOut = (props: profileLayOutProps) => {
                     <p>{loading ? <Skeleton width={"10rem"}/> : "This is a default Bio."} </p>
                     <div>
                         {loading ? (
-                            <Skeleton width={"7rem"} />
+                            <Skeleton width={"7rem"} count={2} />
                         ) : (
                             <div className="flex gap-x-1">
                                 <CgNotes size={20} />
-                                {props.userProps.length} posts published
+                                {userPost.length} posts published
                             </div>
                         )}
                     </div>
                 </div>
             </div> 
-                <div className="flex flex-col justify-center mt-10 gap-y-10">
-                    <h2 className="text-3xl text-center font-bold">Published Post{props.userProps.length > 1 && "s"}</h2>
-                    {loading ? skeletonPosts :realPosts}
+                <div className="flex flex-col justify-center mt-10 gap-y-5">
+                    <h2 className="text-3xl text-center font-bold">Published Post{userPost.length > 1 && "s"}</h2>
+                    <div>
+                        {totalPost !== 0 && userPost.length !== 0 ?
+                            (<InfiniteScroll
+                                dataLength={userPost.length}
+                                next={fetchingPost}
+                                hasMore={hasMore}
+                                loader={
+                                <div className="text-center my-3">
+                                    <ClipLoader size={25} />
+                                </div>
+                                }
+                                endMessage={
+                                <span style={{ textAlign: "center" }}>
+                                    <p className="text-gray-500">No more posts to show!</p>
+                                </span>
+                                }
+                            >
+                                {loading ? skeletonPosts : realPosts}
+                            </InfiniteScroll>) : (
+                                <h2>No Post Yet.</h2>
+                            )
+                        }
+                        
+                    </div>
                 </div>
         </div>
     )

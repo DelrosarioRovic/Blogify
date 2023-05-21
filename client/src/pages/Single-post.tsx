@@ -1,6 +1,6 @@
 import singlePost from "../hooks/single-post";
 import skeletonSinglePost from "../skeleton/skeleton-single-post";
-import SinglePostCard from "../components/reusableComponent/singlePostCards";
+import SinglePostCard from "../reusableComponent/singlePostCards";
 
 function idpost() {
   const { post, loading } = singlePost();

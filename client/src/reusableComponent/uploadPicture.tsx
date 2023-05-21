@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import cloudApi from '../../API/cloudPhotoUrl';
+import cloudApi from '../API/cloudPhotoUrl';
 
 interface Props {
   setAddPic:  React.Dispatch<React.SetStateAction<string>>;

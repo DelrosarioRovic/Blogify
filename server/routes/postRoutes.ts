@@ -105,28 +105,28 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
 
 router.get("/user-post/:userId", async (req: Request, res: Response) => {
   const userId = req.params.userId;
+  const skip: number = Number(req.query.skip) || 0;
+  const limit: number = Number(req.query.limit) || 3;
   
   try {
     const user: any = await User.findById(userId);
-    
+
     const pipeline = [
-      {
-        $match: {
-          user: user._id
-        }
-      },
+      {$match: {user: user._id}},
       ...getPostAggregatePipeline(),
-    ];
+      {$facet: {totalCount: [{ $count: "count" }],
+      posts: [{ $skip: skip }, { $limit: limit }]
+      }
+    }];
     const userPost: any = await Post.aggregate(pipeline);
     
-    res.status(200).json({userPost});
+    res.status(200).json({
+      userPost: userPost[0].posts.length === 0 && userPost[0].totalCount.length === 0 ? [] : userPost[0].posts,
+      totalPost: userPost[0].totalCount.length === 0 ? 0 : userPost[0].totalCount[0].count
+    });  
   } catch (error) {
     
   }
-  
-  
-
-
 })
 
 
