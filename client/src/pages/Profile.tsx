@@ -11,6 +11,7 @@ const Profile:React.FC = () => {
             profilePicture={data?.profilePicture}
             size="w-full h-full"
             textSize={true}
+            type="profile"
         />
     )
 }

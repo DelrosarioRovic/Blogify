@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import Single_post from "../pages/Single-post";
 import UpdateComment from "../pages/Updatecomment";
 import Profile from "../pages/Profile";
+import ProfileSettings from "../pages/ProfileSettings";
 import OtherProfile from "../pages/Otherprofile";
 
 const router:React.FC = () => {
@@ -20,6 +21,7 @@ const router:React.FC = () => {
       <Route path="/comment/:commentId" element={authenticated ? <UpdateComment /> : <Navigate to="/" /> } />
       <Route path="/profile" element={authenticated ? <Profile /> : <Navigate to="/" />} />
       <Route path="/profile/:profileId" element={<OtherProfile />} />
+      <Route path="/profile/settings" element={authenticated ? <ProfileSettings /> : <Navigate to="/" />} />
     </Routes>
   );
 }

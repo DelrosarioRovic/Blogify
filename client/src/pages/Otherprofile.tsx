@@ -11,6 +11,7 @@ const OtherProfile:React.FC = () => {
         textSize={true}
         displayName={OtherUserData?.displayName}
         profilePicture={OtherUserData?.profilePicture}
+        type="OtherProfile"
       />
     )
 }

@@ -7,8 +7,13 @@ import Skeleton from "react-loading-skeleton";
 import { CgNotes } from 'react-icons/cg';
 import InfiniteScroll from "react-infinite-scroll-component";
 import ClipLoader from "react-spinners/ClipLoader";
+import { Link } from "react-router-dom";
 
-const ProfileLayOut = (props: ProfilePictureProps) => {
+interface ProfileLayOutProps extends ProfilePictureProps{
+    type: string;
+}
+
+const ProfileLayOut = (props: ProfileLayOutProps) => {
     const { loading, fetchingPost, hasMore, userPost, totalPost } = UserPost();
     const realPosts = userPost.map((item, index) => (
         <PostCard 
@@ -41,11 +46,16 @@ const ProfileLayOut = (props: ProfilePictureProps) => {
                                 textSize={props.textSize}
                             />
                         )}
-                        
                     </div>
                 </div>
             </div>
-            <div className="max-w-4xl w-full mx-auto flex justify-center border-gray-300 border rounded-sm bg-white pt-16 shadow-md">
+            <div className="max-w-4xl w-full mx-auto flex justify-center border-gray-300 border rounded-sm bg-white pt-16 shadow-md relative">
+                {props.type === "profile" && (
+                    <Link to={"/profile/settings"} className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">
+                        Edit Profile
+                    </Link>
+                )}
+                
                 <div className="flex flex-col items-center justify-center py-4 w-full gap-y-2">
                     <h2 className="text-3xl font-bold">{props.displayName}</h2>
                     <p>{loading ? <Skeleton width={"10rem"}/> : "This is a default Bio."} </p>
@@ -57,7 +67,7 @@ const ProfileLayOut = (props: ProfilePictureProps) => {
                         ) : (
                             <div className="flex gap-x-1">
                                 <CgNotes size={20} />
-                                {userPost.length} posts published
+                                {totalPost} posts published
                             </div>
                         )}
                     </div>
