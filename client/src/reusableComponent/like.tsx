@@ -10,14 +10,14 @@ interface like {
   Like: number;
   type?: string;
   like_comment_id?: string;
-  likes: [string]
+  likes: [string];
 }
 
 const like = (props: like) => {
   const { authenticated,data } = useAuthentication();
   const postId = useParams();
   const { handleIncrement } = SinglePost();
- 
+
   const likeBtn = async () => {
     try {
       let url = `http://localhost:4000/like/${postId.postId}`;
@@ -28,7 +28,9 @@ const like = (props: like) => {
         "put",
         url
       );
-      response.status === 200 ? handleIncrement() : toast.info("Please Login First");
+      response.status === 200 ?
+        handleIncrement() : 
+        toast.info("Please Login First");
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +38,7 @@ const like = (props: like) => {
  
   return (
     <div
-      className="flex items-center text-2xl cursor-pointer active:scale-75 duration-150"
+      className="flex items-center text-2xl cursor-pointer active:scale-75 duration-150 gap-x-1"
       onClick={likeBtn}
     >
       <AiOutlineLike className={``} style={{ color: authenticated && data && props.likes.includes(data._id) ? "blue" : "" }} />

@@ -28,7 +28,7 @@ const ProfileLayOut = (props: ProfilePictureProps) => {
     ));
 
     return (
-        <div className="">
+        <div>
             <div className="after:bg-slate-950 after:absolute after:inset-0 after:w-full after:h-2/5 
                 w-full h-[28vh] flex flex-col">
                 <div className="relative w-full h-full z-10">

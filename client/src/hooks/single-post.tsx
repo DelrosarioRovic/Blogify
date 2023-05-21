@@ -36,7 +36,6 @@ const SinglePost = () => {
       );
       setPost(response.data.post[0]);
       setComment(response.data.comments);
-      
       setLoading(false);
       
     } catch (err) {

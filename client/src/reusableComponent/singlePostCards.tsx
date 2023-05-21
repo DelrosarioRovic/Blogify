@@ -16,11 +16,6 @@ const SinglePostCard = (props: SinglePostCardProps) => {
 
     return (
         <div className="max-w-4xl mx-auto py-4 md:border border-gray-200 rounded-xl mt-12 shadow-md">
-            {props.picture && 
-                <div className="mb-12">
-                    <img src={props.picture} className="w-full h-[400px] object-cover object-center" />
-                </div>
-            }
             <div className="px-12 max-md:px-4">
                 <div className="flex justify-between">
                     <div className="flex gap-6">
@@ -41,7 +36,7 @@ const SinglePostCard = (props: SinglePostCardProps) => {
                         </div>
                     </div>
                     <div className="flex gap-4 items-center">
-                        <Like Like={props.numLikes} type="like-post" likes={props.likes}/>
+                        <Like Like={props.numLikes} type="like-post" likes={props.likes} />
                         <Comment numComments={props.numComments} />
                         {/* crudPost */}
                         { 
@@ -63,6 +58,11 @@ const SinglePostCard = (props: SinglePostCardProps) => {
                         <p>{props.content}</p>
                     </div>
                 </div>
+                {props.picture && 
+                    <div className="mb-12">
+                        <img src={props.picture} className="w-full object-cover object-center" />
+                    </div>
+                }
             </div>
             <UserComment id="comment" numComments={props.numComments} />
         </div>

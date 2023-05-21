@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link ,useLocation, Navigate} from "react-router-dom";
 
-import { Markdown } from "./markdown/Markdown";
 import ApiCall from "../../API/Api-call";
 import { ImageUploader } from "../../reusableComponent/uploadPicture";
 import UploadImageDisplay from "../../reusableComponent/uploadImageDisplay";
@@ -70,7 +69,6 @@ const createpost: React.FC = () => {
               required
             />
           </div>
-          <Markdown />
           <div className="flex flex-col p-5">
             <textarea
               className="outline-none pl-2 font-sans text-lg resize-none"

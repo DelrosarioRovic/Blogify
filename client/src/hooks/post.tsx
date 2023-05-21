@@ -7,7 +7,7 @@ const useFetchPosts = () => {
   const [posts, setPosts] = useState<PostObj[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
-
+  
   const fetchMorePosts = async () => {
     const limit: number = 4;
     const skip: number = posts.length;
