@@ -15,8 +15,7 @@ const SinglePostCard = (props: SinglePostCardProps) => {
     const { data, authenticated } = useAuthentication();
 
     return (
-        <div className="max-w-4xl mx-auto py-4 md:border border-gray-200 rounded-xl mt-12 shadow-md">
-            <div className="px-12 max-md:px-4">
+            <>
                 <div className="flex justify-between">
                     <div className="flex gap-6">
                         <UserAvatar
@@ -63,9 +62,9 @@ const SinglePostCard = (props: SinglePostCardProps) => {
                         <img src={props.picture} className="w-full object-cover object-center" />
                     </div>
                 }
-            </div>
-            <UserComment id="comment" numComments={props.numComments} />
-        </div>
+                <UserComment id="comment" numComments={props.numComments} />
+            </>
+            
     )
 }
 

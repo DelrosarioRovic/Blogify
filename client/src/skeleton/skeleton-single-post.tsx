@@ -2,8 +2,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const skeletonSinglePost = () => {
-    return <div className="max-w-4xl mx-auto py-4 md:border border-gray-200 rounded-xl mt-12 shadow-md">
-        <div className="px-12 max-md:px-4">
+    return <>
             <div className="flex justify-between">
                 <div className="flex gap-6">
                     <Skeleton circle={true} width={"2.7rem"} height={"2.7rem"} />
@@ -33,8 +32,7 @@ const skeletonSinglePost = () => {
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </>                    
 }
 
 export default skeletonSinglePost;

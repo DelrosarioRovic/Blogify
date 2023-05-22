@@ -20,8 +20,10 @@ function idpost() {
   />
 
   return (
-    <div>
+    <div className="max-w-4xl mx-auto py-4 md:border border-gray-200 rounded-xl mt-12 shadow-md">
+      <div className="px-12 max-md:px-4">
         {loading ? skeletonSinglePost() : RealSinglePost}
+      </div>
     </div>
   );
 }
