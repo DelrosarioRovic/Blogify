@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { PostObj } from "../interface/hook/PostObj";
 import Like from "./like";
 import Comment from "./comment";
 import UserAvatar from "./userAvatar";
+import ProfileCard from "./profileCard";
+import isShowHandleProfileCard from "../hooks/isShowProfileCard";
 
 const PostCard:React.FC<PostObj> = (props) => {
+    const { handleHover, isHoverProfile } = isShowHandleProfileCard();
+
     return (
         <div className="w-full mt-1 active:outline max-w-2xl mx-auto mb-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-200 relative shadow-md">
           <div className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4">
@@ -17,7 +21,13 @@ const PostCard:React.FC<PostObj> = (props) => {
                   size="w-11 h-11"
                 />
               </Link>
-              <Link onClick={()=>window.scrollTo({ top: 0 })} to={`/profile/${props.userId}`} className="z-10">{props.displayName}</Link>
+              <Link
+                onClick={()=>window.scrollTo({ top: 0 })}
+                onMouseEnter={handleHover}
+                onMouseLeave={handleHover}
+                to={`/profile/${props.userId}`} className="z-10 relative">{props.displayName} 
+                {isHoverProfile && <ProfileCard />}
+              </Link>
             </div>
             <Link
               onClick={()=>window.scrollTo({ top: 0 })}

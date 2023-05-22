@@ -76,34 +76,34 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
                     </div>
                 </div>
             </div> 
-                <div className="flex flex-col justify-center mt-10 gap-y-5">
-                    <h2 className="text-3xl text-center font-bold">Published Post{userPost.length > 1 && "s"}</h2>
-                    <div>
-                        
-                        {loading ? skeletonPosts : totalPost !== 0 && userPost.length !== 0 ?
-                            (<InfiniteScroll
-                                dataLength={userPost.length}
-                                next={fetchingPost}
-                                hasMore={hasMore}
-                                loader={
-                                <div className="text-center my-3">
-                                    <ClipLoader size={25} />
-                                </div>
-                                }
-                                endMessage={
-                                <span style={{ textAlign: "center" }}>
-                                    <p className="text-gray-500">No more posts to show!</p>
-                                </span>
-                                }
-                            >
-                                {realPosts}
-                            </InfiniteScroll>) : (
-                                <h2 className="text-center font-bold text-2xl">No Posts</h2>
-                            )
-                        }
-                        
-                    </div>
+            <div className="flex flex-col justify-center mt-10 gap-y-5">
+                <h2 className="text-3xl text-center font-bold">Published Post{userPost.length > 1 && "s"}</h2>
+                <div>
+                    
+                    {loading ? skeletonPosts : totalPost !== 0 && userPost.length !== 0 ?
+                        (<InfiniteScroll
+                            dataLength={userPost.length}
+                            next={fetchingPost}
+                            hasMore={hasMore}
+                            loader={
+                            <div className="text-center my-3">
+                                <ClipLoader size={25} />
+                            </div>
+                            }
+                            endMessage={
+                            <span style={{ textAlign: "center" }}>
+                                <p className="text-gray-500">No more posts to show!</p>
+                            </span>
+                            }
+                        >
+                            {realPosts}
+                        </InfiniteScroll>) : (
+                            <h2 className="text-center font-bold text-2xl">No Posts</h2>
+                        )
+                    }
+                    
                 </div>
+            </div>
         </div>
     )
 }

@@ -6,6 +6,8 @@ import UserAvatar from "./userAvatar";
 import { Link } from "react-router-dom";
 import { PostObj } from "../interface/hook/PostObj";
 import useAuthentication from "../hooks/isAuthenticated";
+import isShowHandleProfileCard from "../hooks/isShowProfileCard";
+import ProfileCard from "./profileCard";
 
 interface SinglePostCardProps extends PostObj {
     post: PostObj;
@@ -13,6 +15,7 @@ interface SinglePostCardProps extends PostObj {
 
 const SinglePostCard = (props: SinglePostCardProps) => {
     const { data, authenticated } = useAuthentication();
+    const { handleHover, isHoverProfile } = isShowHandleProfileCard();
 
     return (
             <>
@@ -24,9 +27,17 @@ const SinglePostCard = (props: SinglePostCardProps) => {
                             size="w-11 h-11"
                         />
                         <div>
-                            <p className="font-semibold hover:text-blue-900">
-                                <Link to={`/profile/${props.userId}`}>{props.displayName}</Link>
-                            </p>
+                            <div className="font-semibold hover:text-blue-900">
+                                <Link 
+                                    to={`/profile/${props.userId}`}
+                                    className="relative"
+                                    onMouseEnter={handleHover}
+                                    onMouseLeave={handleHover}
+                                >
+                                    {props.displayName}
+                                    {isHoverProfile && (<ProfileCard />) }
+                                </Link>
+                            </div>
                             <p className="font-thin text-[.75rem] text-gray-600">
                                 <span className="font-[400] text-[.75rem text-gray-500">
                                 Posted on {props.date}
