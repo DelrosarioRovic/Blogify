@@ -12,6 +12,7 @@ const Profile:React.FC = () => {
             size="w-full h-full"
             textSize={true}
             type="profile"
+            state={data}
         />
     )
 }

@@ -68,6 +68,10 @@ router.post("/register", async (req: Request, res: Response) => {
     }
 });
 
+router.post("/update-profile", async (req: Request, res: Response) => {
+  console.log(req.body);
+});
+
 router.get("/sign-out", async (req: Request, res: Response) => {
     try {
         res.clearCookie("access_token");

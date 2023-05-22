@@ -8,9 +8,11 @@ import { CgNotes } from 'react-icons/cg';
 import InfiniteScroll from "react-infinite-scroll-component";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from "react-router-dom";
+import { AuthUserInfo } from "../interface/hook/AuthUserInfo";
 
 interface ProfileLayOutProps extends ProfilePictureProps{
     type: string;
+    state?: AuthUserInfo | null
 }
 
 const ProfileLayOut = (props: ProfileLayOutProps) => {
@@ -51,7 +53,7 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
             </div>
             <div className="max-w-4xl w-full mx-auto flex justify-center border-gray-300 border rounded-sm bg-white pt-16 shadow-md relative">
                 {props.type === "profile" && (
-                    <Link to={"/profile/settings"} className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">
+                    <Link to={"/profile/settings"} state={props.state} className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">
                         Edit Profile
                     </Link>
                 )}

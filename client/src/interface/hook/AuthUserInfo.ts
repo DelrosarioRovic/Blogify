@@ -3,4 +3,5 @@ export interface AuthUserInfo {
     email: string;
     displayName: string;
     profilePicture: string | null;
+    bio: string | null;
 }

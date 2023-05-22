@@ -55,10 +55,13 @@ const thirdPartyMwAuth = () => {
           clientID: process.env.GITHUB_CLIENT_ID,
           clientSecret: process.env.GITHUB_CLIENT_SECRET,
           callbackURL: '/auth/github/callback',
+          scope: ['user:email'],
         },
         async (accessToken:any, refreshToken:any, profile:any, done:any) => {
           try {
-            const user = await createUser(profile.id, profile.displayName, profile.username, profile.photos[0].value);
+            const emailGithub = profile.emails && profile.emails.length > 0 ? profile.emails[0].value : null;
+          
+            const user = await createUser(profile.id, profile.displayName, emailGithub, profile.photos[0].value);
             const token = jwt.sign({ googleId: user.googleId, displayName: user.displayName, email: user.email }, process.env.userLocalSecret as string);
             const decoded = jwt.decode(token);
             done(null, decoded);
