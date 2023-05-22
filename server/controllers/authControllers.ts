@@ -69,7 +69,29 @@ router.post("/register", async (req: Request, res: Response) => {
 });
 
 router.post("/update-profile", async (req: Request, res: Response) => {
-  console.log(req.body);
+  const { id, email, bio, profilePicture, displayName } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser && existingUser._id.toString() !== id) {
+      return res.status(400).json({ message: "Email address already exists" });
+    }
+   
+    const updateUser = await User.findByIdAndUpdate(id, {
+      email,
+      bio,
+      profilePicture,
+      displayName
+    });
+    if (!updateUser ) {
+      return res.status(401).json({message: "No user found"});
+    }
+
+    return res.status(200).json({message: "successfully updated user information"});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "An error occurred while updating user information" });
+  }
 });
 
 router.get("/sign-out", async (req: Request, res: Response) => {

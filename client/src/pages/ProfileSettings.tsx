@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AuthUserInfo } from "../interface/hook/AuthUserInfo";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 import { ImageUploader } from "../reusableComponent/uploadPicture";
@@ -21,19 +23,21 @@ const ProfileSettings:React.FC = () => {
         try {
             const response = await ApiCall(
                 "post", "http://localhost:4000/auth/update-profile", 
-                { email, bio, addPic, displayName });
-            console.log(response);
+                { id: updateCurrentData._id ,email, bio, profilePicture:addPic, displayName });
+            response.status === 200 ? (
+                toast.success(response.data.message)
+            ): ( toast.warning(response.data.message));
         } catch (error) {
             console.log(error);
         }
     }
-    console.log(email, bio, addPic, displayName);
+
     return (
         <div className="">
             <h1 className="text-3xl font-semibold my-5">Settings</h1>
             <div className="max-w-4xl border-gray-200 border rounded-sm shadow-md px-5 py-2">
                 <h2 className="text-2xl font-medium">User</h2>
-                <form className="flex flex-col gap-y-5 py-3">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-y-5 py-3">
                     <div className="flex flex-col gap-y-1">
                         <label htmlFor="changeEmail">Email</label>
                         <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="changeEmail" id="changeEmail" className="bg-gray-200 py-2 px-1 rounded-md text-gray-800 text-sm" />

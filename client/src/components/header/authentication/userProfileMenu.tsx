@@ -13,7 +13,7 @@ interface userProfileMenu extends NavLinkProps{
 }
 
 const UserProfile: React.FC<userProfileMenu> = (props) => {
-  const { signOut } = useAuthentication();
+  const { signOut, data } = useAuthentication();
   const SignOutApi = async () => {
     const response = await ApiCall("get", "http://localhost:4000/auth/sign-out");
     response.status === 200 && (
@@ -32,15 +32,15 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
         <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
           <NavigateNavLink link={props.link} />
         </li>
-        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
-          <Link to={"/profile"}>My Profile</Link>
+        <li className="hover:bg-gray-200 duration-300 p-1  rounded-md">
+          <Link to={"/profile"} className="w-full h-full block py-2">My Profile</Link>
         </li>
-        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md">
-          <a href="">Profile Settings</a>
+        <li className="hover:bg-gray-200 duration-300 p-1 rounded-md mb-1">
+          <Link to={"/profile/settings"} state={data} className="w-full h-full block py-2">Profile Settings</Link>
         </li>
         <hr />
-        <li className="hover:bg-gray-200 duration-300 p-1 py-2 rounded-md font-semibold mt-3">
-          <button onClick={SignOutApi}>Sign Out</button>
+        <li className="hover:bg-gray-200 duration-300 px-1 rounded-md font-semibold mt-1">
+          <button onClick={SignOutApi} className="w-full h-full block text-left py-2">Sign Out</button>
         </li>
       </ul>
     </div>
