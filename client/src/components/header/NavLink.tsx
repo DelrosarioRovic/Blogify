@@ -22,7 +22,7 @@ const NavigateNavLink:React.FC<NavLinkProps> = (props) => {
       }
 
     return (
-        <span onClick={handleComposeClick}>
+        <span className="cursor-pointer" onClick={handleComposeClick}>
             {props.link}
         </span>
     )

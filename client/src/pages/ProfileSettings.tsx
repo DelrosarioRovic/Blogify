@@ -4,7 +4,6 @@ import { AuthUserInfo } from "../interface/hook/AuthUserInfo";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 import { ImageUploader } from "../reusableComponent/uploadPicture";
 import ApiCall from "../API/Api-call";
 

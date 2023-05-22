@@ -12,7 +12,7 @@ import { AuthUserInfo } from "../interface/hook/AuthUserInfo";
 
 interface ProfileLayOutProps extends ProfilePictureProps{
     type: string;
-    state?: AuthUserInfo | null
+    state?: AuthUserInfo | null;
 }
 
 const ProfileLayOut = (props: ProfileLayOutProps) => {
@@ -33,6 +33,7 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
             userId={item.userId}
         />
     ));
+
 
     return (
         <div>
@@ -60,7 +61,7 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
                 
                 <div className="flex flex-col items-center justify-center py-4 w-full gap-y-2">
                     <h2 className="text-3xl font-bold">{props.displayName}</h2>
-                    <p>{loading ? <Skeleton width={"10rem"}/> : "This is a default Bio."} </p>
+                    <p>{loading ? <Skeleton width={"10rem"}/> : props.type === "profile" ? props.state?.bio || "Welcome to Blogify" : props.bio || "Welcome to Blogify"} </p>
                     <div>
                         {loading ? (
                             <div className="leading-[30px]">

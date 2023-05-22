@@ -33,10 +33,10 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
           <NavigateNavLink link={props.link} />
         </li>
         <li className="hover:bg-gray-200 duration-300 p-1  rounded-md">
-          <Link to={"/profile"} className="w-full h-full block py-2">My Profile</Link>
+          <Link to={"/profile"} className="w-full h-full block py-1">My Profile</Link>
         </li>
         <li className="hover:bg-gray-200 duration-300 p-1 rounded-md mb-1">
-          <Link to={"/profile/settings"} state={data} className="w-full h-full block py-2">Profile Settings</Link>
+          <Link to={"/profile/settings"} state={data} className="w-full h-full block py-1">Profile Settings</Link>
         </li>
         <hr />
         <li className="hover:bg-gray-200 duration-300 px-1 rounded-md font-semibold mt-1">

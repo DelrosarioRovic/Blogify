@@ -10,7 +10,7 @@ const Navigation: React.FC = () => {
       <NavigateNavLink link={
         (<NavLink
           to="/compose"
-          className={` py-2 px-4 hover:bg-slate-600 hover:text-white border border-slate-600 rounded-md active:scale-90 duration-300`}
+          className={`py-2 px-4 hover:bg-slate-600 hover:text-white border border-slate-600 rounded-md active:scale-90 duration-300`}
         >
           Compose
         </NavLink>)
