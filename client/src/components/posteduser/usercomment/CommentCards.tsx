@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Like from "../../../reusableComponent/like";
 import Comment from "../../../reusableComponent/comment";
 import CrudMenu from "../crudMenu";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import ProfileCard from "../../../reusableComponent/profileCard";
 
 interface CardInfo {
   comment_id?: string;
@@ -24,8 +25,13 @@ interface CardInfo {
 
 const CommentCards = (props: CardInfo) => {
   const postId = useParams().postId;
-  
   const { data, authenticated } = useAuthentication();
+  const [isHoverProfile, setIsHoverProfile] = useState<boolean>(false);
+
+  const handleHover = () => {
+    setIsHoverProfile(!isHoverProfile);
+  }
+
   return (
     <div className="flex flex-row gap-3 mt-3">
       <div className="flex flex-col items-center gap-2">
@@ -40,7 +46,15 @@ const CommentCards = (props: CardInfo) => {
       <div className="p-2 border w-full">
         <div className="flex justify-between">
           <h1 className="font-semibold flex sm:gap-3 sm:items-center max-sm:text-[.80rem] whitespace-nowrap max-sm:flex-col hover:text-blue-900">
-            <Link to={`/profile/${props.commentUserId}`} onClick={()=>window.scrollTo({ top: 0 })}>{props.name}</Link>
+            <Link 
+              to={`/profile/${props.commentUserId}`} 
+              className="relative"
+              onClick={()=>window.scrollTo({ top: 0 })}
+              onMouseEnter={handleHover}
+              onMouseLeave={handleHover}
+            > {props.name}
+              {isHoverProfile && (<ProfileCard />) }
+            </Link>
             <span className="bg-slate-500 h-1 w-1 rounded-full -ml-[8px] max-sm:hidden"></span>
             <span className="font-[400] text-[.70rem] text-gray-500 ">
               {props.date}

@@ -5,10 +5,14 @@ import Like from "./like";
 import Comment from "./comment";
 import UserAvatar from "./userAvatar";
 import ProfileCard from "./profileCard";
-import isShowHandleProfileCard from "../hooks/isShowProfileCard";
 
 const PostCard:React.FC<PostObj> = (props) => {
-    const { handleHover, isHoverProfile } = isShowHandleProfileCard();
+
+    const [isHoverProfile, setIsHoverProfile] = useState<boolean>(false);
+
+    const handleHover = () => {
+      setIsHoverProfile(!isHoverProfile);
+    }
 
     return (
         <div className="w-full mt-1 active:outline max-w-2xl mx-auto mb-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-200 relative shadow-md">

@@ -6,8 +6,9 @@ import UserAvatar from "./userAvatar";
 import { Link } from "react-router-dom";
 import { PostObj } from "../interface/hook/PostObj";
 import useAuthentication from "../hooks/isAuthenticated";
-import isShowHandleProfileCard from "../hooks/isShowProfileCard";
+
 import ProfileCard from "./profileCard";
+import { useState } from "react";
 
 interface SinglePostCardProps extends PostObj {
     post: PostObj;
@@ -15,7 +16,11 @@ interface SinglePostCardProps extends PostObj {
 
 const SinglePostCard = (props: SinglePostCardProps) => {
     const { data, authenticated } = useAuthentication();
-    const { handleHover, isHoverProfile } = isShowHandleProfileCard();
+    const [isHoverProfile, setIsHoverProfile] = useState<boolean>(false);
+
+    const handleHover = () => {
+      setIsHoverProfile(!isHoverProfile);
+    }
 
     return (
             <>
