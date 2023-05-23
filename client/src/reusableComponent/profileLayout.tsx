@@ -25,6 +25,7 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
             content={item.content}
             date={item.date}
             displayName={item.displayName}
+            bio={item.bio}
             likes={item.likes}
             numComments={item.numComments}
             numLikes={item.numLikes}

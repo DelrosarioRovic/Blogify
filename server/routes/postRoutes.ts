@@ -22,6 +22,7 @@ const getPostAggregatePipeline = () => {
         _id: 1,
         userId: "$user._id",
         displayName: "$user.displayName",
+        bio: "$user.bio",
         title: 1,
         content: 1,
         likes: 1,
@@ -92,7 +93,7 @@ router.get("/single-post/:postId", async (req: Request, res: Response) => {
       post: postId,
       parentComment: { $exists: false },
     })
-      .populate("user", "displayName profilePicture")
+      .populate("user", "displayName profilePicture bio")
       .exec();
     const comments = await populateComments(Unfinishcomments);
 

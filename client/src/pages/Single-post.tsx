@@ -9,6 +9,7 @@ function idpost() {
     content={post.content}
     title={post.title}
     displayName={post.displayName}
+    bio={post.bio}
     date={post.date}
     likes={post.likes}
     numComments={post.numComments}

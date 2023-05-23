@@ -54,6 +54,7 @@ const UsersComments: React.FC = () => {
               />
             }
             name={comment.user.displayName}
+            bio={comment.user.bio}
             date={moment(comment.date).fromNow()}
             Comment={comment.text}
             isMaxDepth={isMaxDepth}

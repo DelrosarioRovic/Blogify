@@ -40,7 +40,15 @@ const SinglePostCard = (props: SinglePostCardProps) => {
                                     onMouseLeave={handleHover}
                                 >
                                     {props.displayName}
-                                    {isHoverProfile && (<ProfileCard />) }
+                                    {isHoverProfile && (
+                                    <ProfileCard avatar={
+                                        <UserAvatar
+                                            profilePicture={props.profilePicture}
+                                            displayName={props.displayName}
+                                            size="w-11 h-11"
+                                            /> } 
+                                            displayName={props.displayName} bio={props.bio}
+                                        /> )}
                                 </Link>
                             </div>
                             <p className="font-thin text-[.75rem] text-gray-600">

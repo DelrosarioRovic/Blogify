@@ -12,6 +12,7 @@ interface CardInfo {
   name: string;
   date: string;
   Comment: string;
+  bio: string;
   img: React.ReactNode;
   parentCommentId?: string;
   commentUserId: string;
@@ -53,7 +54,7 @@ const CommentCards = (props: CardInfo) => {
               onMouseEnter={handleHover}
               onMouseLeave={handleHover}
             > {props.name}
-              {isHoverProfile && (<ProfileCard />) }
+              {isHoverProfile && (<ProfileCard avatar={props.img} displayName={props.name} bio={props.bio}/> )}
             </Link>
             <span className="bg-slate-500 h-1 w-1 rounded-full -ml-[8px] max-sm:hidden"></span>
             <span className="font-[400] text-[.70rem] text-gray-500 ">

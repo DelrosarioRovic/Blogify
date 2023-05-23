@@ -32,6 +32,7 @@ const useFetchPosts = () => {
     fetchMorePosts();
   }, []);
 
+
   return { posts, hasMore, fetchMorePosts, loading, setLoading };
 };
 

@@ -18,6 +18,7 @@ const SinglePost = () => {
     _id: '',
     userId: '',
     displayName: '',
+    bio: '',
     title: '',
     content: '',
     date: '',

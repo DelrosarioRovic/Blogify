@@ -6,6 +6,7 @@ export interface Comment {
       _id: string;
       displayName: string;
       profilePicture: string;
+      bio: string;
     };
     replies: Comment[];
     likeCount: number;
