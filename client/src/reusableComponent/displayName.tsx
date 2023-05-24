@@ -9,6 +9,7 @@ interface displayNameProps extends ProfilePictureProps{
     userId: string;
     displayName: string;
     bio: string;
+    followed: string[];
 }
 
 const displayName = (props: displayNameProps) => {
@@ -31,7 +32,9 @@ const displayName = (props: displayNameProps) => {
                 profilePicture={props.profilePicture}
                 displayName={props.displayName}
                 size={props.size}
+              
             /> } 
+                followed={props.followed}
                 displayName={props.displayName} bio={props.bio}/> )}
         </Link>
     )

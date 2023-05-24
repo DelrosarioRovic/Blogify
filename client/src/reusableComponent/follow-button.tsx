@@ -1,7 +1,7 @@
 import ApiCall from "../API/Api-call";
 import useAuthentication from "../hooks/isAuthenticated";
 import seeProfile from "../hooks/see-user-profile";
-
+import { RiUserFollowLine, RiUserUnfollowLine } from "react-icons/ri";
 
 interface followBtnProps {
     id?: string;
@@ -24,15 +24,26 @@ const followBtn = (props: followBtnProps) => {
             console.log(error);
         }
     }
-
+   
     return (
-        <button onClick={handleFollowBtn} className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">
+        <div onClick={handleFollowBtn} className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">
             {authenticated && props.following?.includes(data?._id || "") ? (
-                "following"
+                <div className="flex flex-row items-center gap-2">
+                    <RiUserUnfollowLine />
+                    <span>
+                        Unfollow
+                    </span>
+                </div>
+                
             ) : (
-                "follow"
+                <div className="flex flex-row items-center gap-2">
+                    <RiUserFollowLine />
+                    <span>
+                        Follow
+                    </span>
+                </div>
             )}
-        </button>
+        </div>
     )
 }
 

@@ -5,6 +5,7 @@ interface profileCardProps {
     avatar: React.ReactNode;
     displayName: string;
     bio: string;
+    followed: string[];
 }
 
 const profileCard = (props: profileCardProps) => {
@@ -22,9 +23,18 @@ const profileCard = (props: profileCardProps) => {
                     <p className="text-white">
                         {props.displayName}
                     </p>
-                    <button className="bg-blue-500 w-full mt-4 rounded-md text-white p-2">
-                         {data?._id === props.id ? "Manage" : "Follow"}
-                    </button>
+                    
+                    <div className="bg-blue-500 w-full mt-4 rounded-md text-white p-2">
+                         {data?._id === props.id ? 
+                            <button>
+                                Manage
+                            </button>
+                            : 
+                           <button>
+                                Follow
+                           </button>
+                         }
+                    </div>
                 </div>
                 <div className="z-10 w-full mt-2">
                     <p className="text-black">
@@ -32,7 +42,6 @@ const profileCard = (props: profileCardProps) => {
                         {props.bio.length > 20 && "..."}
                     </p>
                 </div>
-               
             </div>
         </div>
     )

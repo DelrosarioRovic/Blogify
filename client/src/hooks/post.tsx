@@ -18,6 +18,7 @@ const useFetchPosts = () => {
         ...post,
         key: index,
       }));
+  
       setPosts([...posts, ...newPosts]);
       setLoading(false);
       if (newPosts < limit) {

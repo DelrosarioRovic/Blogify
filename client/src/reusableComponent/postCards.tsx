@@ -7,7 +7,7 @@ import UserAvatar from "./userAvatar";
 import DisplayName from "./displayName";
 
 const PostCard:React.FC<PostObj> = (props) => {
- 
+
     return (
         <div className="w-full mt-1 active:outline max-w-2xl mx-auto mb-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-200 relative shadow-md">
           <div className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4">
@@ -20,6 +20,7 @@ const PostCard:React.FC<PostObj> = (props) => {
                 />
               </Link>
               <DisplayName 
+                followed={props.followed}
                 bio={props.bio}
                 displayName={props.displayName}
                 userId={props.userId}
