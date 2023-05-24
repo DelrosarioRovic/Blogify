@@ -30,7 +30,9 @@ const CommentCards = (props: CardInfo) => {
   const [isHoverProfile, setIsHoverProfile] = useState<boolean>(false);
 
   const handleHover = () => {
-    setIsHoverProfile(!isHoverProfile);
+    setTimeout(() => {
+      setIsHoverProfile(!isHoverProfile);
+    }, 300);
   }
 
   return (
@@ -54,7 +56,12 @@ const CommentCards = (props: CardInfo) => {
               onMouseEnter={handleHover}
               onMouseLeave={handleHover}
             > {props.name}
-              {isHoverProfile && (<ProfileCard avatar={props.img} displayName={props.name} bio={props.bio}/> )}
+              {isHoverProfile && (
+                <ProfileCard 
+                  id={props.commentUserId}
+                  avatar={props.img} 
+                  displayName={props.name} 
+                  bio={props.bio}/> )}
             </Link>
             <span className="bg-slate-500 h-1 w-1 rounded-full -ml-[8px] max-sm:hidden"></span>
             <span className="font-[400] text-[.70rem] text-gray-500 ">

@@ -8,11 +8,13 @@ import { AuthUserInfo } from '../interface/hook/AuthUserInfo';
 
 const useAuthentication = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState<boolean>(true);
   const authenticated = useSelector((state: { authReducer: AuthState }) => state.authReducer.authenticated);
   const [data, setData] = useState<AuthUserInfo | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
+      setLoading(true);
       try {
         const res = await ApiCall("GET", "http://localhost:4000/route/user");
         if (res.status === 200) {
@@ -21,6 +23,8 @@ const useAuthentication = () => {
         } 
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     checkAuth();
@@ -34,7 +38,7 @@ const useAuthentication = () => {
     dispatch({ type: 'SET_AUTHENTICATED', payload: false });
   };
 
-  return { authenticated, signIn, signOut, data };
+  return { authenticated, signIn, signOut, data, loading };
 };
 
 export default useAuthentication;

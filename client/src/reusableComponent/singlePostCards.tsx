@@ -41,13 +41,16 @@ const SinglePostCard = (props: SinglePostCardProps) => {
                                 >
                                     {props.displayName}
                                     {isHoverProfile && (
-                                    <ProfileCard avatar={
-                                        <UserAvatar
-                                            profilePicture={props.profilePicture}
-                                            displayName={props.displayName}
-                                            size="w-11 h-11"
+                                    <ProfileCard 
+                                        id={props.userId}
+                                        displayName={props.displayName}
+                                        bio={props.bio}
+                                        avatar={
+                                            <UserAvatar
+                                                profilePicture={props.profilePicture}
+                                                displayName={props.displayName}
+                                                size="w-11 h-11"
                                             /> } 
-                                            displayName={props.displayName} bio={props.bio}
                                         /> )}
                                 </Link>
                             </div>

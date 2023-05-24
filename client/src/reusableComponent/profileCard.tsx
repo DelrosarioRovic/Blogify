@@ -1,13 +1,19 @@
+import Skeleton from "react-loading-skeleton";
+import useAuthentication from "../hooks/isAuthenticated";
+
 interface profileCardProps {
+    id: string;
     avatar: React.ReactNode;
     displayName: string;
     bio: string;
 }
 
 const profileCard = (props: profileCardProps) => {
+    const { data } = useAuthentication();
+
     return (
         <div className="hidden md:flex flex-row gap-x-3 z-50 bg-white absolute top-0 left-0 min-w-[15rem] p-3 rounded-md border-[0.5px] border-gray-200 shadow-xl text-sm overflow-hidden
-        before:absolute before:top-0 before:left-0 before:w-full before:h-10 before:bg-slate-950
+            before:absolute before:top-0 before:left-0 before:w-full before:h-10 before:bg-slate-950
         ">
             <div className="z-10">
                 {props.avatar}   
@@ -18,7 +24,7 @@ const profileCard = (props: profileCardProps) => {
                         {props.displayName}
                     </p>
                     <button className="bg-blue-500 w-full mt-4 rounded-md text-white p-2">
-                        follow
+                         {data?._id === props.id ? "Customized" : "Follow"}
                     </button>
                 </div>
                 <div className="z-10 w-full mt-2">

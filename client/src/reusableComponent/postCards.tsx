@@ -30,7 +30,9 @@ const PostCard:React.FC<PostObj> = (props) => {
                 onMouseEnter={handleHover}
                 onMouseLeave={handleHover}
                 to={`/profile/${props.userId}`} className="z-10 relative">{props.displayName} 
-                {isHoverProfile && (<ProfileCard avatar={<UserAvatar
+                {isHoverProfile && (<ProfileCard 
+                  id={props.userId}
+                  avatar={<UserAvatar
                   profilePicture={props.profilePicture}
                   displayName={props.displayName}
                   size="w-11 h-11"
