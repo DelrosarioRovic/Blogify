@@ -7,6 +7,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   profilePicture: { type: String },
   bio: { type: String },
+  followed: 
+    [{ 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User' 
+    }]
 });
 
 const User = mongoose.model("User", userSchema);
