@@ -7,6 +7,7 @@ const OtherProfile:React.FC = () => {
 
     return (
       <ProfileLayOut 
+        id={OtherUserData?._id}
         size="w-full h-full"
         textSize={true}
         displayName={OtherUserData?.displayName}

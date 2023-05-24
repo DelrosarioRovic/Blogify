@@ -9,9 +9,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from "react-router-dom";
 import { AuthUserInfo } from "../interface/hook/AuthUserInfo";
+import FollowBtn from "./follow-button";
 
 interface ProfileLayOutProps extends ProfilePictureProps{
     type: string;
+    //currentUser
     state?: AuthUserInfo | null;
 }
 
@@ -44,6 +46,7 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
                     <div className="bg-white w-40 h-40 rounded-full absolute left-1/2 transform -translate-x-1/2 -bottom-[35%] p-2">
                         {loading ? <Skeleton circle={true} width={"100%"} height={"100%"}/> : (
                             <UserAvatar 
+                                id={props.id}
                                 displayName={props.displayName}
                                 profilePicture={props.profilePicture}
                                 size={props.size}
@@ -59,7 +62,7 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
                         Edit Profile
                     </Link>
                 ) : (
-                    <button className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">Follow</button>
+                    <FollowBtn  id={props.id}/>
                 )}
                 
                 <div className="flex flex-col items-center justify-center py-4 w-full gap-y-2">

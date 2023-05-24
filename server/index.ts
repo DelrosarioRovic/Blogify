@@ -15,6 +15,7 @@ import commentController from "./controllers/comment-controller";
 import likeController from "./controllers/like-controller";
 import deletePostController from "./controllers/deletePost";
 import deleteComment_ReplyController from "./controllers/deleteComment&Reply";
+import followController from "./controllers/followController";
 import postRoutes from "./routes/postRoutes";
 import userRoutes from "./routes/userRoutes";
 
@@ -59,6 +60,8 @@ app.use(likeController);
 app.use(deletePostController);
 //delete comment | reply
 app.use(deleteComment_ReplyController);
+//follow controllers
+app.use(followController);
 
 
 app.listen(4000, () => {
