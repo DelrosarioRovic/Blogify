@@ -15,6 +15,8 @@ interface ProfileLayOutProps extends ProfilePictureProps{
     type: string;
     //currentUser
     state?: AuthUserInfo | null;
+    //otherUser
+    following?: string[];
 }
 
 const ProfileLayOut = (props: ProfileLayOutProps) => {
@@ -36,7 +38,6 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
             userId={item.userId}
         />
     ));
-
 
     return (
         <div>
@@ -62,7 +63,7 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
                         Edit Profile
                     </Link>
                 ) : (
-                    <FollowBtn  id={props.id}/>
+                    <FollowBtn  id={props.id} following={props.following}/>
                 )}
                 
                 <div className="flex flex-col items-center justify-center py-4 w-full gap-y-2">

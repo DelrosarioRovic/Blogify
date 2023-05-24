@@ -4,10 +4,13 @@ import { AuthUserInfo } from "../interface/hook/AuthUserInfo";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 import { ImageUploader } from "../reusableComponent/uploadPicture";
 import ApiCall from "../API/Api-call";
+import useAuthentication from "../hooks/isAuthenticated";
 
 const ProfileSettings:React.FC = () => {
+    const { handleReUpdateUserData } = useAuthentication();
     //use for sending state from other location
     const location = useLocation();
     const updateCurrentData: AuthUserInfo = location.state;
@@ -24,6 +27,7 @@ const ProfileSettings:React.FC = () => {
                 "post", "http://localhost:4000/auth/update-profile", 
                 { id: updateCurrentData._id ,email, bio, profilePicture:addPic, displayName });
             response.status === 200 ? (
+                handleReUpdateUserData(),
                 toast.success(response.data.message)
             ): ( toast.warning(response.data.message));
         } catch (error) {
