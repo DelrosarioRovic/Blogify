@@ -4,17 +4,10 @@ import { PostObj } from "../interface/hook/PostObj";
 import Like from "./like";
 import Comment from "./comment";
 import UserAvatar from "./userAvatar";
-import ProfileCard from "./profileCard";
-import useAuthentication from "../hooks/isAuthenticated";
+import DisplayName from "./displayName";
 
 const PostCard:React.FC<PostObj> = (props) => {
-    const { data } = useAuthentication();
-    const [isHoverProfile, setIsHoverProfile] = useState<boolean>(false);
-
-    const handleHover = () => {
-      setIsHoverProfile(!isHoverProfile);
-    }
-
+ 
     return (
         <div className="w-full mt-1 active:outline max-w-2xl mx-auto mb-4 overflow-hidden sm:rounded-md sm:border max-sm:border-y border-gray-200 relative shadow-md">
           <div className="bg-stone-100 bg-opacity-[.4] max-md:px-4 active:outline active:outline-[2px] active:outline-slate-700 flex flex-col gap-4 md:px-12 py-4">
@@ -26,20 +19,13 @@ const PostCard:React.FC<PostObj> = (props) => {
                   size="w-11 h-11"
                 />
               </Link>
-              <Link
-                onClick={()=>window.scrollTo({ top: 0 })}
-                onMouseEnter={handleHover}
-                onMouseLeave={handleHover}
-                to={data?._id === props.userId ? '/profile' : `/profile/${props.userId}`} className="z-10 relative">{props.displayName} 
-                {isHoverProfile && (<ProfileCard 
-                  id={props.userId}
-                  avatar={<UserAvatar
-                  profilePicture={props.profilePicture}
-                  displayName={props.displayName}
-                  size="w-11 h-11"
-                /> } 
-                  displayName={props.displayName} bio={props.bio}/> )}
-              </Link>
+              <DisplayName 
+                bio={props.bio}
+                displayName={props.displayName}
+                userId={props.userId}
+                profilePicture={props.profilePicture}
+                size="w-11 h-11"
+              />
             </div>
             <Link
               onClick={()=>window.scrollTo({ top: 0 })}

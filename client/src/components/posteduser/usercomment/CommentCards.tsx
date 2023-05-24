@@ -6,14 +6,16 @@ import useAuthentication from "../../../hooks/isAuthenticated";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ProfileCard from "../../../reusableComponent/profileCard";
+import DisplayName from "../../../reusableComponent/displayName";
+import UserAvatar from "../../../reusableComponent/userAvatar";
 
 interface CardInfo {
   comment_id?: string;
-  name: string;
+  displayName: string;
   date: string;
   Comment: string;
   bio: string;
-  img: React.ReactNode;
+  profilePicture: string;
   parentCommentId?: string;
   commentUserId: string;
   like: number;
@@ -21,24 +23,23 @@ interface CardInfo {
   handleReply?: () => void;
   handleComment: () => void;
   isMaxDepth: boolean;
-  likeComment: [string]
+  likeComment: [string];
 }
 
 const CommentCards = (props: CardInfo) => {
   const postId = useParams().postId;
   const { data, authenticated } = useAuthentication();
-  const [isHoverProfile, setIsHoverProfile] = useState<boolean>(false);
-
-  const handleHover = () => {
-      setIsHoverProfile(!isHoverProfile);
-  }
 
   return (
     <div className="flex flex-row gap-3 mt-3">
       <div className="flex flex-col items-center gap-2">
         <div className="w-8 h-8">
           <div className="overflow-hidden h-8 w-8 rounded-full bg-red-500 flex justify-center items-center text-white">
-            {props.img}
+            <UserAvatar 
+              size="w-11 h-11"
+              displayName={props.displayName}
+              profilePicture={props.profilePicture}
+            />
           </div>
         </div>
         <div className="w-[1px] h-full bg-slate-600 rounded-full"></div>
@@ -47,20 +48,13 @@ const CommentCards = (props: CardInfo) => {
       <div className="p-2 border w-full">
         <div className="flex justify-between">
           <h1 className="font-semibold flex sm:gap-3 sm:items-center max-sm:text-[.80rem] whitespace-nowrap max-sm:flex-col hover:text-blue-900">
-            <Link 
-              to={data?._id === props.commentUserId ? '/profile' : `/profile/${props.commentUserId}`} 
-              className="relative"
-              onClick={()=>window.scrollTo({ top: 0 })}
-              onMouseEnter={handleHover}
-              onMouseLeave={handleHover}
-            > {props.name}
-              {isHoverProfile && (
-                <ProfileCard 
-                  id={props.commentUserId}
-                  avatar={props.img} 
-                  displayName={props.name} 
-                  bio={props.bio}/> )}
-            </Link>
+            <DisplayName 
+              userId={props.commentUserId}
+              displayName={props.displayName}
+              profilePicture={props.profilePicture}
+              bio={props.bio}
+              size="w-11 h-11"
+            />
             <span className="bg-slate-500 h-1 w-1 rounded-full -ml-[8px] max-sm:hidden"></span>
             <span className="font-[400] text-[.70rem] text-gray-500 ">
               {props.date}

@@ -5,7 +5,6 @@ import CommentCards from "./CommentCards";
 import CreateComment from "./CreateComment";
 import singlePost from "../../../hooks/single-post";
 import { Comment } from "../../../interface/hook/CommentObj";
-import UserAvatar from "../../../reusableComponent/userAvatar";
 import useAuthentication from "../../../hooks/isAuthenticated";
 
 const UsersComments: React.FC = () => {
@@ -46,14 +45,8 @@ const UsersComments: React.FC = () => {
             like={comment.likeCount}
             comment={comment.replies.length}
             likeComment={comment.likes}
-            img={
-              <UserAvatar
-                profilePicture={comment.user.profilePicture}
-                displayName={comment.user.displayName}
-                size="h-11 w-11"
-              />
-            }
-            name={comment.user.displayName}
+            profilePicture={comment.user.profilePicture}
+            displayName={comment.user.displayName}
             bio={comment.user.bio}
             date={moment(comment.date).fromNow()}
             Comment={comment.text}
