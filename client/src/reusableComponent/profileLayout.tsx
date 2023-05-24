@@ -54,10 +54,12 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
                 </div>
             </div>
             <div className="max-w-4xl w-full mx-auto flex justify-center border-gray-300 border rounded-sm bg-white pt-16 shadow-md relative">
-                {props.type === "profile" && (
+                {props.type === "profile" ? (
                     <Link to={"/profile/settings"} state={props.state} className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">
                         Edit Profile
                     </Link>
+                ) : (
+                    <button className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">Follow</button>
                 )}
                 
                 <div className="flex flex-col items-center justify-center py-4 w-full gap-y-2">

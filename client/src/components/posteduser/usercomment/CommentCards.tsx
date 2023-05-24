@@ -30,9 +30,7 @@ const CommentCards = (props: CardInfo) => {
   const [isHoverProfile, setIsHoverProfile] = useState<boolean>(false);
 
   const handleHover = () => {
-    setTimeout(() => {
       setIsHoverProfile(!isHoverProfile);
-    }, 300);
   }
 
   return (
@@ -50,7 +48,7 @@ const CommentCards = (props: CardInfo) => {
         <div className="flex justify-between">
           <h1 className="font-semibold flex sm:gap-3 sm:items-center max-sm:text-[.80rem] whitespace-nowrap max-sm:flex-col hover:text-blue-900">
             <Link 
-              to={`/profile/${props.commentUserId}`} 
+              to={data?._id === props.commentUserId ? '/profile' : `/profile/${props.commentUserId}`} 
               className="relative"
               onClick={()=>window.scrollTo({ top: 0 })}
               onMouseEnter={handleHover}

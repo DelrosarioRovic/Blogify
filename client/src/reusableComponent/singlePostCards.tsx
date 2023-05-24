@@ -34,7 +34,7 @@ const SinglePostCard = (props: SinglePostCardProps) => {
                         <div>
                             <div className="font-semibold hover:text-blue-900">
                                 <Link 
-                                    to={`/profile/${props.userId}`}
+                                    to={data?._id === props.userId ? '/profile' : `/profile/${props.userId}`}
                                     className="relative"
                                     onMouseEnter={handleHover}
                                     onMouseLeave={handleHover}

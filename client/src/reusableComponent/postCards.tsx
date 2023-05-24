@@ -5,9 +5,10 @@ import Like from "./like";
 import Comment from "./comment";
 import UserAvatar from "./userAvatar";
 import ProfileCard from "./profileCard";
+import useAuthentication from "../hooks/isAuthenticated";
 
 const PostCard:React.FC<PostObj> = (props) => {
-
+    const { data } = useAuthentication();
     const [isHoverProfile, setIsHoverProfile] = useState<boolean>(false);
 
     const handleHover = () => {
@@ -29,7 +30,7 @@ const PostCard:React.FC<PostObj> = (props) => {
                 onClick={()=>window.scrollTo({ top: 0 })}
                 onMouseEnter={handleHover}
                 onMouseLeave={handleHover}
-                to={`/profile/${props.userId}`} className="z-10 relative">{props.displayName} 
+                to={data?._id === props.userId ? '/profile' : `/profile/${props.userId}`} className="z-10 relative">{props.displayName} 
                 {isHoverProfile && (<ProfileCard 
                   id={props.userId}
                   avatar={<UserAvatar
