@@ -2,7 +2,6 @@ export interface PostObj {
     _id: string;
     userId: string;
     displayName: string;
-    followed: string[];
     bio: string;
     title: string;
     content: string;

@@ -1,15 +1,19 @@
+import { Link } from "react-router-dom";
 import useAuthentication from "../hooks/isAuthenticated";
+import FollowBtn from "./follow-button";
+import seeProfile from "../hooks/see-user-profile";
+
 
 interface profileCardProps {
     id: string;
     avatar: React.ReactNode;
     displayName: string;
     bio: string;
-    followed: string[];
 }
 
 const profileCard = (props: profileCardProps) => {
     const { data } = useAuthentication();
+    const { OtherUserData } = seeProfile({ id: props.id });
 
     return (
         <div className="hidden md:flex flex-row gap-x-3 z-50 bg-white absolute top-6 left-0 min-w-[15rem] p-3 rounded-md border-[0.5px] border-gray-200 shadow-xl text-sm overflow-hidden
@@ -26,13 +30,9 @@ const profileCard = (props: profileCardProps) => {
                     
                     <div className="bg-blue-500 w-full mt-4 rounded-md text-white p-2">
                          {data?._id === props.id ? 
-                            <button>
-                                Manage
-                            </button>
+                            <Link to={"/profile/settings"}>Manage</Link>
                             : 
-                           <button>
-                                Follow
-                           </button>
+                            <FollowBtn following={OtherUserData?.followed} id={props.id}/>
                          }
                     </div>
                 </div>

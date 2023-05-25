@@ -23,7 +23,6 @@ const getPostAggregatePipeline = () => {
         userId: "$user._id",
         displayName: "$user.displayName",
         bio: "$user.bio",
-        followed: "$user.followed",
         title: 1,
         content: 1,
         likes: 1,
