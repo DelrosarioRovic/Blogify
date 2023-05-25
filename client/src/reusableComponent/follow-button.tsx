@@ -1,6 +1,5 @@
 import ApiCall from "../API/Api-call";
 import useAuthentication from "../hooks/isAuthenticated";
-// import seeProfile from "../hooks/see-user-profile";
 import { RiUserFollowLine, RiUserUnfollowLine } from "react-icons/ri";
 import seeProfile from "../hooks/see-user-profile";
 
@@ -21,7 +20,6 @@ const followBtn = (props: followBtnProps) => {
 
             const url = `http://localhost:4000/follow?otherUserId=${otherUserId}&currentUserId=${currentUserId}`;
             const response: any = await ApiCall("get", url);
-            console.log(response.status);
             response.status === 200 && (
                 handleReUpdateOtherUserData()
             );

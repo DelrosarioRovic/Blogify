@@ -1,13 +1,15 @@
+import Skeleton from "react-loading-skeleton";
+import { CgNotes } from 'react-icons/cg';
+import InfiniteScroll from "react-infinite-scroll-component";
+import { RiUserFollowLine } from "react-icons/ri";
+import ClipLoader from "react-spinners/ClipLoader";
+import { Link } from "react-router-dom";
+
 import UserAvatar from "./userAvatar";
 import { ProfilePictureProps } from "../interface/props/profilePictureProps";
 import PostCard from "./postCards";
 import UserPost from "../hooks/user-post";
 import skeletonPosts from "../skeleton/skeleton-posts";
-import Skeleton from "react-loading-skeleton";
-import { CgNotes } from 'react-icons/cg';
-import InfiniteScroll from "react-infinite-scroll-component";
-import ClipLoader from "react-spinners/ClipLoader";
-import { Link } from "react-router-dom";
 import { AuthUserInfo } from "../interface/hook/AuthUserInfo";
 import FollowBtn from "./follow-button";
 
@@ -20,6 +22,8 @@ interface ProfileLayOutProps extends ProfilePictureProps{
 }
 
 const ProfileLayOut = (props: ProfileLayOutProps) => {
+
+
     const { loading, fetchingPost, hasMore, userPost, totalPost } = UserPost();
     const realPosts = userPost.map((item, index) => (
         <PostCard 
@@ -85,8 +89,16 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
                         )}
                     </div>
                     <div>
-                        
+                        {loading ? <Skeleton width={"7rem"} /> : (
+                            <div className="flex items-center gap-2">
+                                <RiUserFollowLine size={20}/>
+                                <p>{props.type === "profile" ? (props.state?.followed && props.state?.followed.length) : props.following?.length} Followers</p>
+                            </div>
+                        )}
                     </div>
+                  
+
+               
                 </div>
             </div> 
             <div className="flex flex-col justify-center mt-10 gap-y-5">
