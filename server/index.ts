@@ -35,9 +35,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://blogify-phi.vercel.app/",
-      "https://blogify-delrosariorovic.vercel.app/",
-      "https://blogify-delrosariorovic.vercel.app/"],
+    origin: ["https://blogify-phi.vercel.app",
+      "https://blogify-delrosariorovic.vercel.app"
+      ],
     credentials: true,
   })
 );
