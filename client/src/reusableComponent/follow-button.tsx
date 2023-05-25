@@ -18,7 +18,7 @@ const followBtn = (props: followBtnProps) => {
             const otherUserId = props.id; 
             const currentUserId = data?._id; 
 
-            const url = `http://localhost:4000/follow?otherUserId=${otherUserId}&currentUserId=${currentUserId}`;
+            const url = `https://blogify-api-server.vercel.app/follow?otherUserId=${otherUserId}&currentUserId=${currentUserId}`;
             const response: any = await ApiCall("get", url);
             response.status === 200 && (
                 handleReUpdateOtherUserData()

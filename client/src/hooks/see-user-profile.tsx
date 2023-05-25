@@ -15,7 +15,7 @@ const seeProfile = (props: userId = {}) => {
     const [OtherUserData, setOtherUserData] = useState<AuthUserInfo | null>(null);
     const user = useParams(); 
     const fetchingUserData = async() => {
-        let url = `http://localhost:4000/route/specific-user/${props.id ? props.id : user.profileId}`
+        let url = `https://blogify-api-server.vercel.app/route/specific-user/${props.id ? props.id : user.profileId}`
         const response = await ApiCall("get", url);
         if (response.status === 200) {
             setOtherUserData(response.data.user);

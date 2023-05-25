@@ -24,7 +24,7 @@ const ProfileSettings:React.FC = () => {
         event.preventDefault();
         try {
             const response = await ApiCall(
-                "post", "http://localhost:4000/auth/update-profile", 
+                "post", "https://blogify-api-server.vercel.app/auth/update-profile", 
                 { id: updateCurrentData._id ,email, bio, profilePicture:addPic, displayName });
             response.status === 200 ? (
                 handleReUpdateUserData(),

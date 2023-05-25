@@ -17,9 +17,9 @@ const UserPost = () => {
     const fetchingPost = async () => {
         const limit: number = 2;
         const skip: number = userPost.length;
-        let url = `http://localhost:4000/route/user-post/${data?._id}?limit=${limit}&skip=${skip}`;
+        let url = `https://blogify-api-server.vercel.app/route/user-post/${data?._id}?limit=${limit}&skip=${skip}`;
         if (otherUser && otherUser.profileId) {
-            url = `http://localhost:4000/route/user-post/${otherUser.profileId}?limit=${limit}&skip=${skip}`;
+            url = `https://blogify-api-server.vercel.app/route/user-post/${otherUser.profileId}?limit=${limit}&skip=${skip}`;
         }
         const response = await ApiCall("get", url);
         if (response.data.userPost.length === 0 && response.data.totalPost === 0) {

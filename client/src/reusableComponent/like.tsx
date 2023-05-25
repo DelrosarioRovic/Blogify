@@ -20,9 +20,9 @@ const like = (props: like) => {
 
   const likeBtn = async () => {
     try {
-      let url = `http://localhost:4000/like/${postId.postId}`;
+      let url = `https://blogify-api-server.vercel.app/like/${postId.postId}`;
       if (props.type === "like-comment") {
-        url = `http://localhost:4000/like/${props.like_comment_id}/like-comment`;
+        url = `https://blogify-api-server.vercel.app/like/${props.like_comment_id}/like-comment`;
       }
       const response = await ApiCall(
         "put",

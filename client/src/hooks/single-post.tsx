@@ -33,7 +33,7 @@ const SinglePost = () => {
     try {
       const response = await ApiCall(
         "get",
-        `http://localhost:4000/route/single-post/${postId.postId}`
+        `https://blogify-api-server.vercel.app/route/single-post/${postId.postId}`
       );
       setPost(response.data.post[0]);
       setComment(response.data.comments);

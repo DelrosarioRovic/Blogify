@@ -28,14 +28,14 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
     
     let url="";
     if (updateCurrentData && updateCurrentData.typeCR) {
-      url = "http://localhost:4000/comment";
+      url = "https://blogify-api-server.vercel.app/comment";
       if (updateCurrentData.typeCR === "reply") {
-        url = `http://localhost:4000/comment/${updateCurrentData.parentCommentId}/replies`;
+        url = `https://blogify-api-server.vercel.app/comment/${updateCurrentData.parentCommentId}/replies`;
       }
     } else {
-      url = "http://localhost:4000/comment";
+      url = "https://blogify-api-server.vercel.app/comment";
       if (props.type === "reply") {
-        url = `http://localhost:4000/comment/${props.id}/replies`;
+        url = `https://blogify-api-server.vercel.app/comment/${props.id}/replies`;
       }
     }
  

@@ -12,7 +12,7 @@ interface deletetype {
 const deleteCR:React.FC<deletetype> = (props)=> {
     const { handleIncrement } = SinglePost();
     const handleDelete = async() => {
-        let url = `http://localhost:4000/deleteComment`;
+        let url = `https://blogify-api-server.vercel.app/deleteComment`;
 
         const response = await ApiCall("delete", url, {
             id: props.id,

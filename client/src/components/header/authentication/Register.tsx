@@ -20,7 +20,7 @@ const Register: React.FC<registerForm> = (props) => {
     try {
       const result:any = await ApiCall(
         'post', 
-        'http://localhost:4000/auth/register',
+        'https://blogify-api-server.vercel.app/auth/register',
         {email: eMail, password: passWord, displayName: displayName, profilePicture :addPic && addPic});
       if (result.status === 200) {
         toast.success(result.data.message);

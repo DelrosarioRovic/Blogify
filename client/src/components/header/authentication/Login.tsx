@@ -17,7 +17,7 @@ const Login: React.FC<loginForm> = (props) => {
     event.preventDefault();
     setPromiseLogin(true);
     try {
-      const result:any = await ApiCall("post", "http://localhost:4000/auth/login", {
+      const result:any = await ApiCall("post", "https://blogify-api-server.vercel.app/auth/login", {
         email: eMail,
         password: passWord,
       })

@@ -23,7 +23,7 @@ const createpost: React.FC = () => {
       event.preventDefault();
       setPromise(true);
       try {
-        const result = await ApiCall("POST", "http://localhost:4000/compose", {
+        const result = await ApiCall("POST", "https://blogify-api-server.vercel.app/compose", {
             _id: updateCurrentData ? updateCurrentData._id : "",
             title,
             content,
