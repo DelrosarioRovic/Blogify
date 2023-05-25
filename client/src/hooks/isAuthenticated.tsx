@@ -16,7 +16,7 @@ const useAuthentication = () => {
 
   const checkAuth = async () => {
     try {
-      const res = await ApiCall("GET", "/route/user");
+      const res = await ApiCall("GET", "https://blogify-api-server.vercel.app/route/user");
       if (res.status === 200) {
         dispatch({ type: 'SET_AUTHENTICATED', payload: true });
         setData(res.data.user);
