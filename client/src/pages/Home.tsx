@@ -17,7 +17,6 @@ const Post = () => {
       content={post.content}
       date={post.date}
       displayName={post.displayName}
-      followed={post.followed}
       bio={post.bio}
       profilePicture={post.profilePicture}
       likes={post.likes}

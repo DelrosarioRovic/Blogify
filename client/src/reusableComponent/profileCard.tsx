@@ -41,10 +41,17 @@ const profileCard = (props: profileCardProps) => {
          
                 </div>
                 <div className="z-10 w-full mt-2">
-                    <p className="text-black">
-                        {props.bio ? props.bio.substring(20, 0) : "404 bio not found."}
-                        {props.bio.length > 20 && "..."}
-                    </p>
+                    {data?._id === props.id ? (
+                        <p className="text-black"> 
+                            {data.bio ? data.bio.substring(20, 0) : "404 bio not found."}
+                            {data.bio && data.bio.length > 20 && "..."}
+                        </p>
+                    ) : (
+                        <p>
+                            {props.bio ? props.bio.substring(20, 0) : "404 bio not found."}
+                            {props.bio && props.bio.length > 20 && "..."}
+                        </p>
+                    )}
                 </div>
             </div>
         </div>
