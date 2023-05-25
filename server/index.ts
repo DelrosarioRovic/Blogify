@@ -35,7 +35,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: ["https://blogify-phi.vercel.app/",
+      "https://blogify-delrosariorovic.vercel.app/",
+      "https://blogify-delrosariorovic.vercel.app/"],
     credentials: true,
   })
 );
