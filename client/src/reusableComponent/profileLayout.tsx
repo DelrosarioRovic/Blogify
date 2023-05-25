@@ -63,7 +63,10 @@ const ProfileLayOut = (props: ProfileLayOutProps) => {
                         Edit Profile
                     </Link>
                 ) : (
-                    <FollowBtn  id={props.id} following={props.following}/>
+                    <div className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">
+                        <FollowBtn  id={props.id} following={props.following}/>
+                    </div>
+                    
                 )}
                 
                 <div className="flex flex-col items-center justify-center py-4 w-full gap-y-2">

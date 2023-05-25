@@ -31,25 +31,24 @@ const followBtn = (props: followBtnProps) => {
     }
    
     return (
-
-        <div onClick={handleFollowBtn} className="absolute right-2 top-2 p-2 bg-blue-500 text-white rounded-md">
-            {authenticated && props.following?.includes(data?._id || "") ? (
-                <div className="flex flex-row items-center gap-2">
-                    <RiUserUnfollowLine />
-                    <span>
-                        Unfollow
-                    </span>
-                </div>
-                
-            ) : (
-                <div className="flex flex-row items-center gap-2">
-                    <RiUserFollowLine />
-                    <span>
-                        Follow
-                    </span>
-                </div>
-            )}
-        </div>
+    <div onClick={handleFollowBtn} className="cursor-pointer w-full block">
+        {authenticated && props.following?.includes(data?._id || "") ? (
+            <div className="flex flex-row items-center gap-2">
+                <RiUserUnfollowLine />
+                <span>
+                    Unfollow
+                </span>
+            </div>
+            
+        ) : (
+            <div className="flex flex-row items-center gap-2">
+                <RiUserFollowLine />
+                <span>
+                    Follow
+                </span>
+            </div>
+        )}
+    </div>
     )
 }
 

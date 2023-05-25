@@ -24,17 +24,21 @@ const profileCard = (props: profileCardProps) => {
             </div>
             <div className="z-10 w-full">
                 <div className="w-full gap-y-2">
-                    <p className="text-white">
+                    <Link onClick={()=>window.scrollTo({ top: 0 })} to={`/profile/${props.id}`} className="text-white">
                         {props.displayName}
-                    </p>
+                    </Link>
                     
-                    <div className="bg-blue-500 w-full mt-4 rounded-md text-white p-2">
-                         {data?._id === props.id ? 
-                            <Link to={"/profile/settings"}>Manage</Link>
-                            : 
-                            <FollowBtn following={OtherUserData?.followed} id={props.id}/>
-                         }
-                    </div>
+                      <div className="mt-4 bg-blue-500 w-full rounded-md text-white p-2">
+                        {data?._id === props.id ? 
+                            (
+                                <Link onClick={()=>window.scrollTo({ top: 0 })} to={"/profile/settings"} state={data}>Manage</Link>
+                            )
+                                : 
+                                <FollowBtn following={OtherUserData?.followed} id={props.id}/>
+                            }
+                      </div>
+                      
+         
                 </div>
                 <div className="z-10 w-full mt-2">
                     <p className="text-black">
