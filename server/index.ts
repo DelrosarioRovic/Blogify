@@ -43,7 +43,9 @@ app.use(
 //third Party authentication middleware
 thirdPartyMwAuth();
 
-
+app.get("/", (req, res) => {
+  res.send("Hello");
+})
 //routes
 app.use("/route", postRoutes);
 app.use("/route", userRoutes);
