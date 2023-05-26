@@ -96,7 +96,7 @@ router.post("/update-profile", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/logout", async (req: Request, res: Response) => {
+router.post("/sign-out", async (req: Request, res: Response) => {
   try {
     res.clearCookie("access_token", {
       httpOnly: true,
