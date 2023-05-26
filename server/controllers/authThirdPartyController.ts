@@ -19,6 +19,8 @@ router.get("/google/callback",
     const token = jwt.sign(googleUser, secret, { expiresIn: "1h" });
     res.cookie("access_token", token, {
       httpOnly: true,
+      secure: true,
+      sameSite: 'none',
     });
     const redirectUrl = "https://blogify-phi.vercel.app/";
     res.redirect(redirectUrl);
@@ -41,6 +43,8 @@ router.get("/github/callback",
     const token = jwt.sign(googleUser, secret, { expiresIn: "1h" });
     res.cookie("access_token", token, {
       httpOnly: true,
+      secure: true,
+      sameSite: 'none',
     });
     res.redirect("https://blogify-phi.vercel.app/");
   }
