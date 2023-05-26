@@ -30,7 +30,6 @@ router.post("/login", async(req: Request, res: Response) => {
   // set the JWT token as a cookie
   res.cookie("access_token", token, {
     httpOnly: true,
-    secure: true,
     sameSite: 'none',
   });
   res.status(200).json({ message: "Logged in successfully", user: user });
@@ -100,7 +99,6 @@ router.get("/sign-out", async (req: Request, res: Response) => {
     try {
       res.clearCookie("access_token", {
         httpOnly: true,
-        secure: true,
         sameSite: "none",
       });
         res.status(200).send("Signed out successfully.");
