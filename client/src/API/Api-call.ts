@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const apiCall = async (method: string, url: string, data?: any, cred?: any) => {
+const apiCall = async (method: string, url: string, data?: any) => {
   try {
     const response = await axios({
       method,
       url,
       data,
-      withCredentials: cred ? cred : true,
+      withCredentials: true,
       headers: {
         'Content-Type': 'application/json'
       }

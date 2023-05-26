@@ -16,7 +16,7 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
   const { signOut, data } = useAuthentication();
   const SignOutApi = async () => {
     try {
-      const response = await ApiCall("post", "https://blogify-api-server.vercel.app/auth/sign-out",'' , 'include');
+      const response = await ApiCall("post", "https://blogify-api-server.vercel.app/auth/sign-out");
       response.status === 200 && (
       toast.success("Successfully Sign Out"),
       signOut()
