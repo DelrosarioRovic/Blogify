@@ -20,7 +20,7 @@ router.get("/google/callback",
     res.cookie("access_token", token, {
       httpOnly: true,
     });
-    const redirectUrl = "http://localhost:5173";
+    const redirectUrl = "https://blogify-phi.vercel.app/";
     res.redirect(redirectUrl);
   }
 );
@@ -42,7 +42,7 @@ router.get("/github/callback",
     res.cookie("access_token", token, {
       httpOnly: true,
     });
-    res.redirect("http://localhost:5173");
+    res.redirect("https://blogify-phi.vercel.app/");
   }
 );
 
