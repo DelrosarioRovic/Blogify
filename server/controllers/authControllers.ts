@@ -96,18 +96,19 @@ router.post("/update-profile", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/sign-out", async (req: Request, res: Response) => {
-    try {
-      res.clearCookie("access_token", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-      });
-        res.status(200).send("Signed out successfully.");
-    } catch (error) {
-        res.status(500).send("An error occurred while signing out.");
-    }
+router.post("/logout", async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
+    res.status(200).send("Signed out successfully.");
+  } catch (error) {
+    res.status(500).send("An error occurred while signing out.");
+  }
 });
+
 
 
 export default router;
