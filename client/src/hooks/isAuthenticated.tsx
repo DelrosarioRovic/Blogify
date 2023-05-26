@@ -27,7 +27,9 @@ const useAuthentication = () => {
   };
 
   useEffect(() => {
-    checkAuth();
+    if (authenticated) {
+      checkAuth();
+    }
   }, [dispatch, authenticated, refreshCount]);
 
   const signIn = () => {
