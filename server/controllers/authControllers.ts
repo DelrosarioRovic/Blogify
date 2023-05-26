@@ -26,13 +26,12 @@ router.post("/login", async(req: Request, res: Response) => {
     id: user.id,
   };
   const secret = process.env.userLocalSecret as string;
-  console.log(secret);
   const token = jwt.sign(payload, secret, { expiresIn: "1h" });
-  console.log(token);
   // set the JWT token as a cookie
   res.cookie("access_token", token, {
     httpOnly: true,
   });
+  console.log(res.cookie);
   res.status(200).json({ message: "Logged in successfully", user: user });
 });
 
