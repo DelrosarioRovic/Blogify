@@ -6,7 +6,7 @@ import useAuthentication from "../../../hooks/isAuthenticated";
 
 
 const NotAuthenticated: React.FC = () => {
-  const { authenticated } = useAuthentication();
+  const { authenticated, data } = useAuthentication();
   const [isAuthenticationFormShow, setIsAuthenticationFormShow] = useState(false);
 
   const ifShowAuthForm = () => {
@@ -15,7 +15,7 @@ const NotAuthenticated: React.FC = () => {
   
   return (
     <div className="flex">
-      {authenticated ? (
+      {authenticated && data ? (
         <UserProfile />
       ) : (
         <>
