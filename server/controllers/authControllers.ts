@@ -26,7 +26,9 @@ router.post("/login", async(req: Request, res: Response) => {
     id: user.id,
   };
   const secret = process.env.userLocalSecret as string;
+  console.log(secret);
   const token = jwt.sign(payload, secret, { expiresIn: "1h" });
+  console.log(token);
   // set the JWT token as a cookie
   res.cookie("access_token", token, {
     httpOnly: true,
@@ -37,7 +39,7 @@ router.post("/login", async(req: Request, res: Response) => {
 
 router.post("/register", async (req: Request, res: Response) => {
     const { email, password, displayName, profilePicture } = req.body;
-    console.log(profilePicture);
+  
     const user = await User.findOne({ email });
     
     if (user) {
