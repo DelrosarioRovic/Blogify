@@ -29,10 +29,8 @@ const MiddlewareAuth = (req: CustomRequest, res: Response, next: NextFunction) =
 
     next();
   } catch (error) {
-    console.log(error);
     if (error instanceof TokenExpiredError) {
       // return nothing when token expired
-      console.log(error);
       return next();
     }
     return res.status(401).json({ message: 'Invalid token' });
