@@ -12,10 +12,9 @@ interface userProfileMenu extends NavLinkProps{
 }
 
 const UserProfile: React.FC<userProfileMenu> = (props) => {
-  const { signOut, data } = useAuthentication();
+  const { signOut, data, authenticated } = useAuthentication();
   const SignOutApi = () => {
     try {
-      <Navigate to={"/"}/>
       signOut();
       localStorage.removeItem('token');
       toast.success("Successfully Sign Out");
@@ -23,6 +22,10 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
       console.log(error);
     }
   };
+
+  if (!authenticated) {
+    <Navigate to={"/"} />
+  }
 
   return (
     <div className=" z-50 bg-white absolute top-[4rem] right-0 w-[15rem] max-sm:w-full p-2 rounded-md border-[0.5px] border-gray-200 shadow-xl text-sm">
