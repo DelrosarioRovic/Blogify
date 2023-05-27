@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ApiCall from "../API/Api-call";
 import { AuthState } from "../redux/reducer/authReducer"; 
 import { incrementRefreshCount } from "../redux/reducer/reUpdateUser";
 

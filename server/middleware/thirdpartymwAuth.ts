@@ -39,8 +39,8 @@ const thirdPartyMwAuth = () => {
           try {
             const user = await createUser(profile.id, profile.displayName, profile.emails[0].value, profile.photos[0].value);
             const token = jwt.sign({ googleId: user.googleId,displayName:user.displayName,email:user.email }, process.env.userLocalSecret as string);
-            const decoded = jwt.decode(token);
-            done(null, decoded);
+            // const decoded = jwt.decode(token);
+            done(null, token);
             
           } catch (error) {
             console.log(error)
@@ -62,9 +62,10 @@ const thirdPartyMwAuth = () => {
             const emailGithub = profile.emails && profile.emails.length > 0 ? profile.emails[0].value : null;
           
             const user = await createUser(profile.id, profile.displayName, emailGithub, profile.photos[0].value);
+            console.log(user);
             const token = jwt.sign({ googleId: user.googleId, displayName: user.displayName, email: user.email }, process.env.userLocalSecret as string);
-            const decoded = jwt.decode(token);
-            done(null, decoded);
+            // const decoded = jwt.decode(token);
+            done(null, token);
 
           } catch (error) {
             console.log(error)
