@@ -7,10 +7,9 @@ const router = express.Router();
 
 
 router.post("/comment", async(req: Request, res: Response) => {
-    //
-    const { comment, postId, update_id, current_id } = req.body;
+    const { comment, postId, update_id, current_user_id } = req.body;
 
-    const current_user = await User.findById(current_id);
+    const current_user = await User.findById(current_user_id);
     if (!current_user) {
       return res.status(401).json({ message: "Please Sign in First" })
     }
@@ -32,7 +31,7 @@ router.post("/comment", async(req: Request, res: Response) => {
         post: specificPost._id,
         date: Date.now()
       });
-  
+      
       await newComment.save();
       return res.status(200).json({ message: "Successfully added a comment" });
     }
