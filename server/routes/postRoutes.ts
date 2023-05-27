@@ -54,7 +54,7 @@ router.get("/post", async (req: Request, res: Response) => {
     const posts: any = await Post.aggregate(pipeline);
     res.json(posts);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).json({ message: "Server Error" });
   }
 });
