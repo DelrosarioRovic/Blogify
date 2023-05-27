@@ -25,11 +25,11 @@ const like = (props: like) => {
       if (props.type === "like-comment") {
         url = `https://blogify-api-server.vercel.app/like/${props.like_comment_id}/like-comment`;
       }
-      const response = await axios.post(url, {
+      const response: any = await axios.post(url, {
         current_user_id: data?._id
       });
-      console.log(response);
-      response.status === 200 ?
+      console.log(response.response.status);
+      response.response.status === 200 ?
         handleIncrement() : 
         toast.info("Please Login First");
     } catch (error) {
