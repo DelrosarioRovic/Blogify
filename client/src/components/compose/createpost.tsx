@@ -8,6 +8,7 @@ import { ImageUploader } from "../../reusableComponent/uploadPicture";
 import UploadImageDisplay from "../../reusableComponent/uploadImageDisplay";
 import { PostObj } from "../../interface/hook/PostObj";
 import useAuthentication from "../../hooks/isAuthenticated";
+import axios from "axios";
 
 const createpost: React.FC = () => {
   //use for sending state from other location
@@ -25,18 +26,19 @@ const createpost: React.FC = () => {
       event.preventDefault();
       setPromise(true);
       try {
-        
-        const result = await ApiCall("POST", "https://blogify-api-server.vercel.app/compose", {
+        const url = "https://blogify-api-server.vercel.app/compose";
+        const response =  await axios.post(url, {
             update_id: updateCurrentData && updateCurrentData._id,
             current_id: data?._id,
             title,
             content,
             addPic
-          });
-          if (result.status === 200) {
-            toast.success(result.data.message);
-            setSuccessFullySubmitted(true);
-          } 
+        });
+      
+        if (response.status === 200) {
+          toast.success(response.data.message);
+          setSuccessFullySubmitted(true);
+        } 
       } catch (error) {
           console.log(error);
       } finally {
