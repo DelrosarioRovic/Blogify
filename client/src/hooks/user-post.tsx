@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import ApiCall from "../API/Api-call";
 import useAuthentication from "./isAuthenticated";
 import { PostObj } from "../interface/hook/PostObj";
+import axios from "axios";
 
 
 const UserPost = () => {
@@ -21,7 +22,7 @@ const UserPost = () => {
         if (otherUser && otherUser.profileId) {
             url = `https://blogify-api-server.vercel.app/route/user-post/${otherUser.profileId}?limit=${limit}&skip=${skip}`;
         }
-        const response = await ApiCall("get", url);
+        const response =  await axios.get(url);
         if (response.data.userPost.length === 0 && response.data.totalPost === 0) {
             setUserPost([]);
             setTotalPost(0);

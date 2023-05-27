@@ -6,6 +6,7 @@ import ApiCall from "../API/Api-call";
 // interface hook
 import { PostObj } from "../interface/hook/PostObj";
 import { Comment } from "../interface/hook/CommentObj";
+import axios from "axios";
 
 const SinglePost = () => {
   const refreshCount = useSelector((state: any) => state.isSuccessReducer.refreshCount);
@@ -31,10 +32,8 @@ const SinglePost = () => {
   
   const fetchSinglePost = async () => {
     try {
-      const response = await ApiCall(
-        "get",
-        `https://blogify-api-server.vercel.app/route/single-post/${postId.postId}`
-      );
+      const url = `https://blogify-api-server.vercel.app/route/single-post/${postId.postId}`
+      const response =  await axios.get(url);
       setPost(response.data.post[0]);
       setComment(response.data.comments);
       setLoading(false);
