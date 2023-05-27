@@ -17,7 +17,9 @@ const useAuthentication = () => {
   const checkAuth = async () => {
     try {
       const token = localStorage.getItem('token');
+      console.log(token);
       if (token) {
+        console.log("Has a token");
         const res = await ApiCall("GET", "https://blogify-api-server.vercel.app/route/user", {
           headers: { Authorization: token },
         });
