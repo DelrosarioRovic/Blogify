@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { Link, Navigate } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import NavigateNavLink from "../NavLink";
@@ -12,20 +12,17 @@ interface userProfileMenu extends NavLinkProps{
 }
 
 const UserProfile: React.FC<userProfileMenu> = (props) => {
-  const { signOut, data, authenticated } = useAuthentication();
+  const { signOut, data} = useAuthentication();
   const SignOutApi = () => {
     try {
       signOut();
       localStorage.removeItem('token');
       toast.success("Successfully Sign Out");
+      redirect("/");
     } catch (error) {
       console.log(error);
     }
   };
-
-  if (!authenticated) {
-    <Navigate to={"/"} />
-  }
 
   return (
     <div className=" z-50 bg-white absolute top-[4rem] right-0 w-[15rem] max-sm:w-full p-2 rounded-md border-[0.5px] border-gray-200 shadow-xl text-sm">
