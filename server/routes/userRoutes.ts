@@ -1,4 +1,4 @@
-import { Router, Response, NextFunction, Request } from 'express';
+import { Router, Response, Request } from 'express';
 import jwt from "jsonwebtoken";
 import User from "../models/users.model";
 const router = Router();

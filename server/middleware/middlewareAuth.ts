@@ -37,4 +37,4 @@ const MiddlewareAuth = (req: CustomRequest, res: Response, next: NextFunction) =
   }
 };
 
-export {MiddlewareAuth, CustomRequest};
+// export {MiddlewareAuth, CustomRequest};

@@ -7,6 +7,7 @@ dotenv.config();
 
 //imported file
 import connectToDatabase from "./database/connectDb";
+import thirdPartyMwAuth from "./middleware/thirdpartymwAuth";
 import authControllers from "./controllers/authControllers";
 import authThirdPartyControllers from "./controllers/authThirdPartyController";
 import composeController from "./controllers/compose-controller";
@@ -42,6 +43,7 @@ app.use(
 );
 
 //third Party authentication middleware
+thirdPartyMwAuth();
 
 //routes
 app.use("/route", postRoutes);
