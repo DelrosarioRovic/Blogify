@@ -6,7 +6,7 @@ const router = Router();
 router.get(
     "/user",
     async (req: Request, res: Response) => {
-      console.log(req.headers);
+     
       const token = req.headers.authorization;
 
       if (!token) {
@@ -17,10 +17,11 @@ router.get(
         // Verify the JWT and extract the payload
         const secret = process.env.userLocalSecret as string;
         const payload: any = jwt.verify(token, secret);
+        console.log(payload);
         const userId = payload.userId;
 
         const user = await User.findById(userId);
-    
+        console.log(user);
         // You can use the user ID to fetch the user's data or perform other actions
         // For simplicity, we'll just send back a success message
         res.status(200).json({ authenticated: true, user});
