@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ApiCall from "../API/Api-call";
 // interface hook
 import { PostObj } from "../interface/hook/PostObj";
+import axios from "axios";
 
 const useFetchPosts = () => {
   const [posts, setPosts] = useState<PostObj[]>([]);
@@ -12,7 +13,8 @@ const useFetchPosts = () => {
     const limit: number = 4;
     const skip: number = posts.length;
     const url = `https://blogify-api-server.vercel.app/route/post?limit=${limit}&skip=${skip}`;
-    const response = await ApiCall("GET", url);
+    const response =  await axios.get(url);
+    // const response = await ApiCall("GET", url);
     try {
       const newPosts = response.data.map((post: PostObj, index: number) => ({
         ...post,
