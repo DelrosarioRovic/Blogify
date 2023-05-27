@@ -38,7 +38,7 @@ const thirdPartyMwAuth = () => {
         async (accessToken:any, refreshToken:any, profile:any, done:any) => {
           try {
             const user = await createUser(profile.id, profile.displayName, profile.emails[0].value, profile.photos[0].value);
-            const token = jwt.sign({ googleId: user.googleId,displayName:user.displayName,email:user.email }, process.env.userLocalSecret as string);
+            const token = jwt.sign({ id: user._id, displayName:user.displayName,email:user.email }, process.env.userLocalSecret as string);
             // const decoded = jwt.decode(token);
             done(null, token);
             
@@ -63,7 +63,7 @@ const thirdPartyMwAuth = () => {
           
             const user = await createUser(profile.id, profile.displayName, emailGithub, profile.photos[0].value);
             console.log(user);
-            const token = jwt.sign({ googleId: user.googleId, displayName: user.displayName, email: user.email }, process.env.userLocalSecret as string);
+            const token = jwt.sign({ id: user._id, displayName: user.displayName, email: user.email }, process.env.userLocalSecret as string);
             // const decoded = jwt.decode(token);
             done(null, token);
 
