@@ -13,12 +13,13 @@ const useAuthentication = () => {
 
   const checkAuth = async () => {
     try {
-      const token = localStorage.getItem('token');
       const urlSearchParams = new URLSearchParams(window.location.search);
       const params = Object.fromEntries(urlSearchParams.entries());
       if (params.token) {
         localStorage.setItem('token', params.token);
       }
+      
+      let token = localStorage.getItem('token');
       if (token) {
         const res = await axios.get('https://blogify-api-server.vercel.app/route/user', {
           headers: { Authorization: token },
