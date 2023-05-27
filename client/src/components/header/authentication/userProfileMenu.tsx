@@ -1,9 +1,8 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthentication from "../../../hooks/isAuthenticated";
-import ApiCall from "../../../API/Api-call";
 import NavigateNavLink from "../NavLink";
 
 //interface
@@ -16,9 +15,10 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
   const { signOut, data } = useAuthentication();
   const SignOutApi = () => {
     try {
+      <Navigate to={"/"}/>
+      signOut();
       localStorage.removeItem('token');
       toast.success("Successfully Sign Out");
-      signOut();
     } catch (error) {
       console.log(error);
     }
