@@ -21,7 +21,7 @@ const useAuthentication = () => {
 
       let token = localStorage.getItem('token');
 
-      if (token && !authenticated) {
+      if (token) {
         const res = await axios.get('https://blogify-api-server.vercel.app/route/user', {
           headers: { Authorization: token },
         });
