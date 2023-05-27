@@ -23,6 +23,7 @@ const Login: React.FC<loginForm> = (props) => {
         password: passWord,
       })
       // handle success
+      console.log(response.status);
       if (response.status === 200) {
         const token = response.data.token;
         
