@@ -16,11 +16,17 @@ const useAuthentication = () => {
 
   const checkAuth = async () => {
     try {
-      const res = await ApiCall("GET", "https://blogify-api-server.vercel.app/route/user");
-      if (res.status === 200) {
-        dispatch({ type: 'SET_AUTHENTICATED', payload: true });
-        setData(res.data.user);
-      } 
+      const token = localStorage.getItem('token');
+      if (token) {
+        const res = await ApiCall("GET", "https://blogify-api-server.vercel.app/route/user", {
+          headers: { Authorization: token },
+        });
+        if (res.status === 200) {
+          dispatch({ type: 'SET_AUTHENTICATED', payload: true });
+          setData(res.data.user);
+        } 
+      }
+      
     } catch (error) {
       console.log(error);
     }

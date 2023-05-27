@@ -22,18 +22,15 @@ router.post("/login", async(req: Request, res: Response) => {
     return res.status(401).json({ message:"Invalid email or password" });
   }
   // create a JWT token
-  const payload = {
-    id: user.id,
-  };
   const secret = process.env.userLocalSecret as string;
-  const token = jwt.sign(payload, secret, { expiresIn: "1h" });
+  const token = jwt.sign({ userId: user._id }, secret, { expiresIn: '1h' });
   // set the JWT token as a cookie
-  res.cookie("access_token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-  });
-  res.status(200).json({ message: "Logged in successfully", user: user });
+  // res.cookie("access_token", token, {
+  //   httpOnly: true,
+  //   secure: true,
+  //   sameSite: 'none',
+  // });
+  res.status(200).json({ message: "Logged in successfully", token });
 });
 
 

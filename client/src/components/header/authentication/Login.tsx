@@ -17,22 +17,25 @@ const Login: React.FC<loginForm> = (props) => {
     event.preventDefault();
     setPromiseLogin(true);
     try {
-      const result:any = await ApiCall("post", "https://blogify-api-server.vercel.app/auth/login", {
+      const response = await ApiCall("post", "https://blogify-api-server.vercel.app/auth/login", {
         email: eMail,
         password: passWord,
       })
       
-      
       // handle success
-      if (result.status === 200) {
-        toast.success(result.data.message);
+      if (response.status === 200) {
+        const token = response.data.token;
+        
+        // Store the token in local storage or a cookie
+        localStorage.setItem('token', token);
+        toast.success(response.data.message);
         signIn();
         props.ifShowAuthForm();
         //clear input
         setEmail("");
         setPassword("");
       } else {
-        toast.warning(result.data.message);
+        toast.warning(response.data.message);
       }
     } catch (err) {
       console.log(err);
