@@ -6,6 +6,7 @@ const router = Router();
 router.get(
     "/user",
     async (req: Request, res: Response) => {
+      console.log(req.headers);
       const token = req.headers.authorization;
 
       if (!token) {
