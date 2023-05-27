@@ -40,8 +40,13 @@ router.post("/comment", async(req: Request, res: Response) => {
 });
 
 router.post("/comment/:parentCommentId/replies", async(req: Request, res: Response)=> {
-  const { comment, id, current_id } = req.body;
+  const { comment, update_id, current_user_id } = req.body;
   const { parentCommentId } = req.params;
+
+  const current_user = await User.findById(current_user_id);
+    if (!current_user) {
+      return res.status(401).json({ message: "Please Sign in First" })
+    }
   
   try {
     const parentComment = await Comment.findById(parentCommentId);
@@ -49,8 +54,8 @@ router.post("/comment/:parentCommentId/replies", async(req: Request, res: Respon
       return res.status(404).json({ message: "Comment not found" });
     }
 
-    if (id) {
-      const commentUpdate = await Comment.findByIdAndUpdate(id, {
+    if (update_id) {
+      const commentUpdate = await Comment.findByIdAndUpdate(update_id, {
         text: comment
       }); 
       if (!commentUpdate) {
@@ -60,7 +65,7 @@ router.post("/comment/:parentCommentId/replies", async(req: Request, res: Respon
     } else {
       const newComment:any = await Comment.create({
         text: comment,
-        user: current_id,
+        user: current_user.id,
         post: parentComment.post,
         parentComment: parentCommentId,
         date: Date.now()
