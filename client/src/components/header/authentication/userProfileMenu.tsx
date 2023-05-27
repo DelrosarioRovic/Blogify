@@ -14,17 +14,14 @@ interface userProfileMenu extends NavLinkProps{
 
 const UserProfile: React.FC<userProfileMenu> = (props) => {
   const { signOut, data } = useAuthentication();
-  const SignOutApi = async () => {
+  const SignOutApi = () => {
     try {
-      const response = await ApiCall("post", "https://blogify-api-server.vercel.app/auth/sign-out");
-      response.status === 200 && (
-      toast.success("Successfully Sign Out"),
-      signOut()
-    );
+      localStorage.removeItem('token');
+      toast.success("Successfully Sign Out");
+      signOut();
     } catch (error) {
       console.log(error);
     }
-    
   };
 
   return (
