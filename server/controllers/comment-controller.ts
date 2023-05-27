@@ -1,19 +1,24 @@
 import express, { Request, Response } from "express";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
+import User from "../models/users.model";
 
 const router = express.Router();
 
 
 router.post("/comment", async(req: Request, res: Response) => {
- 
-    const { comment, postId, id, current_id } = req.body;
+    //
+    const { comment, postId, update_id, current_id } = req.body;
+
+    const current_user = await User.findById(current_id);
+    if (!current_user) {
+      return res.status(401).json({ message: "Please Sign in First" })
+    }
    
-    
     const specificPost:any = await Post.findById(postId.postId || postId);
 
-    if (id) {
-      const commentUpdate = await Comment.findByIdAndUpdate(id, {
+    if (update_id) {
+      const commentUpdate = await Comment.findByIdAndUpdate(update_id, {
         text: comment
       });
       if (!commentUpdate) {
@@ -23,7 +28,7 @@ router.post("/comment", async(req: Request, res: Response) => {
     }else {
       const newComment = new Comment({
         text: comment,
-        user: current_id,
+        user: current_user.id,
         post: specificPost._id,
         date: Date.now()
       });

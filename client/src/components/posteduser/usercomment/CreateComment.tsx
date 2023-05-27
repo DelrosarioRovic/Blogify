@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import UserAvatar from "../../../reusableComponent/userAvatar";
-import useAuthentication from "../../../hooks/isAuthenticated";
-import ApiCall from "../../../API/Api-call";
-import { Link, useParams, Navigate } from "react-router-dom";
-import { CommentForm, ReplyForm } from "./comment&ReplyForm";
-import singlePost from "../../../hooks/single-post";
-import {AiOutlineUser} from "react-icons/ai"
 import { useLocation } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { AiOutlineUser } from "react-icons/ai";
+
+import singlePost from "../../../hooks/single-post";
+import useAuthentication from "../../../hooks/isAuthenticated";
+import UserAvatar from "../../../reusableComponent/userAvatar";
+import { CommentForm, ReplyForm } from "./comment&ReplyForm";
 
  interface createCommentProps {
   type?: string;
@@ -25,7 +26,7 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
   const [comment, setComment] = useState<string>(updateCurrentData ? updateCurrentData.commentContent : "");
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+
     let url="";
     if (updateCurrentData && updateCurrentData.typeCR) {
       url = "https://blogify-api-server.vercel.app/comment";
@@ -40,8 +41,9 @@ const CreateComment: React.FC<createCommentProps> = (props) => {
     }
  
     try {
-      const response = await ApiCall("post", url, {
-        id:updateCurrentData && updateCurrentData.commentId, 
+      const response =  await axios.post(url, {
+        current_user_id: data?._id,
+        update_id:updateCurrentData && updateCurrentData.commentId, 
         comment,
         ...(updateCurrentData ? { postId: updateCurrentData.postId } : { postId })
       });

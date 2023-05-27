@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link ,useLocation, Navigate} from "react-router-dom";
 
-import ApiCall from "../../API/Api-call";
 import { ImageUploader } from "../../reusableComponent/uploadPicture";
 import UploadImageDisplay from "../../reusableComponent/uploadImageDisplay";
 import { PostObj } from "../../interface/hook/PostObj";
