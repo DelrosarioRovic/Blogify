@@ -7,10 +7,12 @@ import ApiCall from "../../API/Api-call";
 import { ImageUploader } from "../../reusableComponent/uploadPicture";
 import UploadImageDisplay from "../../reusableComponent/uploadImageDisplay";
 import { PostObj } from "../../interface/hook/PostObj";
+import useAuthentication from "../../hooks/isAuthenticated";
 
 const createpost: React.FC = () => {
   //use for sending state from other location
   const location = useLocation();
+  const { data } = useAuthentication();
   const updateCurrentData: PostObj = location.state;
 
   const [promise, setPromise] = useState<boolean>(false);
@@ -23,8 +25,10 @@ const createpost: React.FC = () => {
       event.preventDefault();
       setPromise(true);
       try {
+        
         const result = await ApiCall("POST", "https://blogify-api-server.vercel.app/compose", {
-            _id: updateCurrentData ? updateCurrentData._id : "",
+            update_id: updateCurrentData && updateCurrentData._id,
+            current_id: data?._id,
             title,
             content,
             addPic

@@ -1,26 +1,25 @@
 import express, { Request, Response } from "express";
-import { MiddlewareAuth, CustomRequest } from "../middleware/middlewareAuth";
 import Post from "../models/post.model";
 import userAuth from "../middleware/userAuth";
+import User from "../models/users.model";
 
 const router = express.Router();
 
 router.post(
   "/compose",
-  MiddlewareAuth,
-  async (req: CustomRequest, res: Response) => {
-    const localOrProvided = await userAuth(req);
+  async (req: Request, res: Response) => {
+    const { title, content, addPic, update_id, current_id } = req.body;
 
-    if (!localOrProvided) {
+    const user = await User.findById(current_id);
+
+    if (!user) {
       return res.status(401).json({ message: "Please Sign In First" });
     }
 
-    const { title, content, addPic, _id } = req.body;
-
-    if (_id) {
+    if (update_id) {
       // Update an existing post
       try {
-        const updatedPost = await Post.findByIdAndUpdate(_id, {
+        const updatedPost = await Post.findByIdAndUpdate(update_id, {
           title,
           content,
           picture: addPic,
@@ -37,8 +36,9 @@ router.post(
       }
     } else {
       // Create a new post
+    
       const newPostData: any = {
-        user: localOrProvided._id,
+        user: user._id,
         title,
         content,
         date: new Date(),
