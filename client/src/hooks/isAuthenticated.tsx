@@ -35,7 +35,7 @@ const useAuthentication = () => {
 
   useEffect(() => {
     checkAuth();
-  }, [dispatch, refreshCount]);
+  }, [dispatch, authenticated, refreshCount]);
 
   const signIn = () => {
     dispatch({ type: 'SET_AUTHENTICATED', payload: true });
