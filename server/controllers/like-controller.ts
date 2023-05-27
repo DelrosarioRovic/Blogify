@@ -53,26 +53,27 @@ router.post(
 router.post(
   "/like/:like_comment_id/like-comment",
   async (req: Request, res: Response) => {
-    const userId:any = "";
+    const userId = req.body.current_user_id;
+    const user: any = User.findById(userId);
     try {
       const commentId = req.params.like_comment_id;
       const comment = await Comment.findOne({
         _id: commentId,
-        likes: { $elemMatch: { $eq: userId._id } },
+        likes: { $elemMatch: { $eq: user._id } },
       });
       const likedByUser = !!comment;
 
-      let updateQuery;
+      let updateQuery: any;
       if (likedByUser) {
         // Remove the user from the "likes" array and decrement the "like" count
         updateQuery = {
-          $pull: { likes: userId._id },
+          $pull: { likes: user._id },
           $inc: { likeCount: -1 },
         };
       } else {
         // Add the user to the "likes" array and increment the "like" count
         updateQuery = {
-          $addToSet: { likes: userId._id },
+          $addToSet: { likes: user._id },
           $inc: { likeCount: 1 },
         };
       }
