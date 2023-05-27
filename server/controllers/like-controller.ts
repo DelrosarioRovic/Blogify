@@ -55,6 +55,9 @@ router.post(
   async (req: Request, res: Response) => {
     const userId = req.body.current_user_id;
     const user: any = User.findById(userId);
+    if (!user) {
+      return res.status(401).json({message: "You need to login First."});
+    }
     try {
       const commentId = req.params.like_comment_id;
       const comment = await Comment.findOne({
