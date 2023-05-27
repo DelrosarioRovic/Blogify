@@ -2,23 +2,17 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState } from "../redux/reducer/authReducer"; 
 import { incrementRefreshCount } from "../redux/reducer/reUpdateUser";
-
-// interface hook
-import { AuthUserInfo } from '../interface/hook/AuthUserInfo';
 import axios from 'axios';
+import { AuthUserInfo } from '../interface/hook/AuthUserInfo';
 
 const useAuthentication = () => {
   const dispatch = useDispatch();
   const authenticated = useSelector((state: { authReducer: AuthState }) => state.authReducer.authenticated);
   const refreshCount = useSelector((state: any) => state.reUpdateUserData.refreshCount);
-
   const [data, setData] = useState<AuthUserInfo | null>(null);
 
   const checkAuth = async () => {
     try {
-      const urlSearchParams = new URLSearchParams(window.location.search);
-      const params = Object.fromEntries(urlSearchParams.entries());
-      console.log(params);
       const token = localStorage.getItem('token');
       if (token) {
         const res = await axios.get('https://blogify-api-server.vercel.app/route/user', {
@@ -29,13 +23,22 @@ const useAuthentication = () => {
           setData(res.data.user);
         } 
       }
-      
     } catch (error) {
       console.log(error);
     }
   };
- 
+
   useEffect(() => {
+    const updateTokenFromURL = () => {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+
+      if (params.token) {
+        localStorage.setItem('token', params.token);
+      }
+    };
+
+    updateTokenFromURL();
     checkAuth();
   }, [dispatch, authenticated, refreshCount]);
 
