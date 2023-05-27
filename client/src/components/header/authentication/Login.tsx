@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import ApiCall from "../../../API/Api-call";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,11 +18,10 @@ const Login: React.FC<loginForm> = (props) => {
     event.preventDefault();
     setPromiseLogin(true);
     try {
-      const response = await ApiCall("post", "https://blogify-api-server.vercel.app/auth/login", {
+      const response = await axios.post("https://blogify-api-server.vercel.app/auth/login", {
         email: eMail,
         password: passWord,
       })
-      
       // handle success
       if (response.status === 200) {
         const token = response.data.token;
