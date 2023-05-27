@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import Post from "../models/post.model";
-import userAuth from "../middleware/userAuth";
 import User from "../models/users.model";
 
 const router = express.Router();
