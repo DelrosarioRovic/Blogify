@@ -6,6 +6,7 @@ import { incrementRefreshCount } from "../redux/reducer/reUpdateUser";
 
 // interface hook
 import { AuthUserInfo } from '../interface/hook/AuthUserInfo';
+import axios from 'axios';
 
 const useAuthentication = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,12 @@ const useAuthentication = () => {
     try {
       const token = localStorage.getItem('token');
       if (token) {
-        const res = await ApiCall("GET", "https://blogify-api-server.vercel.app/route/user", {
-          headers: { Authorization: token },
-        });
-        // const response = await axios.get('http://localhost:3000/user', {
+        // const res = await ApiCall("GET", "https://blogify-api-server.vercel.app/route/user", {
         //   headers: { Authorization: token },
         // });
+        const res = await axios.get('https://blogify-api-server.vercel.app/route/user', {
+          headers: { Authorization: token },
+        });
         if (res.status === 200) {
           dispatch({ type: 'SET_AUTHENTICATED', payload: true });
           setData(res.data.user);
