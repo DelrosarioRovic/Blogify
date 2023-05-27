@@ -14,6 +14,11 @@ const useAuthentication = () => {
   const checkAuth = async () => {
     try {
       const token = localStorage.getItem('token');
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+      if (params.token) {
+        localStorage.setItem('token', params.token);
+      }
       if (token) {
         const res = await axios.get('https://blogify-api-server.vercel.app/route/user', {
           headers: { Authorization: token },
@@ -29,16 +34,6 @@ const useAuthentication = () => {
   };
 
   useEffect(() => {
-    const updateTokenFromURL = () => {
-      const urlSearchParams = new URLSearchParams(window.location.search);
-      const params = Object.fromEntries(urlSearchParams.entries());
-
-      if (params.token) {
-        localStorage.setItem('token', params.token);
-      }
-    };
-
-    updateTokenFromURL();
     checkAuth();
   }, [dispatch, authenticated, refreshCount]);
 
