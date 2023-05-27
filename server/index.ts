@@ -11,11 +11,11 @@ import thirdPartyMwAuth from "./middleware/thirdpartymwAuth";
 import authControllers from "./controllers/authControllers";
 import authThirdPartyControllers from "./controllers/authThirdPartyController";
 import composeController from "./controllers/compose-controller";
-import commentController from "./controllers/comment-controller";
-import likeController from "./controllers/like-controller";
-import deletePostController from "./controllers/deletePost";
-import deleteComment_ReplyController from "./controllers/deleteComment&Reply";
-import followController from "./controllers/followController";
+// import commentController from "./controllers/comment-controller";
+// import likeController from "./controllers/like-controller";
+// import deletePostController from "./controllers/deletePost";
+// import deleteComment_ReplyController from "./controllers/deleteComment&Reply";
+// import followController from "./controllers/followController";
 import postRoutes from "./routes/postRoutes";
 import userRoutes from "./routes/userRoutes";
 
@@ -49,15 +49,15 @@ app.use('/auth', authControllers);
 //create post controllers
 app.use(composeController);
 //create comment controllers
-app.use(commentController);
-//like controllers
-app.use(likeController);
-//delete post
-app.use(deletePostController);
-//delete comment | reply
-app.use(deleteComment_ReplyController);
-//follow controllers
-app.use(followController);
+// app.use(commentController);
+// //like controllers
+// app.use(likeController);
+// //delete post
+// app.use(deletePostController);
+// //delete comment | reply
+// app.use(deleteComment_ReplyController);
+// //follow controllers
+// app.use(followController);
 
 
 const PORT = process.env.PORT || 4000;
