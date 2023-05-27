@@ -1,23 +1,15 @@
 import express, { Request, Response } from "express";
-import { MiddlewareAuth, CustomRequest } from "../middleware/middlewareAuth";
 import Post from "../models/post.model";
-import userAuth from "../middleware/userAuth";
 import Comment from "../models/comment.model";
 
 const router = express.Router();
 
 router.put(
   "/like/:postId",
-  MiddlewareAuth,
-  async (req: CustomRequest, res: Response) => {
+  async (req: Request, res: Response) => {
     try {
       const postId = req.params.postId;
-      const userId: any = await userAuth(req);
-
-      if (!userId) {
-        return res.status(401).json({ message: "Please Sign In First" });
-      }
-
+      const userId:any = "";
       const post = await Post.findOne({
         _id: postId,
         likes: { $elemMatch: { $eq: userId._id } },
@@ -53,15 +45,10 @@ router.put(
 
 router.put(
   "/like/:like_comment_id/like-comment",
-  MiddlewareAuth,
-  async (req: CustomRequest, res: Response) => {
+  async (req: Request, res: Response) => {
+    const userId:any = "";
     try {
       const commentId = req.params.like_comment_id;
-      const userId: any = await userAuth(req);
-      if (!userId) {
-        return res.status(401).json({ message: "Please Sign In First" });
-      }
-
       const comment = await Comment.findOne({
         _id: commentId,
         likes: { $elemMatch: { $eq: userId._id } },

@@ -1,17 +1,13 @@
 import express, { Request, Response } from "express";
-import { MiddlewareAuth, CustomRequest } from "../middleware/middlewareAuth";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
-import userAuth from "../middleware/userAuth";
+
 
 const router = express.Router();
 
-router.delete("/deletePost", MiddlewareAuth, async(req: CustomRequest, res: Response) => {
-    const localOrProvided = await userAuth(req);
+router.delete("/deletePost", async(req: Request, res: Response) => {
+
     const { id } = req.body;
-    if (!localOrProvided) {
-      return res.status(401).json({ message: "Please Sign In First" });
-    }
 
     // Delete all comments associated with the post
     await Comment.deleteMany({ post: id });

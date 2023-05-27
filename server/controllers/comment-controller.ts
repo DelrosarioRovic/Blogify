@@ -1,20 +1,13 @@
 import express, { Request, Response } from "express";
-import { MiddlewareAuth, CustomRequest } from "../middleware/middlewareAuth";
-import userAuth from "../middleware/userAuth";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
 
 const router = express.Router();
 
 
-router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) => {
-     const localOrProvided = await userAuth(req);
-
-    if (!localOrProvided) {
-      return res.status(401).json({message:"Please Sign In First"});
-    }
-
-    const { comment, postId, id } = req.body;
+router.post("/comment", async(req: Request, res: Response) => {
+ 
+    const { comment, postId, id, current_id } = req.body;
    
     
     const specificPost:any = await Post.findById(postId.postId || postId);
@@ -30,7 +23,7 @@ router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) 
     }else {
       const newComment = new Comment({
         text: comment,
-        user: localOrProvided.id,
+        user: current_id,
         post: specificPost._id,
         date: Date.now()
       });
@@ -42,15 +35,10 @@ router.post("/comment", MiddlewareAuth, async(req:CustomRequest, res: Response) 
    
 });
 
-router.post("/comment/:parentCommentId/replies", MiddlewareAuth, async(req:CustomRequest, res: Response)=> {
-  const { comment, id } = req.body;
+router.post("/comment/:parentCommentId/replies", async(req: Request, res: Response)=> {
+  const { comment, id, current_id } = req.body;
   const { parentCommentId } = req.params;
-  const localOrProvided = await userAuth(req);
   
-  if (!localOrProvided) {
-    return res.status(401).json({message:"Please Sign In First"});
-  }
- 
   try {
     const parentComment = await Comment.findById(parentCommentId);
     if (!parentComment) {
@@ -68,7 +56,7 @@ router.post("/comment/:parentCommentId/replies", MiddlewareAuth, async(req:Custo
     } else {
       const newComment:any = await Comment.create({
         text: comment,
-        user: localOrProvided.id,
+        user: current_id,
         post: parentComment.post,
         parentComment: parentCommentId,
         date: Date.now()
