@@ -24,12 +24,7 @@ router.post("/login", async(req: Request, res: Response) => {
   // create a JWT token
   const secret = process.env.userLocalSecret as string;
   const token = jwt.sign({ userId: user._id }, secret, { expiresIn: '1h' });
-  // set the JWT token as a cookie
-  // res.cookie("access_token", token, {
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: 'none',
-  // });
+  
   res.status(200).json({ message: "Logged in successfully", token });
 });
 
@@ -92,20 +87,5 @@ router.post("/update-profile", async (req: Request, res: Response) => {
     return res.status(500).json({ message: "An error occurred while updating user information" });
   }
 });
-
-router.post("/sign-out", async (req: Request, res: Response) => {
-  try {
-    res.clearCookie("access_token", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    });
-    res.status(200).send("Signed out successfully.");
-  } catch (error) {
-    res.status(500).send("An error occurred while signing out.");
-  }
-});
-
-
 
 export default router;
