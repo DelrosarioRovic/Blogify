@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import { AiOutlineLike } from "react-icons/ai";
 import ApiCall from "../API/Api-call";
@@ -24,10 +25,9 @@ const like = (props: like) => {
       if (props.type === "like-comment") {
         url = `https://blogify-api-server.vercel.app/like/${props.like_comment_id}/like-comment`;
       }
-      const response = await ApiCall(
-        "put",
-        url
-      );
+      const response = await axios.post(url, {
+        current_user_id: data?._id
+      });
       response.status === 200 ?
         handleIncrement() : 
         toast.info("Please Login First");

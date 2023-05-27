@@ -1,32 +1,39 @@
 import express, { Request, Response } from "express";
 import Post from "../models/post.model";
 import Comment from "../models/comment.model";
+import User from "../models/users.model";
 
 const router = express.Router();
 
-router.put(
+router.post(
   "/like/:postId",
   async (req: Request, res: Response) => {
     try {
       const postId = req.params.postId;
-      const userId:any = "";
+      const userId = req.body.current_user_id;
+      const user = await User.findById(userId);
+
+      if (!user) {
+        return res.status(401).json({ message: "You need to login First."});
+      }
+
       const post = await Post.findOne({
         _id: postId,
-        likes: { $elemMatch: { $eq: userId._id } },
+        likes: { $elemMatch: { $eq: user._id } },
       });
       const likedByUser = !!post;
 
-      let updateQuery;
+      let updateQuery : any;
       if (likedByUser) {
         // Remove the user from the "likes" array and decrement the "like" count
         updateQuery = {
-          $pull: { likes: userId._id },
+          $pull: { likes: user._id },
           $inc: { likeCount: -1 },
         };
       } else {
         // Add the user to the "likes" array and increment the "like" count
         updateQuery = {
-          $addToSet: { likes: userId._id },
+          $addToSet: { likes: user._id },
           $inc: { likeCount: 1 },
         };
       }
@@ -43,7 +50,7 @@ router.put(
   }
 );
 
-router.put(
+router.post(
   "/like/:like_comment_id/like-comment",
   async (req: Request, res: Response) => {
     const userId:any = "";
