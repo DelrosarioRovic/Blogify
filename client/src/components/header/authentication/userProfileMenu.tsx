@@ -15,8 +15,8 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
   const { signOut, data} = useAuthentication();
   const SignOutApi = () => {
     try {
-      signOut();
       localStorage.removeItem('token');
+      signOut();
       toast.success("Successfully Sign Out");
     } catch (error) {
       console.log(error);
