@@ -15,7 +15,7 @@ const NotAuthenticated: React.FC = () => {
   
   return (
     <div className="flex">
-      {authenticated && data ? (
+      {authenticated ? (
         <UserProfile />
       ) : (
         <>
