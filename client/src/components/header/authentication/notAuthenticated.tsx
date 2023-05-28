@@ -3,10 +3,11 @@ import { GoSignIn } from 'react-icons/go';
 import AuthenticationForm from "./authenticationForm";
 import UserProfile from "./userProfile";
 import useAuthentication from "../../../hooks/isAuthenticated";
+import Skeleton from "react-loading-skeleton";
 
 
 const NotAuthenticated: React.FC = () => {
-  const { authenticated, data } = useAuthentication();
+  const { authenticated, data, loading } = useAuthentication();
   const [isAuthenticationFormShow, setIsAuthenticationFormShow] = useState(false);
 
   const ifShowAuthForm = () => {
@@ -15,18 +16,22 @@ const NotAuthenticated: React.FC = () => {
   
   return (
     <div className="flex">
-      {authenticated && data ? (
-        <UserProfile />
+      {loading ? (
+        <Skeleton circle={true} width={"2.5rem"} height={"2.5rem"} />
       ) : (
-        <>
-          <button className="bg-blue-500 rounded-full p-3 w-11 h-11" onClick={ifShowAuthForm}>
-            <GoSignIn size={18} color="white" />
-          </button>
-          <AuthenticationForm
-            isAuthenticationFormShow={isAuthenticationFormShow}
-            ifShowAuthForm={ifShowAuthForm}
-          />
-        </>
+        authenticated && data ? (
+          <UserProfile />
+        ) : (
+          <>
+            <button className="bg-blue-500 rounded-full p-3 w-11 h-11" onClick={ifShowAuthForm}>
+              <GoSignIn size={18} color="white" />
+            </button>
+            <AuthenticationForm
+              isAuthenticationFormShow={isAuthenticationFormShow}
+              ifShowAuthForm={ifShowAuthForm}
+            />
+          </>
+        )
       )}
     </div>
   );

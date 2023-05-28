@@ -8,11 +8,13 @@ import { Navigate } from 'react-router-dom';
 
 const useAuthentication = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState<boolean>(false);
   const authenticated = useSelector((state: { authReducer: AuthState }) => state.authReducer.authenticated);
   const refreshCount = useSelector((state: any) => state.reUpdateUserData.refreshCount);
   const [data, setData] = useState<AuthUserInfo | null>(null);
 
   const checkAuth = async () => {
+    setLoading(true);
     try {
       const urlSearchParams = new URLSearchParams(window.location.search);
       const params = Object.fromEntries(urlSearchParams.entries());
@@ -33,6 +35,8 @@ const useAuthentication = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,7 +57,7 @@ const useAuthentication = () => {
     dispatch(incrementRefreshCount());
   };
 
-  return { authenticated, signIn, signOut, data, handleReUpdateUserData };
+  return { authenticated, signIn, signOut, data, handleReUpdateUserData, loading };
 };
 
 export default useAuthentication;
