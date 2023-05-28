@@ -4,7 +4,6 @@ import { AuthState } from "../redux/reducer/authReducer";
 import { incrementRefreshCount } from "../redux/reducer/reUpdateUser";
 import axios from 'axios';
 import { AuthUserInfo } from '../interface/hook/AuthUserInfo';
-import { Navigate } from 'react-router-dom';
 
 const useAuthentication = () => {
   const dispatch = useDispatch();
