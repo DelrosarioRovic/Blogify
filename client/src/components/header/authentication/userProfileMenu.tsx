@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import NavigateNavLink from "../NavLink";
@@ -18,7 +18,6 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
       signOut();
       localStorage.removeItem('token');
       toast.success("Successfully Sign Out");
-      redirect("/");
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +41,7 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
         </li>
         <hr />
         <li className="hover:bg-gray-200 duration-300 px-1 rounded-md font-semibold mt-1">
-          <button onClick={SignOutApi} className="w-full h-full block text-left py-2">Sign Out</button>
+          <Link to={"/"} onClick={SignOutApi} className="w-full h-full block text-left py-2">Sign Out</Link>
         </li>
       </ul>
     </div>
