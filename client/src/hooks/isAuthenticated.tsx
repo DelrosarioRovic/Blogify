@@ -45,6 +45,7 @@ const useAuthentication = () => {
   };
 
   const signOut = () => {
+    localStorage.removeItem('token');
     dispatch({ type: 'SET_AUTHENTICATED', payload: false });
   };
 
