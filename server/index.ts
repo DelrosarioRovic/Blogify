@@ -34,7 +34,8 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
-  origin: 'https://blogify-phi.vercel.app'
+  origin: 'https://blogify-phi.vercel.app',
+  credentials: true
 }));
 
 //third Party authentication middleware
