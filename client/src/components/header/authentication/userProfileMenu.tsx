@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthentication from "../../../hooks/isAuthenticated";
 import NavigateNavLink from "../NavLink";
@@ -12,11 +12,13 @@ interface userProfileMenu extends NavLinkProps{
 }
 
 const UserProfile: React.FC<userProfileMenu> = (props) => {
+  const navigate = useNavigate();
   const { signOut, data} = useAuthentication();
   const SignOutApi = () => {
     try {
       signOut();
       toast.success("Successfully Sign Out");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +42,7 @@ const UserProfile: React.FC<userProfileMenu> = (props) => {
         </li>
         <hr />
         <li className="hover:bg-gray-200 duration-300 px-1 rounded-md font-semibold mt-1">
-          <Link to={"/"} onClick={SignOutApi} className="w-full h-full block text-left py-2">Sign Out</Link>
+          <button onClick={SignOutApi} className="w-full h-full block text-left py-2">Sign Out</button>
         </li>
       </ul>
     </div>
