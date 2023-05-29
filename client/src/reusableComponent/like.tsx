@@ -28,8 +28,8 @@ const like = (props: like) => {
       const response: any = await axios.post(url, {
         current_user_id: data?._id
       });
-      console.log(response.response.status);
-      response.response.status === 200 ?
+      console.log(response);
+      response.status === 200 ?
         handleIncrement() : 
         toast.info("Please Login First");
     } catch (error) {

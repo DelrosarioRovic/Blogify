@@ -17,7 +17,7 @@ const NotAuthenticated: React.FC = () => {
   return (
     <div className="flex">
       {loading ? (
-        <Skeleton circle={true} width={"2.5rem"} height={"2.5rem"} />
+        <Skeleton circle={true} width={"2.75rem"} height={"2.75rem"} />
       ) : (
         authenticated && data ? (
           <UserProfile />
