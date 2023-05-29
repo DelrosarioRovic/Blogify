@@ -29,9 +29,7 @@ const like = (props: like) => {
         current_user_id: data?._id
       });
       console.log(response.status);
-      response.status === 200 && handleIncrement();
-      response.status === 401 && toast.info("Please Login First"); 
-     
+      response.status === 200 && handleIncrement();     
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +38,7 @@ const like = (props: like) => {
   return (
     <div
       className="flex items-center text-2xl cursor-pointer active:scale-75 duration-150 gap-x-1"
-      onClick={likeBtn}
+      onClick={authenticated ? likeBtn : () => toast.info("Please Login First")}
     >
       <AiOutlineLike className={``} style={{ color: authenticated && data && props.likes.includes(data._id) ? "blue" : "" }} />
       <span className="text-[.75rem]">{props.Like}</span>
