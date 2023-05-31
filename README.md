@@ -8,7 +8,7 @@
 	</header>
 	<main>
 		<section>
-			<h2>Project Status 👍</h2>
+			<h2>Project Status </h2>
 			<p>At the moment, Blogify is still in the early stages of development. While we have made some progress, there is still much work to be done before we can release a functional version of the platform to the public. We are actively working on this project and hope to have it ready for release in the near future.</p>
 		</section>
 		<section>
