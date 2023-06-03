@@ -2,6 +2,7 @@
 <html>
 <head>
 	
+
 <body>
 	<header>
 		<h1>Blogify - Social Platform Under Development 👍</h1>
