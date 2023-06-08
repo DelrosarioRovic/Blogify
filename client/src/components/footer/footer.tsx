@@ -12,7 +12,7 @@ export default function footer() {
         <form action="" className="flex bg-slate-200 rounded-[200px]">
           <input
             type="text"
-            className="outline-none rounded-full pl-[15px] bg-transparent"
+            className="outline-none rounded-full pl-[15px] bg-transparent max-sm:w-full"
             placeholder="jhondoe@gmail.com"
           />
           <button className="bg-blue-700 p-2 py-3 px-4 m-1 rounded-[200px] text-white ">
