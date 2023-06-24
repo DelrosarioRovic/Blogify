@@ -6,7 +6,7 @@
 
 <body>
 	<header>
-		<h1>Blogify - Social Platform Under Development 👍</h1>
+		<h1>Blogify - Social Platform Under Development 👍.</h1>
 	</header>
 	<main>
 		<section>
